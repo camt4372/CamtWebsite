@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<head>
+<link rel="shortcut icon" href="https://bcan.kro.kr/bcan.png" type="image/png">
+<title>Redirecting..</title>
+<script language="JavaScript">
+		var SetTime = 0;		
+		function msg_time() {							ms = Math.floor(SetTime % 60) + " sec";
+var msg = "<h2>Redirect after <font color='blue'>" + ms + "</font></h2>";
+document.all.ViewTimer.innerHTML = msg;
+SetTime--;	
+	if (SetTime < 0) {											clearInterval(tid);						
+window.location.href = 'https://camt4372.com';
+			}
+}
+		window.onload = function TimerStart(){ tid=setInterval('msg_time()',1000) };
+</script>
+</head>
+<body>
+<center>
+<font face=""><h1></h1>
+<div id="ViewTimer"></div>
+</center>
+</body>
+</html>
