@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Twilio SMS</title>
+    <style>
+      label {
+        display: block;
+        margin-top: 10px;
+        font-weight: bold;
+      }
+      input, textarea {
+        display: block;
+        width: 100%;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+      button {
+        margin-top: 10px;
+        padding: 10px;
+        background-color: #4CAF50;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #3e8e41;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Twilio SMS</h1>
+    <form>
+      <label for="sid">Twilio 계정 SID:</label>
+      <input type="text" id="sid" name="sid">
+      <label for="token">인증 토큰:</label>
+      <input type="text" id="token" name="token">
+      <label for="from">전송번호:</label>
+      <input type="text" id="from" name="from">
+      <label for="to">문자받을번호:</label>
+      <input type="text" id="to" name="to" value="+44 7860 064888">
+      <label for="message">전송할 메세지:</label>
+      <textarea id="message" name="message"></textarea>
+      <button type="button" onclick="sendSMS()">전송</button>
+    </form>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+      function sendSMS() {
+        var sid = $("#sid").val();
+        var token = $("#token").val();
+        var from = $("#from").val();
+        var to = $("#to").val();
+        var message = $("#message").val();
+        
+        $.ajax({
+          url: "https://api.twilio.com/2010-04-01/Accounts/" + sid + "/Messages.json",
+          type: "POST",
+          data: {
+            "To": to,
+            "From": from,
+            "Body": message
+          },
+          beforeSend: function(xhr) {
+            xhr.setRequestHeader("Authorization", "Basic " + btoa(sid + ":" + token));
+          },
+          success: function(data) {
+            alert("메시지가 전송되었습니다.");
+          },
+          error: function(xhr, status, error) {
+            alert("에러 발생: " + error);
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
