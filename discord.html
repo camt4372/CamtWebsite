@@ -50,7 +50,11 @@
       margin: 0;
     }
 
-    button {
+    .button-container {
+      perspective: 800px;
+    }
+
+    .button {
       width: 414.41px;
       height: 48px;
       background-color: #5865F2;
@@ -59,6 +63,13 @@
       border: none;
       border-radius: 5px;
       margin-top: 10px;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.3s;
+    }
+
+    .button:active {
+      transform: translateZ(-10px);
     }
 
     .captcha-container {
@@ -75,12 +86,6 @@
       font-size: 14px;
       margin-top: 10px;
     }
-    
-    @media only screen and (max-width: 600px) {
-      .container {
-        transform: scale(1.5);
-      }
-    }
   </style>
   <script src="https://hcaptcha.com/1/api.js" async defer></script>
   <script>
@@ -94,7 +99,7 @@
       if (!isHcaptchaSolved) {
         alert("hCaptcha를 풀고 '서버 입장하기' 버튼을 다시 눌러주세요.");
       } else {
-        alert("hCaptcha를 풀고 '서버 입장하기' 버튼을 다시 눌러주세요.");
+        redirectToDiscord();
       }
     }
   </script>
@@ -106,7 +111,9 @@
     <div class="captcha-container">
       <div class="h-captcha" data-sitekey="5467de8c-c2cf-4493-98e6-068600835382" data-callback="checkHcaptchaAndProceed"></div>
     </div>
-    <button onclick="checkHcaptchaAndProceed()">서버 입장하기</button>
+    <div class="button-container">
+      <button onclick="checkHcaptchaAndProceed()" class="button">서버 입장하기</button>
+    </div>
   </div>
 </body>
 </html>
