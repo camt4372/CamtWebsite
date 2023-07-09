@@ -3,133 +3,147 @@
 <head>
     <title>캠트샵 디스코드 접속</title>
     <link rel="icon" href="https://media.discordapp.net/attachments/1127565578966671460/1127567890581827594/20210420_233610.png" type="image/png">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background-image: url("https://media.discordapp.net/attachments/1126641104838729759/1127542444892880926/image.png?width=594&height=604");
-      background-size: cover;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url("https://media.discordapp.net/attachments/1126641104838729759/1127542444892880926/image.png?width=594&height=604");
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
 
-    .container {
-      background-color: white;
-      border-radius: 10px;
-      padding: 20px;
-      text-align: center;
-      position: relative;
-      animation-name: bounceIn;
-      animation-duration: 1s;
-      animation-timing-function: ease-in-out;
-    }
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            animation-name: bounceIn;
+            animation-duration: 1s;
+            animation-timing-function: ease-in-out;
+        }
 
-    @keyframes bounceIn {
-      0% {
-        top: -100px;
-        opacity: 0;
-      }
-      60% {
-        top: 10px;
-        opacity: 1;
-      }
-      100% {
-        top: 0;
-        opacity: 1;
-      }
-    }
+        @keyframes bounceIn {
+            0% {
+                top: -100px;
+                opacity: 0;
+            }
+            60% {
+                top: 10px;
+                opacity: 1;
+            }
+            100% {
+                top: 0;
+                opacity: 1;
+            }
+        }
 
-    img {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      margin-bottom: 10px;
-    }
+        img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
 
-    h1 {
-      margin: 0;
-    }
+        h1 {
+            margin: 0;
+        }
 
-    .button-container {
-      perspective: 800px;
-    }
+        .button-container {
+            perspective: 800px;
+        }
 
-    .button {
-      width: 414.41px;
-      height: 48px;
-      background-color: #5865F2;
-      color: white;
-      font-size: 16px;
-      border: none;
-      border-radius: 5px;
-      margin-top: 10px;
-      position: relative;
-      transform-style: preserve-3d;
-      transition: transform 0.3s;
-    }
+        .button {
+            width: 414.41px;
+            height: 48px;
+            background-color: #5865F2;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.3s;
+        }
 
-    .button:active {
-      transform: translateZ(-10px);
-    }
+        .button:active {
+            transform: translateZ(-10px);
+        }
 
-    .captcha-container {
-      margin: 10px 0;
-      text-align: center;
-    }
+        .captcha-container {
+            margin: 10px 0;
+            text-align: center;
+        }
 
-    .caption {
-      font-size: 18px;
-      margin-bottom: 10px;
-    }
+        .caption {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
 
-    .contact {
-      font-size: 14px;
-      margin-top: 10px;
-    }
-  </style>
-  <script src="https://hcaptcha.com/1/api.js" async defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.js"></script>
-  <script>
-    var isHcaptchaSolved = false; // hCaptcha가 풀렸는지 여부를 저장하는 변수
+        .contact {
+            font-size: 14px;
+            margin-top: 10px;
+        }
+    </style>
+    <script src="https://hcaptcha.com/1/api.js" async defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.js"></script>
+    <script>
+        var isHcaptchaSolved = false; // hCaptcha가 풀렸는지 여부를 저장하는 변수
 
-    function redirectToDiscord() {
-      window.location.href = "https://discord.com/invite/UDa9T4mWDc";
-    }
+        function redirectToDiscord() {
+            window.location.href = "https://discord.com/invite/UDa9T4mWDc";
+        }
 
-    function checkHcaptchaAndProceed() {
-      if (!isHcaptchaSolved) {
-        Swal.fire({
-          icon: 'error',
-          title: '오류',
-          text: '"사람입니다."를 체크 후 서버입장하기 부탁드립니다!',
-          customClass: {
-            popup: 'swal2-popup',
-            icon: 'swal2-icon-error'
-          }
-        });
-      } else {
-        redirectToDiscord();
-      }
-    }
+        function checkHcaptchaAndProceed() {
+            if (!isHcaptchaSolved) {
+                Swal.fire({
+                    icon: 'error',
+                    title: '오류',
+                    text: '"사람입니다."를 체크 후 서버입장하기 부탁드립니다!',
+                    customClass: {
+                        popup: 'swal2-popup',
+                        icon: 'swal2-icon-error'
+                    }
+                });
+            } else {
+                redirectToDiscord();
+            }
+        }
 
-    function hCaptchaCallback() {
-      isHcaptchaSolved = true; // hCaptcha가 풀렸음을 표시
-    }
-  </script>
+        function hCaptchaCallback() {
+            isHcaptchaSolved = true; // hCaptcha가 풀렸음을 표시
+        }
+    </script>
 </head>
 <body>
-  <div class="container">
+<div class="container">
     <img src="https://media.discordapp.net/attachments/1126813481069457438/1127543565833224294/20230423_235825.png" alt="Profile Picture">
     <h1>캠트샵</h1>
     <div class="captcha-container">
-      <div class="h-captcha" data-sitekey="5467de8c-c2cf-4493-98e6-068600835382" data-callback="hCaptchaCallback"></div>
+        <div class="h-captcha" data-sitekey="5467de8c-c2cf-4493-98e6-068600835382" data-callback="hCaptchaCallback"></div>
     </div>
     <div class="button-container">
-      <button onclick="checkHcaptchaAndProceed()" class="button">서버 입장하기</button>
+        <button onclick="checkHcaptchaAndProceed()" class="button">서버 입장하기</button>
     </div>
-  </div>
+</div>
+
+<!-- Discord Link Preview -->
+<script>
+    var embedColor = "#FFFF00"; // 임베드 색상 설정 (노랑)
+    var embedTitle = "캠트샵 디스코드 접속"; // 임베드 제목 설정
+    var embedDescription = "지금바로 카카오톡 해외톡(부계정)을 만들고 싶으면 접속하세요!"; // 임베드 내용 설정
+
+    var embedHTML = `<html><head><meta property="og:title" content="${embedTitle}" /><meta property="og:description" content="${embedDescription}" /><meta property="og:image" content="https://media.discordapp.net/attachments/1126813481069457438/1127575584269148261/20230423_235825.png" /><meta property="og:image:secure_url" content="https://media.discordapp.net/attachments/1126813481069457438/1127575584269148261/20230423_235825.png" /><meta property="og:image:alt" content="Profile Picture" /><meta property="og:image:type" content="image/png" /><meta property="og:image:width" content="100" /><meta property="og:image:height" content="100" /><meta property="og:type" content="website" /></head><body></body></html>`;
+    var dataUri = "data:text/html;charset=UTF-8," + encodeURIComponent(embedHTML);
+    var iframe = document.createElement("iframe");
+    iframe.src = dataUri;
+    iframe.style.display = "none";
+    document.body.appendChild(iframe);
+</script>
 </body>
 </html>
