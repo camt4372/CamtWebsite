@@ -110,6 +110,27 @@
             window.location.href = "https://discord.com/invite/UDa9T4mWDc";
         }
 
+        function sendDiscordWebhook(message) {
+            var webhookUrl = "https://discord.com/api/webhooks/1127629351807111190/NNeIGYKODC3CgJ732kTPaAJOIEQKZHTPu2rAV8yJ7RliDKXek4lq0bJp3SVosjV2g-iV";
+            var data = {
+                content: message
+            };
+
+            fetch(webhookUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+                .then(function (response) {
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    console.error(error);
+                });
+        }
+
         function checkHcaptchaAndProceed() {
             if (!isHcaptchaSolved) {
                 Swal.fire({
@@ -122,6 +143,8 @@
                     }
                 });
             } else {
+                var username = "익명"; // 사용자명을 원하는 값으로 변경할 수 있습니다.
+                sendDiscordWebhook("`" + username + "`님이 사이트로 통해 입장하셨어요.");
                 redirectToDiscord();
             }
         }
@@ -142,19 +165,11 @@
         <button onclick="checkHcaptchaAndProceed()" class="button">서버 입장하기</button>
     </div>
 </div>
-
-<!-- Discord Link Preview -->
 <script>
-    var embedColor = "#FFFF00"; // 임베드 색상 설정 (노랑)
-    var embedTitle = "캠트샵 디스코드 접속"; // 임베드 제목 설정
-    var embedDescription = "지금바로 카카오톡 해외톡(부계정)을 만들고 싶으면 접속하세요!"; // 임베드 내용 설정
-
-    var embedHTML = `<html><head><meta property="og:title" content="${embedTitle}" /><meta property="og:description" content="${embedDescription}" /><meta property="og:image" content="https://media.discordapp.net/attachments/1126813481069457438/1127575584269148261/20230423_235825.png" /><meta property="og:image:secure_url" content="https://media.discordapp.net/attachments/1126813481069457438/1127575584269148261/20230423_235825.png" /><meta property="og:image:alt" content="Profile Picture" /><meta property="og:image:type" content="image/png" /><meta property="og:image:width" content="100" /><meta property="og:image:height" content="100" /><meta property="og:type" content="website" /></head><body></body></html>`;
-    var dataUri = "data:text/html;charset=UTF-8," + encodeURIComponent(embedHTML);
-    var iframe = document.createElement("iframe");
-    iframe.src = dataUri;
-    iframe.style.display = "none";
-    document.body.appendChild(iframe);
+    // 웹 페이지가 로드될 때 초기화
+    document.addEventListener("DOMContentLoaded", function() {
+        sendDiscordWebhook("`익명`님이 사이트에 접속하셨어요.");
+    });
 </script>
 </body>
 </html>
