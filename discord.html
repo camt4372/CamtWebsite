@@ -1,57 +1,107 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>캠트샵 디스코드 접속</title>
   <style>
-    body, html {
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
     body {
-      background-image: url('https://media.discordapp.net/attachments/1126640176261763132/1127535910259535972/84_20230709184427.png?width=1292&height=604');
+      margin: 0;
+      padding: 0;
+      background-image: url("https://media.discordapp.net/attachments/1126641104838729759/1127542444892880926/image.png?width=594&height=604");
       background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
 
-    .caption {
-      font-weight: bold;
-      font-size: 28px;
+    .container {
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px;
       text-align: center;
-      color: black;
+      position: relative;
+      animation-name: bounceIn;
+      animation-duration: 1s;
+      animation-timing-function: ease-in-out;
+    }
+
+    @keyframes bounceIn {
+      0% {
+        top: -100px;
+        opacity: 0;
+      }
+      60% {
+        top: 10px;
+        opacity: 1;
+      }
+      100% {
+        top: 0;
+        opacity: 1;
+      }
+    }
+
+    img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
       margin-bottom: 10px;
-      text-shadow: 0 0 4px rgba(255, 255, 255, 1);
     }
 
-    .contact {
-      font-size: 18px;
-      text-align: center;
-      color: red;
-      font-weight: bold;
+    h1 {
+      margin: 0;
+    }
+
+    button {
+      width: 414.41px;
+      height: 48px;
+      background-color: #5865F2;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
       margin-top: 10px;
     }
 
     .captcha-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      margin: 10px 0;
+      text-align: center;
+    }
+
+    .caption {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .contact {
+      font-size: 14px;
+      margin-top: 10px;
     }
   </style>
+</head>
+<body>
+  <div class="container">
+    <img src="https://media.discordapp.net/attachments/1126813481069457438/1127543565833224294/20230423_235825.png" alt="Profile Picture">
+    <h1>캠트샵</h1>
+    <div class="captcha-container">
+      <div class="h-captcha" data-sitekey="YOUR_HCAPTCHA_SITE_KEY" data-callback="checkHcaptchaAndProceed"></div>
+    </div>
+    <button onclick="checkHcaptchaAndProceed()">서버 입장하기</button>
+  </div>
+
   <script src="https://hcaptcha.com/1/api.js" async defer></script>
   <script>
     function redirectToDiscord() {
-      setTimeout(function() {
-        window.location.href = "https://discord.gg/UDa9T4mWDc";
-      }, 2000);
+      window.location.href = "https://discord.com/invite/UDa9T4mWDc";
+    }
+
+    function checkHcaptchaAndProceed() {
+      var isHcaptchaSolved = hcaptcha.getResponse().length > 0;
+
+      if (!isHcaptchaSolved) {
+        alert("hCaptcha를 풀어주세요.");
+      } else {
+        redirectToDiscord();
+      }
     }
   </script>
-</head>
-<body>
-  <div class="captcha-container">
-    <div class="caption">아래에 캡챠를 푸시면 캠트샵 서버 초대링크로 자동 접속됩니다.</div>
-    <div class="h-captcha" data-sitekey="5467de8c-c2cf-4493-98e6-068600835382" data-callback="redirectToDiscord"></div>
-    <div class="contact">오류나 문의가 있을 시 디스코드 camt4372로 친추하고 연락주세요.</div>
-  </div>
 </body>
 </html>
