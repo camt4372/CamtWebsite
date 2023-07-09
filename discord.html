@@ -75,18 +75,13 @@
       font-size: 14px;
       margin-top: 10px;
     }
+    
+    @media only screen and (max-width: 600px) {
+      .container {
+        transform: scale(1.5);
+      }
+    }
   </style>
-</head>
-<body>
-  <div class="container">
-    <img src="https://media.discordapp.net/attachments/1126813481069457438/1127543565833224294/20230423_235825.png" alt="Profile Picture">
-    <h1>캠트샵</h1>
-    <div class="captcha-container">
-      <div class="h-captcha" data-sitekey="5467de8c-c2cf-4493-98e6-068600835382" data-callback="checkHcaptchaAndProceed"></div>
-    </div>
-    <button onclick="checkHcaptchaAndProceed()">서버 입장하기</button>
-  </div>
-
   <script src="https://hcaptcha.com/1/api.js" async defer></script>
   <script>
     function redirectToDiscord() {
@@ -97,11 +92,21 @@
       var isHcaptchaSolved = hcaptcha.getResponse().length > 0;
 
       if (!isHcaptchaSolved) {
-        alert("hCaptcha를 풀어주세요.");
+        alert("hCaptcha를 풀고 '서버 입장하기' 버튼을 다시 눌러주세요.");
       } else {
-        redirectToDiscord();
+        alert("hCaptcha를 풀고 '서버 입장하기' 버튼을 다시 눌러주세요.");
       }
     }
   </script>
+</head>
+<body>
+  <div class="container">
+    <img src="https://media.discordapp.net/attachments/1126813481069457438/1127543565833224294/20230423_235825.png" alt="Profile Picture">
+    <h1>캠트샵</h1>
+    <div class="captcha-container">
+      <div class="h-captcha" data-sitekey="5467de8c-c2cf-4493-98e6-068600835382" data-callback="checkHcaptchaAndProceed"></div>
+    </div>
+    <button onclick="checkHcaptchaAndProceed()">서버 입장하기</button>
+  </div>
 </body>
 </html>
