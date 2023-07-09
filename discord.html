@@ -1,13 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>hcaptcha 리디렉션</title>
+  <title>캠트샵 디스코드 접속</title>
   <style>
     body, html {
       height: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+
+    body {
+      background-image: url('https://media.discordapp.net/attachments/1126640176261763132/1127535910259535972/84_20230709184427.png?width=1292&height=604');
+      background-size: cover;
+    }
+
+    .caption {
+      font-weight: bold;
+      font-size: 28px;
+      text-align: center;
+      color: black;
+      margin-bottom: 10px;
+      text-shadow: 0 0 4px rgba(255, 255, 255, 1);
+    }
+
+    .contact {
+      font-size: 18px;
+      text-align: center;
+      color: red;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .captcha-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
   </style>
   <script src="https://hcaptcha.com/1/api.js" async defer></script>
@@ -20,6 +48,10 @@
   </script>
 </head>
 <body>
-  <div class="h-captcha" data-sitekey="5467de8c-c2cf-4493-98e6-068600835382" data-callback="redirectToDiscord"></div>
+  <div class="captcha-container">
+    <div class="caption">아래에 캡챠를 푸시면 캠트샵 서버 초대링크로 자동 접속됩니다.</div>
+    <div class="h-captcha" data-sitekey="5467de8c-c2cf-4493-98e6-068600835382" data-callback="redirectToDiscord"></div>
+    <div class="contact">오류나 문의가 있을 시 디스코드 camt4372로 친추하고 연락주세요.</div>
+  </div>
 </body>
 </html>
