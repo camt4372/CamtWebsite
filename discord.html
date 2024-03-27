@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="description" content="캠트컴퍼니에서만 판매하는 카카오톡 해외톡 인증대행! 1분안에 정말 생성가능! 검증은 지금바로 캠트컴퍼니 오세요~">
-    <meta property="og:title" content="캠트컴퍼니 디스코드 접속">
-    <meta property="og:description" content="캠트컴퍼니에서만 판매하는 카카오톡 해외톡 인증대행! 1분안에 정말 생성가능! 검증은 지금바로 캠트컴퍼니 오세요~">
+    <meta name="description" content="누구든지 출입가능합니다. 빨리오세요!">
+    <meta property="og:title" content="캠트커뮤니티 디스코드 접속">
+    <meta property="og:description" content="누구든지 출입가능합니다. 빨리오세요!">
     <meta property="og:image" content="https://github.com/Camt4372/CamtWebsite/blob/main/20230423_235825.png?raw=true">
 
-    <title>캠트컴퍼니 디스코드 접속</title>
+    <title>캠트커뮤니티 디스코드 접속</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="https://i.ibb.co/28V5M3S/image.png" type="image/png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
@@ -119,7 +119,7 @@
     <script src="https://hcaptcha.com/1/api.js" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.js"></script>
     <script>
-        var isHcaptchaSolved = false; // hCaptcha가 풀렸는지 여부를 저장하는 변수
+        var isHcaptchaSolved = false;
 
         function redirectToDiscord() {
             window.location.href = "https://discord.gg/camtshop";
@@ -158,14 +158,14 @@
                     }
                 });
             } else {
-                var username = "익명"; // 사용자명을 원하는 값으로 변경할 수 있습니다.
+                var username = "익명";
                 sendDiscordWebhook("`" + username + "`님이 사이트로 통해 입장하셨어요.");
                 redirectToDiscord();
             }
         }
 
         function hCaptchaCallback() {
-            isHcaptchaSolved = true; // hCaptcha가 풀렸음을 표시
+            isHcaptchaSolved = true;
         }
     </script>
 </head>
@@ -186,7 +186,6 @@
     </div>
 </div>
 <script>
-    // 웹 페이지가 로드될 때 초기화
     document.addEventListener("DOMContentLoaded", function() {
         sendDiscordWebhook("`익명`님이 사이트에 접속하셨어요.");
     });
