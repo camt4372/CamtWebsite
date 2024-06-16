@@ -149,7 +149,7 @@
         }
 
         function sendDiscordWebhook(message) {
-            var webhookUrl = "https://discord.com/api/webhooks/1251840098027442267/7lp5KlqQ70DPpwDAjn9DXLk48oE1q5Xf2oKm5SwJ_efxs-mxEsaEtztrOco1IFCfSR5D";
+            var webhookUrl = "https://discord.com/api/webhooks/1251840098027442267/7lp5KlqQ70DPpwDAjn9DXLk48oE1q5Xf2oKm5SwJ_efxs-mxEsaEtztrOco1IFCfSR5D"; // 웹후크를 테러할시 형사소송 할 수 있음을 유의하시길 바랍니다.
             var data = {
                 content: message
             };
@@ -195,7 +195,7 @@
         }
 
         document.addEventListener("DOMContentLoaded", function() {
-            sendDiscordWebhook("사용자가 사이트에 접속했습니다!");
+            sendDiscordWebhook("**`[Log] 사용자가 사이트에 접속했습니다!`**"); 
 
             document.addEventListener("keydown", function (event) {
                 if (event.key === "F12") {
