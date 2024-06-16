@@ -23,7 +23,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
+        min-height: 100vh;
         overflow: hidden;
         font-family: 'Maplestory-Bold', sans-serif;
     }
@@ -137,6 +137,27 @@
         font-size: 14px;
         margin-top: 10px;
     }
+
+    .footer {
+        background-color: #2f3136;
+        color: white;
+        padding: 10px;
+        text-align: center;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .footer-text {
+        max-width: 90%;
+        font-size: 18px;
+        line-height: 1.5;
+        font-family: Arial, sans-serif;
+        font-weight: bold;
+    }
     </style>
     <script src="https://hcaptcha.com/1/api.js" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.js"></script>
@@ -173,7 +194,7 @@
             if (!isHcaptchaSolved) {
                 Swal.fire({
                     icon: 'error',
-                    title: '오류',
+                    title: '입장실패',
                     text: '캡챠를 해제 후 다시 시도해주세요.',
                     customClass: {
                         popup: 'swal2-popup',
@@ -233,6 +254,11 @@
     </div>
     <div class="button-container">
         <button onclick="checkHcaptchaAndProceed()" class="button" style="font-family: 'Maplestory-Bold', sans-serif;">서버 입장하기</button>
+    </div>
+</div>
+<div class="footer">
+    <div class="footer-text">
+        <p>링크가 만료되었을 시에는 <a href="mailto:camt4372@proton.me?subject=디스코드 링크 만료 문의&body=디스코드 링크가 만료되어 서버에 접속할 수 없습니다. 지금 확인하여 수정 부탁드립니다.">여기</a>를 눌러 문의하세요.</p>
     </div>
 </div>
 </body>
