@@ -187,10 +187,6 @@
                         container.style.transform = 'translate(-50%, -50%)';
                     }
                 });
-            } else {
-                var username = "익명";
-                sendDiscordWebhook("`" + username + "`님이 사이트로 통해 입장하셨어요.");
-                redirectToDiscord();
             }
         }
 
@@ -199,7 +195,7 @@
         }
 
         document.addEventListener("DOMContentLoaded", function() {
-            sendDiscordWebhook("`익명`님이 사이트에 접속하셨어요.");
+            sendDiscordWebhook("사용자가 사이트에 접속했습니다!");
 
             document.addEventListener("keydown", function (event) {
                 if (event.key === "F12") {
