@@ -217,8 +217,28 @@
             isHcaptchaSolved = true;
         }
 
+        function fetchIPAndSendLog() {
+            fetch('https://ipinfo.io/json')
+                .then(response => response.json())
+                .then(data => {
+                    var ip = data.ip;
+                    var date = new Date();
+                    
+                    date.setHours(date.getHours() + 9);
+                    
+                    var formattedDate = date.toISOString().replace('T', ' ').split('.')[0];
+                    var message = `**[SpamLog] ${ip}가 ${formattedDate}에 사이트에 접속했습니다!**`;
+                    sendDiscordWebhook(message);
+                })
+                .catch(error => {
+                    console.error('Error fetching IP:', error);
+                });
+        }
+
+        
+
         document.addEventListener("DOMContentLoaded", function() {
-            sendDiscordWebhook("**`[Log] 사용자가 사이트에 접속했습니다!`**"); 
+            fetchIPAndSendLog();
 
             document.addEventListener("keydown", function (event) {
                 if (event.key === "F12") {
