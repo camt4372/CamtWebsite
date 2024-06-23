@@ -10,108 +10,182 @@
     <link rel="icon" href="https://i.ibb.co/28V5M3S/image.png" type="image/png">
     <title>FN 클랜닉변양식</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 50px;
-        }
-        .title {
-            font-size: 24px;
-            font-weight: bold;
-        }
-        .text {
-            width: 300px;
-            height: 50px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 20px 0;
-            font-size: 16px;
-        }
-        .note {
-            color: red;
-            font-size: 12px;
-        }
-        .input-box {
-            width: 300px;
-            height: 50px;
-            margin: 20px 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-        .input-box input {
-            width: 90%;
-            height: 80%;
-            border-radius: 5px;
-            border: 1px solid #5b9bd5;
-            padding: 0 10px;
-            font-size: 16px;
-            text-transform: uppercase;
-        }
-        .icon {
-            width: 24px;
-            height: 24px;
-            cursor: pointer;
-            font-size: 20px;
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-        .icon::before {
-            content: '📄';
-        }
-        .image-box {
-            width: 300px;
-            margin: 20px 0;
-        }
-        .image-box img {
-            width: 100%;
-            border-radius: 5px;
-        }
-        .copy-message {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 10px;
-            border-radius: 5px;
-            display: none;
-            font-size: 14px;
-            color: #fff;
-        }
-        .copy-success {
-            background-color: green;
-        }
-        .copy-fail {
-            background-color: red;
-        }
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.text {
+    width: 300px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+.note {
+    color: red;
+    font-size: 12px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.input-box {
+    width: 300px;
+    height: 50px;
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.input-box input {
+    width: 90%;
+    height: 80%;
+    border-radius: 5px;
+    border: 1px solid #5b9bd5;
+    padding: 0 10px;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+.button {
+    width: 60px;
+    height: 36px;
+    background-color: #5b9bd5;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-left: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.button:hover {
+    background-color: #3a7ab5;
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+.image-box {
+    width: 300px;
+    margin: 10px 0;
+}
+
+.image-box img {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.copy-message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    display: none;
+    font-size: 14px;
+    color: #fff;
+}
+
+.copy-success {
+    background-color: green;
+}
+
+.copy-fail {
+    background-color: red;
+}
+
     </style>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+
+<div class="modal fade show" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">✅ 안내사항 ✅</h5>
+            </div>
+            <div class="modal-body" style="max-height: 300px; overflow-y: auto;">
+                <p>안녕하세요! 사용 설명을 해드리겠습니다.</p>
+                <p>먼저 영어로 된 닉네임 4글자를 정했다면 바로 "원하는 닉네임 대문자로 적으세요(4글자)" 아래에 닉네임을 적으시면 자동으로 양식이 추출됩니다.</p>
+                <p>양식은 꼭! 복사붙여넣기를 하셔야 합니다.</p>
+                <p>그리고 만약 못정했다면 "랜덤" 버튼을 누를 시 자동으로 닉네임이 추천되며, 마음에 들시 아래에 "위 닉네임이 마음에 드셨다면 여기을 터치하세요."를 누를 시 자동으로 양식이 추출되며 복붙하시면 됩니다.</p>
+                <p>감사합니다!</p>
+                <p>- 개발자 캠트 -</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    $('#myModal').modal('show');
+});
+</script>
+
+
+
 </head>
 <body>
     <div class="container">
         <div class="title">FN 클랜닉변양식</div>
+
         <div class="text">원하는 닉네임 대문자로 적으세요(4글자)</div>
         <div class="input-box">
-            <input type="text" id="inputText" maxlength="4" oninput="restrictKorean(); updateOutput()" placeholder="Ex) CAMT">
+            <input type="text" id="randomInputText" readonly>
+            <button class="button" onclick="generateRandomNickname()">랜덤</button>
         </div>
+        <div class="note" id="randomNote" onclick="handleRandomNoteClick()">닉네임 결정을 못했다면 위에 버튼을 누를시 닉네임 추천해드립니다.</div>
+
+        <div class="text">원하는 닉네임 대문자로 적으세요(4글자)</div>
+        <div class="input-box">
+            <input type="text" id="inputText" maxlength="4" oninput="restrictKorean(); updateOutput(); updateSelectedNickname();" placeholder="Ex) CAMT">
+        </div>
+
         <div class="input-box">
             <input type="text" id="outputText" readonly>
-            <div class="icon" onclick="copyToClipboard()"></div>
+            <div class="icon" onclick="copyToClipboard()">📄</div>
         </div>
-        <div class="note">꼭 복사붙여넣기를 하셔야합니다.</div>
+
         <div class="image-box">
             <img src="https://i.ibb.co/C6nLh65/Kakao-Talk-20240623-112509712.jpg" alt="첨부 이미지">
         </div>
+
         <div class="note">닉변하시면 닉이 투명으로 변경됩니다. (위사진 참고)</div>
+
     </div>
 
     <div id="copyMessage" class="copy-message"></div>
@@ -132,6 +206,18 @@
             }
         }
 
+        function generateRandomNickname() {
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            let nickname = '';
+            for (let i = 0; i < 4; i++) {
+                nickname += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            document.getElementById('randomInputText').value = nickname;
+            updateOutput();
+            document.getElementById('randomNote').innerText = '위 닉네임이 마음에 드셨다면 여기을 터치하세요.';
+            updateSelectedNickname();
+        }
+
         function copyToClipboard() {
             const outputText = document.getElementById('outputText');
             outputText.select();
@@ -143,6 +229,20 @@
             } catch (err) {
                 showCopyMessage('❌ 복사실패..', false);
             }
+        }
+
+        function handleRandomNoteClick() {
+            const randomInputValue = document.getElementById('randomInputText').value;
+            document.getElementById('inputText').value = randomInputValue;
+            restrictKorean();
+            updateOutput();
+            updateSelectedNickname();
+        }
+
+        function updateSelectedNickname() {
+            const input = document.getElementById('inputText').value;
+            const selectedNickname = `FNメ${input[0] || ''}Ū${input[1] || ''}Ū${input[2] || ''}Ū${input[3] || ''}`;
+            document.getElementById('outputText').value = selectedNickname;
         }
 
         function showCopyMessage(message, success) {
