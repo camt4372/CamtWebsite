@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="여기를 눌러 FN클랜 닉변양식을 확인하세요.">
+    <meta property="og:title" content="🌸 FN 클랜닉변양식 🌸">
+    <meta property="og:description" content="여기를 눌러 FN클랜 닉변양식을 확인하세요.">
+    <meta property="og:image" content="https://i.ibb.co/8bd40zv/1718537435260.jpg">
+    <link rel="icon" href="https://i.ibb.co/28V5M3S/image.png" type="image/png">
+    <title>FN 클랜닉변양식</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .text {
+            width: 300px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+            font-size: 16px;
+        }
+        .note {
+            color: red;
+            font-size: 12px;
+        }
+        .input-box {
+            width: 300px;
+            height: 50px;
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .input-box input {
+            width: 90%;
+            height: 80%;
+            border-radius: 5px;
+            border: 1px solid #5b9bd5;
+            padding: 0 10px;
+            font-size: 16px;
+            text-transform: uppercase;
+        }
+        .icon {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            font-size: 20px;
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .icon::before {
+            content: '📄';
+        }
+        .image-box {
+            width: 300px;
+            margin: 20px 0;
+        }
+        .image-box img {
+            width: 100%;
+            border-radius: 5px;
+        }
+        .copy-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+            font-size: 14px;
+            color: #fff;
+        }
+        .copy-success {
+            background-color: green;
+        }
+        .copy-fail {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">FN 클랜닉변양식</div>
+        <div class="text">원하는 닉네임 대문자로 적으세요(4글자)</div>
+        <div class="input-box">
+            <input type="text" id="inputText" maxlength="4" oninput="restrictKorean(); updateOutput()" placeholder="Ex) CAMT">
+        </div>
+        <div class="input-box">
+            <input type="text" id="outputText" readonly>
+            <div class="icon" onclick="copyToClipboard()"></div>
+        </div>
+        <div class="note">꼭 복사붙여넣기를 하셔야합니다.</div>
+        <div class="image-box">
+            <img src="https://i.ibb.co/C6nLh65/Kakao-Talk-20240623-112509712.jpg" alt="첨부 이미지">
+        </div>
+        <div class="note">닉변하시면 닉이 투명으로 변경됩니다. (위사진 참고)</div>
+    </div>
+
+    <div id="copyMessage" class="copy-message"></div>
+
+    <script>
+        function updateOutput() {
+            const input = document.getElementById('inputText').value;
+            const output = `FNメ${input[0] || ''}Ū${input[1] || ''}Ū${input[2] || ''}Ū${input[3] || ''}`;
+            document.getElementById('outputText').value = output;
+        }
+
+        function restrictKorean() {
+            const input = document.getElementById('inputText');
+            const value = input.value;
+            const regex = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g;
+            if (regex.test(value)) {
+                input.value = value.replace(regex, '');
+            }
+        }
+
+        function copyToClipboard() {
+            const outputText = document.getElementById('outputText');
+            outputText.select();
+            outputText.setSelectionRange(0, 99999);
+
+            try {
+                const successful = document.execCommand('copy');
+                showCopyMessage(successful ? '✅ 복사성공!' : '❌ 복사실패..', successful);
+            } catch (err) {
+                showCopyMessage('❌ 복사실패..', false);
+            }
+        }
+
+        function showCopyMessage(message, success) {
+            const copyMessage = document.getElementById('copyMessage');
+            copyMessage.textContent = message;
+            copyMessage.className = `copy-message ${success ? 'copy-success' : 'copy-fail'}`;
+            copyMessage.style.display = 'block';
+            setTimeout(() => {
+                copyMessage.style.opacity = '1';
+            }, 0);
+
+            setTimeout(() => {
+                copyMessage.style.opacity = '0';
+                setTimeout(() => {
+                    copyMessage.style.display = 'none';
+                }, 2000);
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
