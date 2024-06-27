@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D-Day Countdown</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+        }
+        .title {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .countdown {
+            font-size: 5em;
+        }
+        .date {
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">돌아오기까지</div>
+        <div class="countdown" id="countdown"></div>
+        <div class="date">2024. 07. 13</div>
+    </div>
+
+    <script>
+        function calculateDays() {
+            const targetDate = new Date("2024-07-13");
+            const currentDate = new Date();
+            const timeDifference = targetDate - currentDate;
+            const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+
+            if (daysDifference > 0) {
+                document.getElementById("countdown").textContent = `D-${daysDifference}`;
+            } else {
+                document.getElementById("countdown").textContent = "D-Day";
+            }
+        }
+
+        calculateDays();
+    </script>
+</body>
+</html>
