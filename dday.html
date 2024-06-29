@@ -43,16 +43,16 @@
     </div>
 
     <script>
-        function convertToKST(date) {
-            return new Date(date.getTime() + (9 * 60 * 60000)); // UTC -> KST
+        function addHours(date, hours) {
+            return new Date(date.getTime() + hours * 60 * 60 * 1000);
         }
 
         function calculateDays() {
             const targetDate = new Date(Date.UTC(2024, 6, 13, 0, 0, 0));
             const currentDate = new Date();
-            const kstCurrentDate = convertToKST(currentDate);
+            const futureDate = addHours(currentDate, 9);
 
-            const timeDifference = targetDate - kstCurrentDate;
+            const timeDifference = targetDate - futureDate;
             const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
 
             if (daysDifference > 0) {
@@ -61,16 +61,16 @@
                 document.getElementById("countdown").textContent = "D-Day";
             }
 
-            updateCurrentTime(kstCurrentDate);
+            updateCurrentTime(futureDate);
         }
 
-        function updateCurrentTime(kstCurrentDate) {
-            const year = kstCurrentDate.getFullYear();
-            const month = String(kstCurrentDate.getMonth() + 1).padStart(2, '0');
-            const day = String(kstCurrentDate.getDate()).padStart(2, '0');
-            const hours = String(kstCurrentDate.getHours()).padStart(2, '0');
-            const minutes = String(kstCurrentDate.getMinutes()).padStart(2, '0');
-            const seconds = String(kstCurrentDate.getSeconds()).padStart(2, '0');
+        function updateCurrentTime(futureDate) {
+            const year = futureDate.getUTCFullYear();
+            const month = String(futureDate.getUTCMonth() + 1).padStart(2, '0');
+            const day = String(futureDate.getUTCDate()).padStart(2, '0');
+            const hours = String(futureDate.getUTCHours()).padStart(2, '0');
+            const minutes = String(futureDate.getUTCMinutes()).padStart(2, '0');
+            const seconds = String(futureDate.getUTCSeconds()).padStart(2, '0');
 
             const formattedTime = `${year}년 ${month}월 ${day}일 ${hours}:${minutes}:${seconds}`;
             document.getElementById("current-time").textContent = formattedTime;
@@ -78,10 +78,10 @@
 
         function update() {
             const currentDate = new Date();
-            const kstCurrentDate = convertToKST(currentDate);
+            const futureDate = addHours(currentDate, 9);
 
             calculateDays();
-            updateCurrentTime(kstCurrentDate);
+            updateCurrentTime(futureDate);
         }
 
         setInterval(update, 1000);
