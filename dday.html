@@ -43,12 +43,14 @@
     </div>
 
     <script>
+        function convertToKST(date) {
+            return new Date(date.getTime() + (9 * 60 * 60000)); // UTC -> KST
+        }
+
         function calculateDays() {
             const targetDate = new Date(Date.UTC(2024, 6, 13, 0, 0, 0));
             const currentDate = new Date();
-
-            const utcCurrentDate = new Date(currentDate.getTime() + (currentDate.getTimezoneOffset() * 60000));
-            const kstCurrentDate = new Date(utcCurrentDate.getTime() + (9 * 60 * 60000));
+            const kstCurrentDate = convertToKST(currentDate);
 
             const timeDifference = targetDate - kstCurrentDate;
             const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
@@ -76,9 +78,7 @@
 
         function update() {
             const currentDate = new Date();
-
-            const utcCurrentDate = new Date(currentDate.getTime() + (currentDate.getTimezoneOffset() * 60000));
-            const kstCurrentDate = new Date(utcCurrentDate.getTime() + (9 * 60 * 60000));
+            const kstCurrentDate = convertToKST(currentDate);
 
             calculateDays();
             updateCurrentTime(kstCurrentDate);
