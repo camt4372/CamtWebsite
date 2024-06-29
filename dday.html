@@ -28,6 +28,10 @@
             font-size: 1.5em;
             margin-top: 20px;
         }
+        .current-time {
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -35,13 +39,18 @@
         <div class="title">돌아오기까지</div>
         <div class="countdown" id="countdown"></div>
         <div class="date">2024. 07. 13</div>
+        <div class="current-time" id="current-time"></div>
     </div>
 
     <script>
         function calculateDays() {
-            const targetDate = new Date("2024-07-13");
+            const targetDate = new Date(Date.UTC(2024, 6, 13, 0, 0, 0));
             const currentDate = new Date();
-            const timeDifference = targetDate - currentDate;
+
+            const utcCurrentDate = new Date(currentDate.getTime() + (currentDate.getTimezoneOffset() * 60000));
+            const kstCurrentDate = new Date(utcCurrentDate.getTime() + (9 * 60 * 60000));
+
+            const timeDifference = targetDate - kstCurrentDate;
             const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
 
             if (daysDifference > 0) {
@@ -49,8 +58,33 @@
             } else {
                 document.getElementById("countdown").textContent = "D-Day";
             }
+
+            updateCurrentTime(kstCurrentDate);
         }
 
+        function updateCurrentTime(kstCurrentDate) {
+            const year = kstCurrentDate.getFullYear();
+            const month = String(kstCurrentDate.getMonth() + 1).padStart(2, '0');
+            const day = String(kstCurrentDate.getDate()).padStart(2, '0');
+            const hours = String(kstCurrentDate.getHours()).padStart(2, '0');
+            const minutes = String(kstCurrentDate.getMinutes()).padStart(2, '0');
+            const seconds = String(kstCurrentDate.getSeconds()).padStart(2, '0');
+
+            const formattedTime = `${year}년 ${month}월 ${day}일 ${hours}:${minutes}:${seconds}`;
+            document.getElementById("current-time").textContent = formattedTime;
+        }
+
+        function update() {
+            const currentDate = new Date();
+
+            const utcCurrentDate = new Date(currentDate.getTime() + (currentDate.getTimezoneOffset() * 60000));
+            const kstCurrentDate = new Date(utcCurrentDate.getTime() + (9 * 60 * 60000));
+
+            calculateDays();
+            updateCurrentTime(kstCurrentDate);
+        }
+
+        setInterval(update, 1000);
         calculateDays();
     </script>
 </body>
