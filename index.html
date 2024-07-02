@@ -149,7 +149,7 @@
             async function fetchYouTubeData() {
                 const API_KEY = 'AIzaSyBITlt3ccORYU0Z9E84JwZODaqJJbL60Ek';
                 const CHANNEL_ID = 'UC5iX7PKkbPXiESujo8ZKv1w';
-                const url = `https://www.googleapis.com/youtube/v3/channels?part=statistics&id=₩{CHANNEL_ID}&key=₩{API_KEY}`;
+                const url = `https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`;
             
                 try {
                     const response = await fetch(url);
@@ -167,10 +167,10 @@
                     document.getElementById('views').innerText = 'Error';
                 }
             }
-            
-            fetchYouTubeData();
-            </script>
-            <!-- 실시간 구독자, 조회수 -->
+
+            document.addEventListener('DOMContentLoaded', fetchYouTubeData);
+        </script>
+        <!-- 실시간 구독자, 조회수 -->
 
 
         <!-- 자랑 -->
