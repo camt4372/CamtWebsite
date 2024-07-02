@@ -1,5 +1,166 @@
 <!DOCTYPE html>
-<script>
-window.location.href = 'https://www.camt4372.com';
-</script>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="페이지를 찾을 수 없습니다.">
+    <meta property="og:title" content="404 Not Found">
+    <meta property="og:description" content="페이지를 찾을 수 없습니다.">
+    <meta property="og:image" content="https://i.ibb.co/8bd40zv/1718537435260.jpg">
+    <link rel="icon" href="https://i.ibb.co/28V5M3S/image.png" type="image/png">
+    <title>404 Not Found</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #1e1e2f, #2c2c54);
+            color: white;
+            font-family: 'Arial', sans-serif;
+            flex-direction: column;
+        }
+
+        .container {
+            text-align: center;
+            animation: fadeIn 3s ease-in-out;
+            z-index: 1;
+            position: relative;
+        }
+
+        .title {
+            font-size: 10vw;
+            margin: 0;
+            color: #ff6347;
+        }
+
+        .message {
+            font-size: 2vw;
+            margin: 20px 0;
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        .button {
+            background-color: #0056b3;
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1.5vw;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 12px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .button:hover {
+            background-color: #003c80;
+            transform: translateY(-2px);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .stars, .comets {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 2s infinite alternate ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0% {
+                opacity: 0.5;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .comet {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: linear-gradient(45deg, #ffffff, rgba(255, 255, 255, 0));
+            border-radius: 50%;
+            animation: cometMove 4s infinite ease-in-out;
+        }
+
+        @keyframes cometMove {
+            0% {
+                transform: translate(0, 0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(100vw, 100vh);
+                opacity: 0;
+            }
+        }
+
+        .star, .comet {
+            animation-timing-function: linear;
+        }
+
+        .star:nth-child(1) { top: 10%; left: 20%; animation-duration: 2s; width: 6px; height: 6px; }
+        .star:nth-child(2) { top: 30%; left: 80%; animation-duration: 3s; width: 5px; height: 5px; }
+        .star:nth-child(3) { top: 50%; left: 40%; animation-duration: 1.5s; width: 7px; height: 7px; }
+        .star:nth-child(4) { top: 70%; left: 60%; animation-duration: 2.5s; width: 6px; height: 6px; }
+        .star:nth-child(5) { top: 90%; left: 10%; animation-duration: 2.8s; width: 5px; height: 5px; }
+
+        .comet:nth-child(6) { top: 20%; left: 5%; }
+        .comet:nth-child(7) { top: 40%; left: 15%; animation-delay: 1s; }
+        .comet:nth-child(8) { top: 60%; left: 25%; animation-delay: 2s; }
+        .comet:nth-child(9) { top: 80%; left: 35%; animation-delay: 0.5s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="title">404</h2>
+        <p class="message">페이지를 찾을 수 없습니다.</p>
+        <div class="buttons">
+            <a href="/" class="button">메인 페이지</a>
+            <a href="javascript:history.back()" class="button">이전 페이지로</a>
+        </div>
+    </div>
+    <div class="stars">
+        <div class="star" style="top: 10%; left: 20%; animation-duration: 2s;"></div>
+        <div class="star" style="top: 30%; left: 80%; animation-duration: 3s;"></div>
+        <div class="star" style="top: 50%; left: 40%; animation-duration: 1.5s;"></div>
+        <div class="star" style="top: 70%; left: 60%; animation-duration: 2.5s;"></div>
+        <div class="star" style="top: 90%; left: 10%; animation-duration: 2.8s;"></div>
+    </div>
+    <div class="comets">
+        <div class="comet" style="top: 20%; left: 5%;"></div>
+        <div class="comet" style="top: 40%; left: 15%; animation-delay: 1s;"></div>
+        <div class="comet" style="top: 60%; left: 25%; animation-delay: 2s;"></div>
+        <div class="comet" style="top: 80%; left: 35%; animation-delay: 0.5s;"></div>
+    </div>
+</body>
 </html>
