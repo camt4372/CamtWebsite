@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="페이지를 찾을 수 없습니다.">
     <meta property="og:title" content="404 Not Found">
     <meta property="og:description" content="페이지를 찾을 수 없습니다.">
@@ -40,10 +42,28 @@
         .message {
             font-size: 2vw;
             margin: 20px 0;
+            white-space: nowrap;
+            overflow: hidden;
+            display: inline-block;
+            position: relative;
+        }
+
+        .cursor {
+            display: inline-block;
+            vertical-align: middle;
+            width: 2px;
+            height: 1.2em;
+            background-color: white;
+            animation: blink-caret 0.75s infinite;
+        }
+
+        .typing-animation {
+            display: inline-block;
+            vertical-align: middle;
         }
 
         .buttons {
-            margin-top: 20px;
+            margin-top: 30px;
         }
 
         .button {
@@ -67,12 +87,18 @@
             transform: translateY(-2px);
         }
 
-        @keyframes fadeIn {
-            from {
+        @keyframes blink-caret {
+            50% {
                 opacity: 0;
             }
+        }
+
+        @keyframes typeWriter {
+            from {
+                width: 0;
+            }
             to {
-                opacity: 1;
+                width: 100%;
             }
         }
 
@@ -142,10 +168,12 @@
 </head>
 <body>
     <div class="container">
-        <h2 class="title">404</h2>
-        <p class="message">페이지를 찾을 수 없습니다.</p>
+        <h1 class="title">404</h1>
+        <div class="message">
+            <span class="typing-animation" id="typing-animation"></span><span class="cursor"></span>
+        </div>
         <div class="buttons">
-            <a href="/" class="button">메인 페이지</a>
+            <a href="https://www.camt4372.com/" class="button">메인화면으로</a>
             <a href="javascript:history.back()" class="button">이전 페이지로</a>
         </div>
     </div>
@@ -162,5 +190,49 @@
         <div class="comet" style="top: 60%; left: 25%; animation-delay: 2s;"></div>
         <div class="comet" style="top: 80%; left: 35%; animation-delay: 0.5s;"></div>
     </div>
+
+    <script>
+        const messages = [
+            "페이지를 찾을 수 없습니다. ",
+            "페이지가 이동되었는 것 같습니다. "
+        ];
+
+        const typingElement = document.getElementById('typing-animation');
+        const cursorElement = document.querySelector('.cursor');
+
+        let currentMessageIndex = 0;
+        let currentCharIndex = 0;
+        let deleteMode = false;
+
+        function typeMessage() {
+            const currentMessage = messages[currentMessageIndex];
+            if (!deleteMode && currentCharIndex <= currentMessage.length) {
+                typingElement.textContent += currentMessage.charAt(currentCharIndex);
+                currentCharIndex++;
+                if (currentCharIndex > currentMessage.length) {
+                    deleteMode = true;
+                    currentCharIndex--;
+                    setTimeout(deleteMessage, 2000);
+                    return;
+                }
+            } else if (deleteMode && currentCharIndex >= 0) {
+                typingElement.textContent = currentMessage.substring(0, currentCharIndex);
+                currentCharIndex--;
+                if (currentCharIndex < 0) {
+                    deleteMode = false;
+                    currentMessageIndex = (currentMessageIndex + 1) % messages.length;
+                    setTimeout(typeMessage, 2000);
+                    return;
+                }
+            }
+            setTimeout(typeMessage, 100); // 타이핑 속도 (ms)
+        }
+
+        function deleteMessage() {
+            typeMessage();
+        }
+
+        typeMessage();
+    </script>
 </body>
 </html>
