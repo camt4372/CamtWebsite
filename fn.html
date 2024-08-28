@@ -157,12 +157,49 @@
         font-family: Arial, sans-serif;
         font-weight: bold;
     }
+
+    .video-container {
+        margin-top: 20px; /* 공백 추가 */
+    }
+
+    .toast-message {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #28a745;
+        color: white;
+        padding: 15px 30px;
+        border-radius: 8px;
+        font-size: 18px;
+        font-family: 'Maplestory-Bold', sans-serif;
+        opacity: 0;
+        transition: opacity 0.5s;
+        z-index: 1000;
+    }
     </style>
     <script src="https://hcaptcha.com/1/api.js" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.js"></script>
     <script>
         var isHcaptchaSolved = false;
         var imageDisplayed = false;
+
+        function showToastMessage(message) {
+            var toast = document.createElement("div");
+            toast.className = "toast-message";
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(function() {
+                toast.style.opacity = 1;
+            }, 100); // Show the toast after a brief delay
+
+            setTimeout(function() {
+                toast.style.opacity = 0;
+                setTimeout(function() {
+                    toast.remove();
+                }, 500); // Remove the toast after fading out
+            }, 3000); // Display the toast for 3 seconds
+        }
 
         function redirectToDiscord() {
             window.location.href = "https://open.kakao.com/o/g5xjPFgc";
@@ -236,6 +273,7 @@
 
         document.addEventListener("DOMContentLoaded", function() {
             fetchIPAndSendLog();
+            showToastMessage("면접방 입장시 오픈프로필로 해주세요.");
 
             document.addEventListener("keydown", function (event) {
                 if (event.key === "F12") {
@@ -253,7 +291,7 @@
 
             function showTemporaryImage() {
                 var tempImage = document.createElement("img");
-                tempImage.src = "https://i.ibb.co/cFyDn7S/image.png";
+                tempImage.src = "https://i.postimg.cc/PqWzRgVt/image.png";
                 tempImage.className = "fade-image";
                 document.body.appendChild(tempImage);
                 setTimeout(function() {
@@ -276,7 +314,7 @@
     </div>
     <!-- YouTube video -->
     <div class="video-container">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/NY098QVv2GE?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/NY098QVv2GE?autoplay=1&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
 </div>
 <div class="footer">
