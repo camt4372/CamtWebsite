@@ -219,9 +219,9 @@
                 data = {
                     embeds: [
                         {
-                            title: "오류 문의",
+                            title: "**`⚠️ 오류 문의 ⚠️`**",
                             description: message,
-                            color: 15158332 // Color of the embed (optional)
+                            color: 15158332
                         }
                     ]
                 };
@@ -291,11 +291,11 @@
 
         function showErrorReportPopup() {
             Swal.fire({
-                title: '**`⚠️ 오류 문의 ⚠️`**',
+                title: '⚠️ 링크 오류 문의 ⚠️',
                 html: `
-                    <label for="title">제목:</label>
+                    <label for="title">제목</label>
                     <input id="title" class="swal2-input" placeholder="제목을 입력해주세요">
-                    <label for="content">내용:</label>
+                    <label for="content">내용</label>
                     <textarea id="content" class="swal2-textarea" placeholder="오류내용을 적어주세요, 이메일을 적을시 회신해드리겠습니다."></textarea>
                     <p class="alert-text">🔔 허위(장난)문의 및 욕설은 법적조치가 되실 수 있습니다 🔔</p>
                 `,
