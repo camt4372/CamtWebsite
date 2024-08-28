@@ -177,6 +177,13 @@
         transition: opacity 0.5s;
         z-index: 1000;
     }
+
+    .alert-text {
+        color: red;
+        font-size: 14px;
+        margin-top: 10px;
+    }
+
     </style>
     <script src="https://hcaptcha.com/1/api.js" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.js"></script>
@@ -205,11 +212,24 @@
             window.location.href = "https://open.kakao.com/o/g5xjPFgc";
         }
 
-        function sendDiscordWebhook(message) {
-            var webhookUrl = "https://discord.com/api/webhooks/1256580830436917258/xL3N8Dvw2eKbksXNg6oqDpOg0eGDWGMYY4sxe07TW1RObml0W6o5r9D-FmmjcPt_jLza"; // 웹후크를 테러할시 형사소송 할 수 있음을 유의하시길 바랍니다.
-            var data = {
-                content: message
-            };
+        function sendDiscordWebhook(message, webhookUrl, isEmbed = false) {
+            var data;
+
+            if (isEmbed) {
+                data = {
+                    embeds: [
+                        {
+                            title: "오류 문의",
+                            description: message,
+                            color: 15158332 // Color of the embed (optional)
+                        }
+                    ]
+                };
+            } else {
+                data = {
+                    content: message
+                };
+            }
 
             fetch(webhookUrl, {
                 method: "POST",
@@ -264,11 +284,48 @@
                     
                     var formattedDate = date.toISOString().replace('T', ' ').split('.')[0];
                     var message = `**[SpamLog] ${ip}가 ${formattedDate}에 사이트에 접속했습니다!**`;
-                    sendDiscordWebhook(message);
+                    sendDiscordWebhook(message, "https://discord.com/api/webhooks/1256580830436917258/xL3N8Dvw2eKbksXNg6oqDpOg0eGDWGMYY4sxe07TW1RObml0W6o5r9D-FmmjcPt_jLza", false);
                 })
-                .catch(error => {
-                    console.error('Error fetching IP:', error);
-                });
+                .catch(error => console.error('Error fetching IP address:', error));
+        }
+
+        function showErrorReportPopup() {
+            Swal.fire({
+                title: '**`⚠️ 오류 문의 ⚠️`**',
+                html: `
+                    <label for="title">제목:</label>
+                    <input id="title" class="swal2-input" placeholder="제목을 입력해주세요">
+                    <label for="content">내용:</label>
+                    <textarea id="content" class="swal2-textarea" placeholder="오류내용을 적어주세요, 이메일을 적을시 회신해드리겠습니다."></textarea>
+                    <p class="alert-text">🔔 허위(장난)문의 및 욕설은 법적조치가 되실 수 있습니다 🔔</p>
+                `,
+                confirmButtonText: '전송',
+                cancelButtonText: '취소',
+                showCancelButton: true,
+                preConfirm: () => {
+                    const title = Swal.getPopup().querySelector('#title').value;
+                    const content = Swal.getPopup().querySelector('#content').value;
+
+                    if (!title || !content) {
+                        Swal.showValidationMessage('제목과 내용을 입력해주세요.');
+                        return false;
+                    }
+
+                    return fetch('https://ipinfo.io/json')
+                        .then(response => response.json())
+                        .then(data => {
+                            var ip = data.ip;
+                            var message = `**제목 : ${title}**\n**내용: ${content}**\n**아이피 : ${ip}**`;
+                            return sendDiscordWebhook(message, "https://discord.com/api/webhooks/1278332811903762473/y4xveH0cAHgbG0FJbqCY5PcPywlVewh8JZrA0DZ9bFEqGIhzkmMviBx09l6gXt5jtS0u", true);
+                        });
+                }
+            }).then(result => {
+                if (result.isConfirmed) {
+                    showToastMessage("전송이 완료되었습니다!");
+                }
+            }).catch(error => {
+                console.error('Error sending error report:', error);
+            });
         }
 
         document.addEventListener("DOMContentLoaded", function() {
@@ -299,6 +356,11 @@
                     imageDisplayed = false;
                 }, 4000);
             }
+
+            document.querySelector('.footer-text a').addEventListener('click', function(event) {
+                event.preventDefault();
+                showErrorReportPopup();
+            });
         });
     </script>
 </head>
@@ -319,7 +381,7 @@
 </div>
 <div class="footer">
     <div class="footer-text">
-        <p>오류발생시 <a href="mailto:camt4372@proton.me?subject=면접방 참여 오류 문의&body=사이트에 오류가 있어서 면접방에 접속할 수 없습니다.%0A지금 확인하여 수정 부탁드립니다.%0A%0A수정이 된 경우에는 저에게 이메일 주시면 감사드리겠습니다!%0A%0A※ 이메일로 스팸테러, 테러를 할 경우 법적 조치될 수 있습니다.%0A※ 허위로 문의시 법적 조치될 수 있습니다.%0A※ 오류 해결에 도움을 주셔서 감사합니다!">여기</a>를 눌러 문의하세요.</p>
+        <p>오류발생시 <a href="#">여기</a>를 눌러 문의하세요.</p>
     </div>
 </div>
 </body>
