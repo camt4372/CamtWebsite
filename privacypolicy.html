@@ -3,6 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+document.addEventListener("DOMContentLoaded", function() {
+    const metaDescription = document.querySelector('meta[name="description"]');
+    const descriptionContent = metaDescription ? metaDescription.getAttribute("content") : "";
+    
+    const metaOgTitle = document.querySelector('meta[property="og:title"]');
+    const ogTitleContent = metaOgTitle ? metaOgTitle.getAttribute("content") : "";
+
+    const metaOgDescription = document.querySelector('meta[property="og:description"]');
+    const ogDescriptionContent = metaOgDescription ? metaOgDescription.getAttribute("content") : "";
+
+    const metaOgImage = document.querySelector('meta[property="og:image"]');
+    const ogImageContent = metaOgImage ? metaOgImage.getAttribute("content") : "";
+
+    console.log("Description:", descriptionContent);
+    console.log("OG Title:", ogTitleContent);
+    console.log("OG Description:", ogDescriptionContent);
+    console.log("OG Image:", ogImageContent);
+
+});
+
+    
 <title>캠트 개인정보처리방침</title>
 <style>
     body {
