@@ -1,86 +1,123 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="여기를 개인정보처리방침을 확인하세요.">
+    <meta property="og:title" content="개인정보처리방침">
+    <meta property="og:description" content="여기를 개인정보처리방침을 확인하세요.">
+    <meta property="og:image" content="https://www.camt4372.com/camt4372.png">
+    <link rel="icon" href="https://www.camt4372.com/camt4372.png" type="image/png">
 
-document.addEventListener("DOMContentLoaded", function() {
-    const metaDescription = document.querySelector('meta[name="description"]');
-    const descriptionContent = metaDescription ? metaDescription.getAttribute("content") : "";
-    
-    const metaOgTitle = document.querySelector('meta[property="og:title"]');
-    const ogTitleContent = metaOgTitle ? metaOgTitle.getAttribute("content") : "";
+    <title>개인정보처리방침</title>
+    <style>
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-    const metaOgDescription = document.querySelector('meta[property="og:description"]');
-    const ogDescriptionContent = metaOgDescription ? metaOgDescription.getAttribute("content") : "";
-
-    const metaOgImage = document.querySelector('meta[property="og:image"]');
-    const ogImageContent = metaOgImage ? metaOgImage.getAttribute("content") : "";
-
-    console.log("Description:", descriptionContent);
-    console.log("OG Title:", ogTitleContent);
-    console.log("OG Description:", ogDescriptionContent);
-    console.log("OG Image:", ogImageContent);
-
-});
-
-    
-<title>캠트 개인정보처리방침</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        line-height: 1.6;
-        margin: 20px;
-        padding: 20px;
-        text-align: center;
-    }
-    .policy-header {
-        font-size: 1.5em;
-        font-weight: bold;
-        margin-bottom: 20px;
-    }
-    .policy-container {
-        max-width: 600px;
-        margin: 0 auto;
-        padding: 20px;
-        border: 1px solid #ccc;
-        background-color: #f9f9f9;
-        text-align: left;
-        opacity: 1;
-        animation: fadeIn 1s ease-in-out;
-    }
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
-</style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            padding: 0;
+            background-color: #f4f4f4;
+            animation: fadeIn 1s ease-out;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1.5s ease-out;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            animation: fadeIn 2s ease-out;
+        }
+        h2 {
+            color: #555;
+            margin-top: 20px;
+            animation: fadeIn 2.5s ease-out;
+        }
+        p, ul, li {
+            color: #666;
+            animation: fadeIn 3s ease-out;
+        }
+        ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .important {
+            background-color: #ffeb3b;
+            padding: 5px;
+            border-radius: 3px;
+            color: #333;
+            font-weight: bold;
+            animation: fadeIn 3.5s ease-out;
+        }
+    </style>
 </head>
 <body>
 
-<div class="policy-container">
-    <h1 class="policy-header">개인정보처리방침 안내</h1>
-
-    <h2>1. 수집하는 개인정보의 항목 및 수집 방법</h2>
-    <p>수집 항목: 아이피 주소, 기기정보 등</p>
-    <p>수집 방법: 특정 홈페이지 접속시 수집 등</p>
+<div class="container">
+    <h1>개인정보처리방침</h1>
+    
+    <p>본 개인정보처리방침은 camt4372.com이(가) 수집, 사용, 공개 및 보호하는 개인정보의 방법에 대해 설명합니다.</p>
+    
+    <h2>1. 수집하는 개인정보의 항목</h2>
+    <p>회사(사이트)는 다음과 같은 개인정보를 수집합니다:</p>
+    <ul>
+        <li>이름, 이메일 주소, 전화번호 등 연락처 정보</li>
+        <li>사용자의 접속 로그, 쿠키, 접속 IP 정보</li>
+    </ul>
 
     <h2>2. 개인정보의 수집 및 이용 목적</h2>
-    <p>서비스 제공, 스팸방지 등</p>
+    <p>회사(사이트)는 수집한 개인정보를 다음의 목적을 위해 이용합니다:</p>
+    <ul>
+        <li>스패머 방지</li>
+        <li>서비스 제공</li>
+        <li>수사기관 협조</li>
+        <li>법적대응</li>
+    </ul>
 
     <h2>3. 개인정보의 보유 및 이용 기간</h2>
-    <p>개인정보의 수집 및 이용 목적이 달성된 후에는 지체 없이 파기하되, 관계법령의 규정에 따라 일정 기간 동안 보관할 수 있음</p>
+    <p>회사(사이트)는 법령에 따른 개인정보 보유 및 이용기간 또는 이용자로부터 개인정보를 수집 시에 동의 받은 개인정보 보유 및 이용기간 내에서 개인정보를 처리합니다.</p>
 
-    <h2>4. 개인정보의 제3자 제공</h2>
-    <p>수사기관 등 공공기관의 요청이 있을 경우에 한하여 아이피 주소, 기기정보 등을 제공할 수 있음</p>
+    <h2>4. 개인정보의 파기 절차 및 방법</h2>
+    <p>회사(사이트)는 원칙적으로 개인정보 처리 목적이 달성된 경우에는 지체 없이 해당 개인정보를 파기합니다. 파기의 절차 및 방법은 다음과 같습니다:</p>
+    <ul>
+        <li>전자적 파일 형태의 정보는 기록을 재생할 수 없는 기술적 방법을 사용하여 삭제합니다.</li>
+    </ul>
 
-    <h2>5. 개인정보의 안전성 확보 조치</h2>
-    <p>개인정보를 안전하게 처리하기 위하여 내부 관리 방침과 절차를 수립하고 주기적인 보안 교육을 실시함</p>
+    <h2>5. 이용자의 권리와 행사 방법</h2>
+    <p>이용자는 언제든지 등록되어 있는 자신의 개인정보를 조회하거나 수정할 수 있으며, 개인정보의 처리에 대한 동의 철회, 삭제를 요청할 수 있으며, 이에 대한 절차 및 방법은 별도의 이메일 문의를 통해 권리행사가 가능합니다.</p>
+    <p>공식이메일 : help@camt4372.com</p>
 
-    <h2>6. 정보주체의 권리 및 행사 방법</h2>
-    <p>정보주체는 개인정보 열람, 정정, 삭제 요구 등 개인정보 보호법상 권리를 행사할 수 있으며, 이에 대한 절차 및 방법은 별도의 문의를 통해 camt4372@proton.me로 문의할 수 있음</p>
+    <h2>6. 개인정보 보호를 위한 기술적/관리적 대책</h2>
+    <p>회사는 이용자의 개인정보를 안전하게 보호하기 위해 다음과 같은 기술적/관리적 대책을 마련하고 있습니다:</p>
+    <ul>
+        <li>개인정보 암호화</li>
+        <li>해킹 등에 대비한 대책</li>
+        <li>개인정보 처리 시스템에 대한 접근 제한</li>
+    </ul>
 
-    <h2>7. 개인정보 파기 절차 및 방법</h2>
-    <p>개인정보 보유기간이 경과하거나 처리목적이 달성된 경우에는 해당 정보를 지체 없이 파기함</p>
+    <h2>7. 개인정보처리방침의 변경</h2>
+    <p>본 개인정보처리방침의 내용 추가, 삭제 및 수정이 있을 경우에는 변경 사항의 시행 7일 전부터 공지사항을 통해 고지할 것입니다.</p>
+
+    <p class="important">이 정책은 2024년 9월 3일부터 시행됩니다.</p>
 </div>
 
 </body>
