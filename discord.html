@@ -3,82 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="캠트커뮤니티 디스코드에 오시려면 사이트에 접속 후 초대링크를 발급받으세요.">
-    <meta property="og:title" content="캠트커뮤니티 디스코드 접속">
-    <meta property="og:description" content="캠트커뮤니티 디스코드에 오시려면 사이트에 접속 후 초대링크를 발급받으세요.">
-    <meta property="og:image" content="https://github.com/Camt4372/CamtWebsite/blob/main/20230423_235825.png?raw=true">
-    <title>Redirecting...</title>
+    <title>이런!</title>
     <style>
-        @font-face {
-            font-family: 'Maplestory Bold';
-            src: url('https://raw.githubusercontent.com/Camt4372/CamtWebsite/main/font/Maplestory%20Bold.ttf') format('truetype');
-            font-weight: bold;
-            font-style: normal;
-        }
-
         body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: linear-gradient(135deg, #74ebd5 0%, #9face6 100%);
+            height: 100vh;
             margin: 0;
-            background: linear-gradient(135deg, #FFDDC1, #FFE4E1);
-            color: #555;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            font-family: Arial, sans-serif;
+            overflow: hidden;
         }
 
-        .initial-message {
+        .message-box {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
             text-align: center;
-            font-size: 1.8rem;
-            padding: 20px 40px;
-            background: #ffffff;
-            border: 2px solid #FFB6C1;
-            border-radius: 20px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-            animation: fadeInUp 1.5s ease-out;
-            font-family: 'Maplestory Bold', Arial, sans-serif;
+            animation: fadeIn 1s ease-in-out;
+            max-width: 400px;
         }
 
-        .redirect-message {
-            display: none;
-            font-size: 1.5rem;
-            font-weight: bold;
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            font-family: Arial, sans-serif;
-        }
-
-        @keyframes fadeInUp {
-            from {
+        @keyframes fadeIn {
+            0% {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(20px);
             }
-            to {
+            100% {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
+
+        h1 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 18px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 25px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        a:hover {
+            background-color: #45a049;
+            transform: translateY(-3px);
+        }
+
+        footer {
+            position: absolute;
+            bottom: 20px;
+            font-size: 12px;
+            color: white;
+        }
     </style>
 </head>
 <body>
-    <div class="initial-message">
-        캠트 디스코드 서버는 현재 없습니다.<br>잠시 후 파트너 디스코드 서버로 이동됩니다.
+
+    <div class="message-box">
+        <h1>이런! 🤦‍♂️</h1>
+        <p>캠트디스코드서버는 현재 삭제되었습니다!<br>홈페이지로 가려면 아래 버튼을 누르세요!</p>
+        <a href="homepage.html">홈으로 이동</a>
     </div>
 
-    <div class="redirect-message">
-        Redirecting...
-    </div>
-
-    <script>
-        setTimeout(function() {
-            document.querySelector('.initial-message').style.display = 'none';
-            document.querySelector('.redirect-message').style.display = 'block';
-        }, 3000);
-
-        setTimeout(function() {
-            window.location.href = "https://discord.gg/youpremium";
-        }, 6000);
-    </script>
 </body>
 </html>
