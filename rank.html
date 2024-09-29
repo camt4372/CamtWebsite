@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>제노사이드 포인트 랭킹</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 300px;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ccc;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>포인트 순위</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>순위</th>
+                <th>이름</th>
+                <th>포인트</th>
+            </tr>
+        </thead>
+        <tbody id="ranking-table-body"></tbody>
+    </table>
+
+    <script>
+        function fetchScores() {
+            fetch('https://www.camt4372.com/test.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.text();
+                })
+                .then(text => {
+                    const lines = text.split('\n');
+                    const scores = {};
+                    lines.forEach(line => {
+                        const [key, value] = line.split(':');
+                        if (key && value) {
+                            scores[key.trim()] = parseInt(value.trim(), 10);
+                        }
+                    });
+
+                    displayRanking(scores);
+                })
+                .catch(error => {
+                    alert("Error loading JSON: " + error.message);
+                });
+        }
+
+        function displayRanking(scores) {
+            const sortedScores = Object.entries(scores)
+                .sort((a, b) => b[1] - a[1]);
+
+            const rankingTableBody = document.getElementById('ranking-table-body');
+
+            sortedScores.forEach((entry, index) => {
+                const row = document.createElement('tr');
+                const rankCell = document.createElement('td');
+                const nameCell = document.createElement('td');
+                const scoreCell = document.createElement('td');
+
+                rankCell.textContent = index + 1;
+                nameCell.textContent = entry[0];
+                scoreCell.textContent = entry[1];
+
+                row.appendChild(rankCell);
+                row.appendChild(nameCell);
+                row.appendChild(scoreCell);
+                rankingTableBody.appendChild(row);
+            });
+        }
+
+        fetchScores();
+    </script>
+</body>
+</html>
