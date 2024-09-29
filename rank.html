@@ -70,7 +70,10 @@
                     lines.forEach(line => {
                         const [key, value] = line.split(':');
                         if (key && value) {
-                            scores[key.trim()] = parseInt(value.trim(), 10);
+                            const scoreValue = parseInt(value.trim(), 10);
+                            if (scoreValue >= 0) {
+                                scores[key.trim()] = scoreValue;
+                            }
                         }
                     });
 
