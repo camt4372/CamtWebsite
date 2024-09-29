@@ -82,7 +82,6 @@
     <div id="result"></div>
 
     <script>
-        // F12 키를 누르면 개발자 도구 열림 방지
         document.onkeydown = function(e) {
             if (e.key === 'F12') {
                 e.preventDefault();
@@ -116,7 +115,7 @@
                         const parts = line.split(':');
                         if (parts.length === 3) {
                             const key = parts[0].trim();
-                            const score = parts[1].trim();
+                            const score = parseInt(parts[1].trim())
                             const pass = parts[2].trim();
                             scores[key] = { score: score, password: pass };
                         } else {
@@ -133,7 +132,14 @@
                                 alert("해당 플레이어는 탈퇴하여 조회할 수 없습니다.");
                                 resultDiv.innerHTML = "";
                             } else {
-                                resultDiv.innerHTML = `<h2>조회성공!</h2><p>현재 ${name}님의 포인트는 ${scores[name].score}점 입니다.</p>`;
+                                // 순위 계산
+                                const sortedScores = Object.entries(scores)
+                                    .filter(([key]) => scores[key].score !== '-' && !isNaN(scores[key].score))
+                                    .sort((a, b) => b[1].score - a[1].score);
+
+                                const rank = sortedScores.findIndex(([key]) => key === name) + 1;
+
+                                resultDiv.innerHTML = `<h2>조회성공!</h2><p>현재 ${name}님의 포인트는 ${scores[name].score}점 입니다.</p><p>🏆 현재 당신은 ${rank}위입니다! 🏆</p>`;
                                 loginForm.style.display = 'none';
                                 resultDiv.style.display = 'block';
                                 document.querySelector('h1').style.display = 'none';
