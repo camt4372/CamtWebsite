@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta name="description" content="현재 제노사이드 클랜의 포인트를 확인하려면 접속 후 조회하세요.">
+    <meta property="og:title" content="제노사이드 포인트 순위">
+    <meta property="og:description" content="현재 제노사이드 클랜의 포인트를 확인하려면 접속 후 조회하세요.">
+    <meta property="og:image" content="https://www.camt4372.com/camt4372.png">
+    <link rel="icon" href="https://www.camt4372.com/camt4372.png">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>제노사이드 포인트 조회</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        #login-form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        input[type="text"] {
+            width: 200px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 10px;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>포인트 조회</h1>
+    <div id="login-form">
+        <input type="text" id="name-input" placeholder="이름을 입력하세요">
+        <button id="lookup-button">조회</button>
+    </div>
+
+    <div id="result"></div>
+
+    <script>
+        const resultDiv = document.getElementById('result');
+        const lookupButton = document.getElementById('lookup-button');
+        const loginForm = document.getElementById('login-form');
+
+        lookupButton.addEventListener('click', () => {
+            const name = document.getElementById('name-input').value.trim();
+            if (name === "") {
+                alert("이름을 입력하세요.");
+                return;
+            }
+
+            fetch('https://www.camt4372.com/test.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.text();
+                })
+                .then(text => {
+                    const lines = text.split('\n');
+                    const scores = {};
+                    lines.forEach(line => {
+                        const [key, value] = line.split(':');
+                        if (key && value) {
+                            scores[key.trim()] = value.trim();
+                        }
+                    });
+
+                    if (scores[name]) {
+                        resultDiv.innerHTML = `<h2>조회성공!</h2><p>현재 ${name}님의 포인트는 ${scores[name]}점 입니다.</p>`;
+                        loginForm.style.display = 'none';
+                        resultDiv.style.display = 'block';
+                        document.querySelector('h1').style.display = 'none'; // <h1> 요소를 숨김
+                    } else {
+                        alert("사용자를 찾을 수 없습니다.");
+                        resultDiv.innerHTML = "";
+                    }
+                })
+                .catch(error => {
+                    alert("Error loading JSON: " + error.message);
+                });
+        });
+    </script>
+</body>
+</html>
