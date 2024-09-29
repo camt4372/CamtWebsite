@@ -120,7 +120,7 @@
 
                     if (scores[name]) {
                         if (scores[name] === '-') {
-                            alert("해당 플레이어는 탈퇴하였습니다.");
+                            alert("해당 플레이어는 탈퇴하여 조회할 수 없습니다.");
                             resultDiv.innerHTML = "";
                         } else {
                             resultDiv.innerHTML = `<h2>조회성공!</h2><p>현재 ${name}님의 포인트는 ${scores[name]}점 입니다.</p>`;
