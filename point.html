@@ -105,12 +105,26 @@
     <div id="result"></div>
 
     <script>
-        document.onkeydown = function(e) {
-            if (e.key === 'F12') {
-                e.preventDefault();
-                return false;
-            }
+        const getSeoulDate = () => {
+            const now = new Date();
+            const utcNow = now.getTime() + (now.getTimezoneOffset() * 60000);
+            const seoulTimeOffset = 9 * 60 * 60000;
+            return new Date(utcNow + seoulTimeOffset);
         };
+
+        const calculateDaysSince = (joinDateStr) => {
+        const joinDate = new Date(joinDateStr.replace(/\//g, '-'));
+        const today = getSeoulDate();
+        
+        // 두 날짜의 차이를 밀리초 단위로 계산
+        const diffTime = today - joinDate;
+        
+        // 밀리초를 일 단위로 변환 (하루는 1000ms * 60초 * 60분 * 24시간)
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        
+        return diffDays;
+    };
+
 
         const resultDiv = document.getElementById('result');
         const lookupButton = document.getElementById('lookup-button');
@@ -137,11 +151,12 @@
                     const scores = {};
                     lines.forEach(line => {
                         const parts = line.split(':');
-                        if (parts.length === 3) {
+                        if (parts.length === 4) {
                             const key = parts[0].trim();
                             const score = parts[1].trim();
                             const pass = parts[2].trim();
-                            scores[key] = { score: score, password: pass };
+                            const joinDate = parts[3].trim();
+                            scores[key] = { score: score, password: pass, joinDate: joinDate };
                         } else {
                             console.error("유효하지 않은 라인 형식: " + line);
                         }
@@ -170,7 +185,9 @@
                             .sort((a, b) => b[1].score - a[1].score)
                             .findIndex(([key]) => key === name) + 1;
 
-                        resultDiv.innerHTML = `<h2>조회성공!</h2><p>현재 ${name}님의 포인트는 ${score}점 입니다.</p><p>🏆 현재 당신은 ${rank}위입니다! 🏆</p>`;
+                        const daysSinceJoin = calculateDaysSince(scores[name].joinDate);
+
+                        resultDiv.innerHTML = `<h2>조회성공!</h2><p>현재 ${name}님의 포인트는 ${score}점 입니다.</p><p>🏆 현재 당신은 ${rank}위입니다! 🏆<br> 📅 클랜을 가입한지 총 ${daysSinceJoin}일이 지났습니다! 📅</p>`;
                         loginForm.style.display = 'none';
                         resultDiv.style.display = 'block';
                         document.querySelector('h1').style.display = 'none';
