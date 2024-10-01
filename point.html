@@ -97,7 +97,7 @@
         <button id="lookup-button">조회</button>
         <p class="info-text">초기비밀번호는 0000입니다.</p>
         <div class="links">
-            <a id="find-password">비밀번호 찾기</a> | 
+            <a id="find-password">비밀번호 찾기</a>| 
             <a id="register">등록하기</a>
         </div>
     </div>
@@ -163,7 +163,7 @@
             fetch('https://www.camt4372.com/test.json')
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error('네트워크 응답이 올바르지 않습니다: ' + response.statusText);
+                        throw new Error('네트워크 응답이 올바르지 않습니다. 관리자에게 문의해주세요. : ' + response.statusText);
                     }
                     return response.text();
                 })
@@ -179,7 +179,7 @@
                             const joinDate = parts[3].trim();
                             scores[key] = { score: score, password: pass, joinDate: joinDate };
                         } else {
-                            console.error("유효하지 않은 라인 형식: " + line);
+                            console.error("유효하지 않은 라인 형식입니다. 관리자에게 문의해주세요. : " + line);
                         }
                     });
 
@@ -208,7 +208,7 @@
 
                         const daysSinceJoin = calculateDaysSince(scores[name].joinDate);
 
-                        resultDiv.innerHTML = `<h2>조회성공!</h2><p>현재 ${name}님의 포인트는 <strong>${score}점</strong> 입니다.</p><p>🏆 현재 당신은 <strong>${rank}</strong>위입니다! 🏆<br> 클랜을 가입한지 총 <strong>${daysSinceJoin}</strong>일이 지났습니다!</p>`;
+                        resultDiv.innerHTML = `<h3>👤 내정보 👤</h3><p>현재 ${name}님의 포인트는 <strong>${score}점</strong> 입니다.</p><p>🏆 현재 당신은 <strong>${rank}</strong>위입니다! 🏆<br> 클랜을 가입한지 총 <strong>${daysSinceJoin}</strong>일이 지났습니다!</p>`;
                         loginForm.style.display = 'none';
                         resultDiv.style.display = 'block';
                         document.querySelector('h1').style.display = 'none';
@@ -218,7 +218,7 @@
                     }
                 })
                 .catch(error => {
-                    alert("JSON 로딩 오류: " + error.message);
+                    alert("JSON 로딩 오류 관리자에게 문으해주세요. : " + error.message);
                 });
         });
 
