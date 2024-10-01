@@ -149,38 +149,32 @@
                     if (scores[name]) {
                         const score = scores[name].score;
 
-                        if (score === 'K') {
-                            alert("해당 멤버는 추방당하여 조회할 수 없습니다.");
-                            return;
-                        }
+                        if (scores[name].password === password) {
+                            if (score === 'K') {
+                                alert("해당 멤버는 추방당하여 조회할 수 없습니다.");
+                                return;
+                            }
 
-                        if (password === "0000") {
-                            alert("해당 멤버는 등록되지 않은 멤버입니다. 관리자에게 문의하세요.");
-                            return;
-                        }
-
-                        if (scores[name].password !== password) {
-                            alert("아이디 또는 비밀번호가 일치하지 않습니다.");
-                            resultDiv.innerHTML = "";
-                        } else {
                             if (score === '-') {
                                 alert("해당 플레이어는 탈퇴하여 조회할 수 없습니다.");
-                                resultDiv.innerHTML = "";
-                            } else {
-                                const sortedScores = Object.entries(scores)
-                                    .filter(([key]) => scores[key].score !== '-' && !isNaN(scores[key].score))
-                                    .sort((a, b) => b[1].score - a[1].score);
-
-                                const rank = sortedScores.findIndex(([key]) => key === name) + 1;
-
-                                resultDiv.innerHTML = `<h2>조회성공!</h2><p>현재 ${name}님의 포인트는 ${score}점 입니다.</p><p>🏆 현재 당신은 ${rank}위입니다! 🏆</p>`;
-                                loginForm.style.display = 'none';
-                                resultDiv.style.display = 'block';
-                                document.querySelector('h1').style.display = 'none';
+                                return;
                             }
+
+                            const rank = Object.entries(scores)
+                                .filter(([key]) => scores[key].score !== '-' && !isNaN(scores[key].score))
+                                .sort((a, b) => b[1].score - a[1].score)
+                                .findIndex(([key]) => key === name) + 1;
+
+                            resultDiv.innerHTML = `<h2>조회성공!</h2><p>현재 ${name}님의 포인트는 ${score}점 입니다.</p><p>🏆 현재 당신은 ${rank}위입니다! 🏆</p>`;
+                            loginForm.style.display = 'none';
+                            resultDiv.style.display = 'block';
+                            document.querySelector('h1').style.display = 'none';
+                        } else {
+                            alert("아이디 또는 비밀번호가 일치하지 않습니다.");
+                            resultDiv.innerHTML = "";
                         }
                     } else {
-                        alert("사용자를 찾을 수 없습니다.");
+                        alert("해당 멤버는 등록되지 않은 멤버입니다. 관리자에게 문의하세요.");
                         resultDiv.innerHTML = "";
                     }
                 })
