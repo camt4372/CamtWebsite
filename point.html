@@ -69,6 +69,24 @@
             text-align: center;
             display: none;
         }
+        .info-text {
+            color: red;
+            margin-top: 10px;
+            font-size: 12px;
+        }
+        .links {
+            margin-top: 10px;
+            font-size: 12px;
+        }
+        .links a {
+            color: #007bff;
+            text-decoration: none;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        .links a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -77,6 +95,11 @@
         <input type="text" id="name-input" placeholder="이름을 입력하세요">
         <input type="password" id="password-input" placeholder="비밀번호를 입력하세요">
         <button id="lookup-button">조회</button>
+        <p class="info-text">초기비밀번호는 0000입니다.</p>
+        <div class="links">
+            <a id="find-password">비밀번호 찾기</a> | 
+            <a id="register">등록하기</a>
+        </div>
     </div>
 
     <div id="result"></div>
@@ -115,7 +138,7 @@
                         const parts = line.split(':');
                         if (parts.length === 3) {
                             const key = parts[0].trim();
-                            const score = parseInt(parts[1].trim())
+                            const score = parts[1].trim();
                             const pass = parts[2].trim();
                             scores[key] = { score: score, password: pass };
                         } else {
@@ -124,22 +147,33 @@
                     });
 
                     if (scores[name]) {
+                        const score = scores[name].score;
+
+                        if (score === 'K') {
+                            alert("해당 멤버는 추방당하여 조회할 수 없습니다.");
+                            return;
+                        }
+
+                        if (password === "0000") {
+                            alert("해당 멤버는 등록되지 않은 멤버입니다. 관리자에게 문의하세요.");
+                            return;
+                        }
+
                         if (scores[name].password !== password) {
                             alert("아이디 또는 비밀번호가 일치하지 않습니다.");
                             resultDiv.innerHTML = "";
                         } else {
-                            if (scores[name].score === '-') {
+                            if (score === '-') {
                                 alert("해당 플레이어는 탈퇴하여 조회할 수 없습니다.");
                                 resultDiv.innerHTML = "";
                             } else {
-                                // 순위 계산
                                 const sortedScores = Object.entries(scores)
                                     .filter(([key]) => scores[key].score !== '-' && !isNaN(scores[key].score))
                                     .sort((a, b) => b[1].score - a[1].score);
 
                                 const rank = sortedScores.findIndex(([key]) => key === name) + 1;
 
-                                resultDiv.innerHTML = `<h2>조회성공!</h2><p>현재 ${name}님의 포인트는 ${scores[name].score}점 입니다.</p><p>🏆 현재 당신은 ${rank}위입니다! 🏆</p>`;
+                                resultDiv.innerHTML = `<h2>조회성공!</h2><p>현재 ${name}님의 포인트는 ${score}점 입니다.</p><p>🏆 현재 당신은 ${rank}위입니다! 🏆</p>`;
                                 loginForm.style.display = 'none';
                                 resultDiv.style.display = 'block';
                                 document.querySelector('h1').style.display = 'none';
@@ -153,6 +187,17 @@
                 .catch(error => {
                     alert("Error loading JSON: " + error.message);
                 });
+        });
+
+        const findPasswordLink = document.getElementById('find-password');
+        const registerLink = document.getElementById('register');
+
+        findPasswordLink.addEventListener('click', () => {
+            alert("개발자 또는 관리자에게 문의하세요.");
+        });
+
+        registerLink.addEventListener('click', () => {
+            alert("개발자 또는 관리자에게 문의하세요.");
         });
     </script>
 </body>
