@@ -112,16 +112,20 @@
             return new Date(utcNow + seoulTimeOffset);
         };
 
+
         const calculateDaysSince = (joinDateStr) => {
         const joinDate = new Date(joinDateStr.replace(/\//g, '-'));
         const today = getSeoulDate();
-        
+
+        joinDate.setHours(0, 0, 0, 0);
+        today.setHours(0, 0, 0, 0);
+
         const diffTime = today - joinDate;
-        
         const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-        
+
         return diffDays;
     };
+
 
 
         const resultDiv = document.getElementById('result');
