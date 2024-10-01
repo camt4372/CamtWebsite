@@ -119,6 +119,7 @@
         lookupButton.addEventListener('click', () => {
             const name = document.getElementById('name-input').value.trim();
             const password = document.getElementById('password-input').value.trim();
+
             if (name === "" || password === "") {
                 alert("이름과 비밀번호를 입력하세요.");
                 return;
@@ -127,7 +128,7 @@
             fetch('https://www.camt4372.com/test.json')
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error('Network response was not ok ' + response.statusText);
+                        throw new Error('네트워크 응답이 올바르지 않습니다: ' + response.statusText);
                     }
                     return response.text();
                 })
@@ -142,46 +143,58 @@
                             const pass = parts[2].trim();
                             scores[key] = { score: score, password: pass };
                         } else {
-                            console.error("Invalid line format: " + line);
+                            console.error("유효하지 않은 라인 형식: " + line);
                         }
                     });
 
-                    if (scores[name]) {
+                    if (scores[name] && scores[name].password === password) {
                         const score = scores[name].score;
 
-                        if (scores[name].password === password) {
-                            if (score === 'K') {
-                                alert("해당 멤버는 추방당하여 조회할 수 없습니다.");
-                                return;
-                            }
-
-                            if (score === '-') {
-                                alert("해당 플레이어는 탈퇴하여 조회할 수 없습니다.");
-                                return;
-                            }
-
-                            const rank = Object.entries(scores)
-                                .filter(([key]) => scores[key].score !== '-' && !isNaN(scores[key].score))
-                                .sort((a, b) => b[1].score - a[1].score)
-                                .findIndex(([key]) => key === name) + 1;
-
-                            resultDiv.innerHTML = `<h2>조회성공!</h2><p>현재 ${name}님의 포인트는 ${score}점 입니다.</p><p>🏆 현재 당신은 ${rank}위입니다! 🏆</p>`;
-                            loginForm.style.display = 'none';
-                            resultDiv.style.display = 'block';
-                            document.querySelector('h1').style.display = 'none';
-                        } else {
-                            alert("아이디 또는 비밀번호가 일치하지 않습니다.");
-                            resultDiv.innerHTML = "";
+                        if (score === 'K') {
+                            alert("해당 멤버는 추방당하여 조회할 수 없습니다.");
+                            return;
                         }
+
+                        if (score === '-') {
+                            alert("해당 플레이어는 탈퇴하여 조회할 수 없습니다.");
+                            return;
+                        }
+
+                        if (password === "0000") {
+                            alert("해당 멤버는 등록되지 않은 멤버입니다. 관리자에게 문의하세요.");
+                            return;
+                        }
+
+                        const rank = Object.entries(scores)
+                            .filter(([key]) => scores[key].score !== '-' && !isNaN(scores[key].score))
+                            .sort((a, b) => b[1].score - a[1].score)
+                            .findIndex(([key]) => key === name) + 1;
+
+                        resultDiv.innerHTML = `<h2>조회성공!</h2><p>현재 ${name}님의 포인트는 ${score}점 입니다.</p><p>🏆 현재 당신은 ${rank}위입니다! 🏆</p>`;
+                        loginForm.style.display = 'none';
+                        resultDiv.style.display = 'block';
+                        document.querySelector('h1').style.display = 'none';
                     } else {
-                        alert("해당 멤버는 등록되지 않은 멤버입니다. 관리자에게 문의하세요.");
+                        alert("아이디 또는 비밀번호가 일치하지 않습니다.");
                         resultDiv.innerHTML = "";
                     }
                 })
                 .catch(error => {
-                    alert("Error loading JSON: " + error.message);
+                    alert("JSON 로딩 오류: " + error.message);
                 });
         });
+
+        function handleEnterKey(event) {
+            if (event.key === 'Enter') {
+                lookupButton.click();
+            }
+        }
+
+        const nameInput = document.getElementById('name-input');
+        const passwordInput = document.getElementById('password-input');
+
+        nameInput.addEventListener('keydown', handleEnterKey);
+        passwordInput.addEventListener('keydown', handleEnterKey);
 
         const findPasswordLink = document.getElementById('find-password');
         const registerLink = document.getElementById('register');
