@@ -23,7 +23,7 @@
             height: 100vh;
             transition: background 0.5s;
         }
-        h1 {
+        h2 {
             color: #333;
             margin-bottom: 20px;
         }
@@ -106,142 +106,125 @@
     <div id="result"></div>
 
     <script>
-        document.addEventListener('keydown', function (event) {
-            if (event.key === 'F12' || (event.ctrlKey && event.shiftKey && event.key === 'I')) {
-                event.preventDefault();
-            }
-        });
-    
-        document.addEventListener('contextmenu', function (event) {
-            event.preventDefault();
-        });
-    
-        document.addEventListener('keydown', function (event) {
-            if (event.ctrlKey && event.shiftKey && event.key === 'I') {
-                event.preventDefault();
-            }
-        });
-    </script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const getSeoulDate = () => {
+                const now = new Date();
+                const utcNow = now.getTime() + (now.getTimezoneOffset() * 60000);
+                const seoulTimeOffset = 9 * 60 * 60000;
+                return new Date(utcNow + seoulTimeOffset);
+            };
 
-    <script>
-        const getSeoulDate = () => {
-            const now = new Date();
-            const utcNow = now.getTime() + (now.getTimezoneOffset() * 60000);
-            const seoulTimeOffset = 9 * 60 * 60000;
-            return new Date(utcNow + seoulTimeOffset);
-        };
+            const calculateDaysSince = (joinDateStr) => {
+                const joinDate = new Date(joinDateStr.replace(/\//g, '-'));
+                const today = getSeoulDate();
 
-        const calculateDaysSince = (joinDateStr) => {
-            const joinDate = new Date(joinDateStr.replace(/\//g, '-'));
-            const today = getSeoulDate();
+                joinDate.setHours(0, 0, 0, 0);
+                today.setHours(0, 0, 0, 0);
 
-            joinDate.setHours(0, 0, 0, 0);
-            today.setHours(0, 0, 0, 0);
+                const diffTime = today - joinDate;
+                const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
-            const diffTime = today - joinDate;
-            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                return diffDays;
+            };
 
-            return diffDays;
-        };
+            const resultDiv = document.getElementById('result');
+            const lookupButton = document.getElementById('lookup-button');
+            const loginForm = document.getElementById('login-form');
 
-        const resultDiv = document.getElementById('result');
-        const lookupButton = document.getElementById('lookup-button');
-        const loginForm = document.getElementById('login-form');
+            lookupButton.addEventListener('click', () => {
+                const name = document.getElementById('name-input').value.trim();
+                const password = document.getElementById('password-input').value.trim();
 
-        lookupButton.addEventListener('click', () => {
-            const name = document.getElementById('name-input').value.trim();
-            const password = document.getElementById('password-input').value.trim();
+                if (name === "" || password === "") {
+                    alert("이름과 비밀번호를 입력하세요.");
+                    return;
+                }
 
-            if (name === "" || password === "") {
-                alert("이름과 비밀번호를 입력하세요.");
-                return;
-            }
+                fetch('https://www.camt4372.com/test.json')
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('네트워크 응답이 올바르지 않습니다. 관리자에게 문의해주세요. : ' + response.statusText);
+                        }
+                        return response.text();
+                    })
+                    .then(text => {
+                        const lines = text.split('\n');
+                        const scores = {};
+                        lines.forEach(line => {
+                            const parts = line.split(':');
+                            if (parts.length === 4) {
+                                const key = parts[0].trim();
+                                const score = parts[1].trim();
+                                const pass = parts[2].trim();
+                                const joinDate = parts[3].trim();
+                                scores[key] = { score: score, password: pass, joinDate: joinDate };
+                            } else {
+                                console.error("유효하지 않은 라인 형식입니다. 관리자에게 문의해주세요. : " + line);
+                            }
+                        });
 
-            fetch('https://www.camt4372.com/test.json')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('네트워크 응답이 올바르지 않습니다. 관리자에게 문의해주세요. : ' + response.statusText);
-                    }
-                    return response.text();
-                })
-                .then(text => {
-                    const lines = text.split('\n');
-                    const scores = {};
-                    lines.forEach(line => {
-                        const parts = line.split(':');
-                        if (parts.length === 4) {
-                            const key = parts[0].trim();
-                            const score = parts[1].trim();
-                            const pass = parts[2].trim();
-                            const joinDate = parts[3].trim();
-                            scores[key] = { score: score, password: pass, joinDate: joinDate };
+                        if (scores[name] && scores[name].password === password) {
+                            const score = scores[name].score;
+
+                            if (score === 'K') {
+                                alert("해당 멤버는 추방당하여 조회할 수 없습니다.");
+                                return;
+                            }
+
+                            if (score === '-') {
+                                alert("해당 플레이어는 탈퇴하여 조회할 수 없습니다.");
+                                return;
+                            }
+
+                            if (password === "0000") {
+                                alert("해당 멤버는 등록되지 않은 멤버입니다. 관리자에게 문의하세요.");
+                                return;
+                            }
+
+                            const rank = Object.entries(scores)
+                                .filter(([key]) => scores[key].score !== '-' && !isNaN(scores[key].score))
+                                .sort((a, b) => b[1].score - a[1].score)
+                                .findIndex(([key]) => key === name) + 1;
+
+                            const daysSinceJoin = calculateDaysSince(scores[name].joinDate);
+
+                            document.body.style.background = 'linear-gradient(to right, #87CEEB, #B0E0E6)';
+
+                            resultDiv.innerHTML = `<h3>👤 내정보 👤</h3><p>현재 ${name}님의 포인트는 <strong>${score}점</strong> 입니다.</p><p>🏆 현재 당신은 <strong>${rank}</strong>위입니다! 🏆<br> 클랜을 가입한지 총 <strong>${daysSinceJoin}</strong>일이 지났습니다!</p>`;
+                            loginForm.style.display = 'none';
+                            resultDiv.style.display = 'block';
                         } else {
-                            console.error("유효하지 않은 라인 형식입니다. 관리자에게 문의해주세요. : " + line);
+                            alert("아이디 또는 비밀번호가 일치하지 않습니다.");
+                            resultDiv.innerHTML = "";
                         }
+                    })
+                    .catch(error => {
+                        alert("JSON 로딩 오류 관리자에게 문의해주세요. : " + error.message);
                     });
+            });
 
-                    if (scores[name] && scores[name].password === password) {
-                        const score = scores[name].score;
-
-                        if (score === 'K') {
-                            alert("해당 멤버는 추방당하여 조회할 수 없습니다.");
-                            return;
-                        }
-
-                        if (score === '-') {
-                            alert("해당 플레이어는 탈퇴하여 조회할 수 없습니다.");
-                            return;
-                        }
-
-                        if (password === "0000") {
-                            alert("해당 멤버는 등록되지 않은 멤버입니다. 관리자에게 문의하세요.");
-                            return;
-                        }
-
-                        const rank = Object.entries(scores)
-                            .filter(([key]) => scores[key].score !== '-' && !isNaN(scores[key].score))
-                            .sort((a, b) => b[1].score - a[1].score)
-                            .findIndex(([key]) => key === name) + 1;
-
-                        const daysSinceJoin = calculateDaysSince(scores[name].joinDate);
-
-                        document.body.style.background = 'linear-gradient(to right, #87CEEB, #B0E0E6)';
-
-                        resultDiv.innerHTML = `<h3>👤 내정보 👤</h3><p>현재 ${name}님의 포인트는 <strong>${score}점</strong> 입니다.</p><p>🏆 현재 당신은 <strong>${rank}</strong>위입니다! 🏆<br> 클랜을 가입한지 총 <strong>${daysSinceJoin}</strong>일이 지났습니다!</p>`;
-                        loginForm.style.display = 'none';
-                        resultDiv.style.display = 'block';
-                        document.querySelector('h1').style.display = 'none';
-                    } else {
-                        alert("아이디 또는 비밀번호가 일치하지 않습니다.");
-                        resultDiv.innerHTML = "";
-                    }
-                })
-                .catch(error => {
-                    alert("JSON 로딩 오류 관리자에게 문의해주세요. : " + error.message);
-                });
-        });
-
-        function handleEnterKey(event) {
-            if (event.key === 'Enter') {
-                lookupButton.click();
+            function handleEnterKey(event) {
+                if (event.key === 'Enter') {
+                    lookupButton.click();
+                }
             }
-        }
 
-        const nameInput = document.getElementById('name-input');
-        const passwordInput = document.getElementById('password-input');
+            const nameInput = document.getElementById('name-input');
+            const passwordInput = document.getElementById('password-input');
 
-        nameInput.addEventListener('keydown', handleEnterKey);
-        passwordInput.addEventListener('keydown', handleEnterKey);
+            nameInput.addEventListener('keydown', handleEnterKey);
+            passwordInput.addEventListener('keydown', handleEnterKey);
 
-        const findPasswordLink = document.getElementById('find-password');
-        const registerLink = document.getElementById('register');
+            const findPasswordLink = document.getElementById('find-password');
+            const registerLink = document.getElementById('register');
 
-        findPasswordLink.addEventListener('click', () => {
-            alert("비밀번호 찾기는 문의방 또는 관리자에게 문의해주세요!");
-        });
+            findPasswordLink.addEventListener('click', () => {
+                alert("비밀번호 찾기는 문의방 또는 관리자에게 문의해주세요!");
+            });
 
-        registerLink.addEventListener('click', () => {
-            alert("등록은 문의방 또는 관리자에게 문의해주세요!");
+            registerLink.addEventListener('click', () => {
+                alert("등록은 문의방 또는 관리자에게 문의해주세요!");
+            });
         });
     </script>
 </body>
