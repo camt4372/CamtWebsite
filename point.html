@@ -208,7 +208,7 @@
 
                         const daysSinceJoin = calculateDaysSince(scores[name].joinDate);
 
-                        resultDiv.innerHTML = `<h2>조회성공!</h2><p>현재 ${name}님의 포인트는 ${score}점 입니다.</p><p>🏆 현재 당신은 ${rank}위입니다! 🏆<br> 클랜을 가입한지 총 ${daysSinceJoin}일이 지났습니다!</p>`;
+                        resultDiv.innerHTML = `<h2>조회성공!</h2><p>현재 ${name}님의 포인트는 <strong>${score}점<\strong> 입니다.</p><p>🏆 현재 당신은 <strong>${rank}<\strong>위입니다! 🏆<br> 클랜을 가입한지 총 <strong>${daysSinceJoin}<\strong>일이 지났습니다!</p>`;
                         loginForm.style.display = 'none';
                         resultDiv.style.display = 'block';
                         document.querySelector('h1').style.display = 'none';
