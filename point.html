@@ -13,7 +13,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            background: linear-gradient(to right, #87CEEB, #B0E0E6);
             margin: 0;
             padding: 20px;
             display: flex;
@@ -21,6 +21,7 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
+            transition: background 0.5s;
         }
         h1 {
             color: #333;
@@ -121,7 +122,6 @@
             }
         });
     </script>
-    
 
     <script>
         const getSeoulDate = () => {
@@ -131,21 +131,18 @@
             return new Date(utcNow + seoulTimeOffset);
         };
 
-
         const calculateDaysSince = (joinDateStr) => {
-        const joinDate = new Date(joinDateStr.replace(/\//g, '-'));
-        const today = getSeoulDate();
+            const joinDate = new Date(joinDateStr.replace(/\//g, '-'));
+            const today = getSeoulDate();
 
-        joinDate.setHours(0, 0, 0, 0);
-        today.setHours(0, 0, 0, 0);
+            joinDate.setHours(0, 0, 0, 0);
+            today.setHours(0, 0, 0, 0);
 
-        const diffTime = today - joinDate;
-        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            const diffTime = today - joinDate;
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
-        return diffDays;
-    };
-
-
+            return diffDays;
+        };
 
         const resultDiv = document.getElementById('result');
         const lookupButton = document.getElementById('lookup-button');
@@ -208,6 +205,8 @@
 
                         const daysSinceJoin = calculateDaysSince(scores[name].joinDate);
 
+                        document.body.style.background = 'linear-gradient(to right, #87CEEB, #B0E0E6)';
+
                         resultDiv.innerHTML = `<h3>👤 내정보 👤</h3><p>현재 ${name}님의 포인트는 <strong>${score}점</strong> 입니다.</p><p>🏆 현재 당신은 <strong>${rank}</strong>위입니다! 🏆<br> 클랜을 가입한지 총 <strong>${daysSinceJoin}</strong>일이 지났습니다!</p>`;
                         loginForm.style.display = 'none';
                         resultDiv.style.display = 'block';
@@ -218,7 +217,7 @@
                     }
                 })
                 .catch(error => {
-                    alert("JSON 로딩 오류 관리자에게 문으해주세요. : " + error.message);
+                    alert("JSON 로딩 오류 관리자에게 문의해주세요. : " + error.message);
                 });
         });
 
