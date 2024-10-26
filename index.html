@@ -12,590 +12,119 @@
     <link rel="icon" href="https://i.ibb.co/28V5M3S/image.png" type="image/png">
     <meta content="" name="keywords">
     <meta content="" name="description">
-
-    <!-- 파비콘 -->
-    <link href="img/favicon.ico" rel="icon">
-
-    <!-- 구글 웹 폰트 -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500&family=Jost:wght@500;600;700&display=swap" rel="stylesheet"> 
-
-    <!-- 아이콘 글꼴 스타일시트 -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
-    <!-- 라이브러리 스타일시트 -->
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-
-    <!-- 커스텀 부트스트랩 스타일시트 -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- 템플릿 스타일시트 -->
-    <link href="css/style.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #c0c0aa, #1cefff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            width: 60%;
+            max-width: 600px;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            padding: 50px 40px;
+        }
+        h1 {
+            color: #444;
+            font-size: 30px;
+            margin-bottom: 40px;
+            font-weight: bold;
+        }
+        .progress-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 20px;
+            margin: 0 auto;
+            height: 30px;
+            overflow: hidden;
+            position: relative;
+        }
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #6a11cb, #2575fc);
+            border-radius: 20px;
+            transition: width 0.6s ease;
+        }
+        .percentage {
+            margin: 25px 0 30px;
+            font-size: 22px;
+            color: #555;
+            font-weight: 500;
+        }
+        .progress-label {
+            position: absolute;
+            left: 10px;
+            top: -20px;
+            font-size: 14px;
+            color: #000;
+            background: #ffffff;
+            padding: 0 5px;
+            border-radius: 5px;
+        }
+        .email-container {
+            margin: 50px auto 0;
+            width: 320px;
+            height: 70px;
+            background: #ffffff;
+            border: 2px solid #2575fc;
+            border-radius: 35px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .email-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+        }
+        .email-container a {
+            color: #2575fc;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+    </style>
 </head>
-
-<body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="51">
-    <div class="container-xxl bg-white p-0">
-        <!-- 스피너 시작 -->
-        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-            <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
-                <span class="sr-only">로딩중...</span>
-            </div>
+<body>
+    <div class="container">
+        <h1>홈페이지 리뉴얼 중. . . </h1>
+        <div class="progress-container">
+            <div class="progress-label">현재 진행도</div>
+            <div class="progress-bar" id="progress-bar"></div>
         </div>
-        <!-- 스피너 끝 -->
+        <div class="percentage" id="percentage">0%</div>
 
-
-        <!-- 내비바 & 히어로 -->
-        <div class="container-xxl position-relative p-0" id="home">
-            <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
-                <a href="" class="navbar-brand p-0">
-                    <img src="https://www.camt4372.com/camt4372.png" alt="캠트">
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                    <span class="fa fa-bars"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <div class="navbar-nav mx-auto py-0">
-                        <a href="#home" class="nav-item nav-link active">홈</a>
-                        <a href="#about" class="nav-item nav-link">대하여</a>
-                        <a href="#feature" class="nav-item nav-link">자랑</a>
-                        <a href="#pricing" class="nav-item nav-link">광고하기</a>
-                        <a href="#contact" class="nav-item nav-link">연락하기</a>
-                    </div>
-                    <a href="https://www.youtube.com/%EC%BA%A0%ED%8A%B8?sub_confirmation=1" class="btn btn-primary-gradient rounded-pill py-2 px-4 ms-3 d-none d-lg-block">구독하기</a>
-                </div>
-            </nav>
-
-            <div class="container-xxl bg-primary hero-header">
-                <div class="container px-lg-5">
-                    <div class="row g-5">
-                        <div class="col-lg-8 text-center text-lg-start">
-                            <h1 class="text-white mb-4 animated slideInDown">환영합니다. 👋</h1>
-                            <p class="text-white pb-3 animated slideInDown">안녕하세요. 캠트 공식 사이트에 오신것을 환영합니다.<br>
-                            캠트 사이트는 이처럼 새롭게 리뉴얼 되었습니다!<br><br>
-                            볼것 없긴 하지만 제 사이트에 방문 해주셔서 진심으로 감사드립니다 😊<br>
-                            자유롭게 둘러보시고 추가할것이 있다면 캠트에게 문의해주세요.<br>
-                            공식 캠트 디스코드 서버도 있습니다!</p>
-                            <a href="https://www.youtube.com/%EC%BA%A0%ED%8A%B8" class="btn btn-primary-gradient py-sm-3 px-4 px-sm-5 rounded-pill me-3 animated slideInLeft">유튜브 채널</a>
-                            <a href="https://www.camt4372.com/discord" class="btn btn-secondary-gradient py-sm-3 px-4 px-sm-5 rounded-pill animated slideInRight">디스코드 서버</a>
-                        </div>
-                        <div class="col-lg-4 d-flex justify-content-center justify-content-lg-end wow fadeInUp" data-wow-delay="0.3s">
-                            <div class="owl-carousel screenshot-carousel">
-                                <img class="img-fluid" src="img/screenshot-1.png" alt="">
-                                <img class="img-fluid" src="img/screenshot-2.png" alt="">
-                                <img class="img-fluid" src="img/screenshot-3.png" alt="">
-                                <img class="img-fluid" src="img/screenshot-4.png" alt="">
-                                <img class="img-fluid" src="img/screenshot-5.png" alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="email-container">
+            <a href="mailto:help@camt4372.com">help@camt4372.com</a>
         </div>
-        <!-- 내비바 & 히어로 -->
-
-        <!-- 대하여 -->
-        <div class="container-xxl py-5" id="about">
-            <div class="container py-5 px-lg-5">
-                <div class="row g-5 align-items-center">
-                    <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <h5 class="text-primary-gradient fw-medium">채널에 대하여</h5>
-                        <h1 class="mb-4">#1 최고의 유튜브 채널!</h1>
-                        <p class="mb-4">
-                            캠트는 이전에 마인크래프트와 카트라이더 러쉬플러스 등 게임콘텐츠를 중심으로 활동하며 상당한 인기를 끌었던 유튜브 크리에이터였습니다.<br><br>
-                            캠트채널은 특히 게임 커뮤니티 내에서 높은 관심과 호응을 얻으며, 다양한 게임 컨텐츠를 통해 많은 구독자와 시청자들을 끌어모았습니다.<br><br>
-                            저는 최근 사업을 시도했지만, 개인적인 사정으로 인해 사업이 마무리되었습니다.
-                            </p>                            
-                        <div class="row g-4 mb-4">
-                            <div class="col-sm-6 wow fadeIn" data-wow-delay="0.5s">
-                                <div class="d-flex">
-                                    <i class="fa fa-cogs fa-2x text-primary-gradient flex-shrink-0 mt-1"></i>
-                                    <div class="ms-3">
-                                        <h2 class="mb-0" id="subscribers" data-toggle="counter-up">로딩중...</h2>
-                                        <p class="text-primary-gradient mb-0">총 구독자수</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 wow fadeIn" data-wow-delay="0.7s">
-                                <div class="d-flex">
-                                    <i class="fa fa-comments fa-2x text-secondary-gradient flex-shrink-0 mt-1"></i>
-                                    <div class="ms-3">
-                                        <h2 class="mb-0" id="views" data-toggle="counter-up">로딩중...</h2>
-                                        <p class="text-secondary-gradient mb-0">총 조회수</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <a id="refreshBtn" class="btn btn-primary-gradient py-sm-3 px-4 px-sm-5 rounded-pill mt-3">새로고침</a>
-                    </div>
-                    <div class="col-lg-6">
-                        <img class="img-fluid wow fadeInUp" data-wow-delay="0.5s" src="img/about.png">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- About End -->
-
-        <!-- 새로고침 스크립트 -->
-        <script>
-            document.getElementById('refreshBtn').addEventListener('click', function(event) {
-                event.preventDefault();
-                location.reload();
-            });
-            </script>
-        <!-- 새로고침 스크립트 -->
-            
-
-        <!-- 실시간 구독자, 조회수 -->
-        <script>
-            async function fetchYouTubeData() {
-                const API_KEY = 'AIzaSyBITlt3ccORYU0Z9E84JwZODaqJJbL60Ek';
-                const CHANNEL_ID = 'UC5iX7PKkbPXiESujo8ZKv1w';
-                const url = `https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`;
-            
-                try {
-                    const response = await fetch(url);
-                    const data = await response.json();
-                    const stats = data.items[0].statistics;
-            
-                    const subscribers = parseInt(stats.subscriberCount).toLocaleString() + '명';
-                    const views = parseInt(stats.viewCount).toLocaleString() + '회';
-            
-                    document.getElementById('subscribers').innerText = subscribers;
-                    document.getElementById('views').innerText = views;
-                } catch (error) {
-                    console.error('Error fetching YouTube data:', error);
-                    document.getElementById('subscribers').innerText = 'Error';
-                    document.getElementById('views').innerText = 'Error';
-                }
-            }
-
-            document.addEventListener('DOMContentLoaded', fetchYouTubeData);
-        </script>
-        <!-- 실시간 구독자, 조회수 -->
-
-
-        <!-- 자랑 -->
-        <div class="container-xxl py-5" id="feature">
-            <div class="container py-5 px-lg-5">
-                <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                    <h5 class="text-primary-gradient fw-medium">캠트 채널의 자랑</h5>
-                    <h1 class="mb-5">자랑할 것들</h1>
-                </div>
-                <div class="row g-4">
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="feature-item bg-light rounded p-4">
-                            <div class="d-inline-flex align-items-center justify-content-center bg-primary-gradient rounded-circle mb-4" style="width: 60px; height: 60px;">
-                                <i class="fa fa-eye text-white fs-4"></i>
-                            </div>
-                            <h5 class="mb-3">댓글 확인</h5>
-                            <p class="m-0">캠트는 다른 채널과 다르게 소중한 댓글 하나하나 모두 확인합니다.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="feature-item bg-light rounded p-4">
-                            <div class="d-inline-flex align-items-center justify-content-center bg-secondary-gradient rounded-circle mb-4" style="width: 60px; height: 60px;">
-                                <i class="fa fa-layer-group text-white fs-4"></i>
-                            </div>
-                            <h5 class="mb-3">댓글 관리</h5>
-                            <p class="m-0">캠트는 댓글을 관리하여 스팸댓글이 없도록 합니다.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                        <div class="feature-item bg-light rounded p-4">
-                            <div class="d-inline-flex align-items-center justify-content-center bg-primary-gradient rounded-circle mb-4" style="width: 60px; height: 60px;">
-                                <i class="fa fa-edit text-white fs-4"></i>
-                            </div>
-                            <h5 class="mb-3">댓글 답장</h5>
-                            <p class="m-0">캠트는 다른 채널과 다르게 모든 소중한 댓글에 답장을 해드립니다.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="feature-item bg-light rounded p-4">
-                            <div class="d-inline-flex align-items-center justify-content-center bg-secondary-gradient rounded-circle mb-4" style="width: 60px; height: 60px;">
-                                <i class="fa fa-shield-alt text-white fs-4"></i>
-                            </div>
-                            <h5 class="mb-3">법적 조치</h5>
-                            <p class="m-0">캠트는 악플을 처리하기 귀찮기에 법적으로 조치를 취합니다.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="feature-item bg-light rounded p-4">
-                            <div class="d-inline-flex align-items-center justify-content-center bg-primary-gradient rounded-circle mb-4" style="width: 60px; height: 60px;">
-                                <i class="fa fa-cloud text-white fs-4"></i>
-                            </div>
-                            <h5 class="mb-3">댓글 고정</h5>
-                            <p class="m-0">캠트 채널에서는 재미있는 댓글은 고정을 해드립니다.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                        <div class="feature-item bg-light rounded p-4">
-                            <div class="d-inline-flex align-items-center justify-content-center bg-secondary-gradient rounded-circle mb-4" style="width: 60px; height: 60px;">
-                                <i class="fa fa-mobile-alt text-white fs-4"></i>
-                            </div>
-                            <h5 class="mb-3">24시간 답장</h5>
-                            <p class="m-0">캠트는 (아마도..?) 24시간동안 유튜브 댓글에 칼답해드립니다.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- 자랑 -->
-
-
-        <!-- 스크린샷 -->
-        <div class="container-xxl py-5">
-            <div class="container py-5 px-lg-5">
-                <div class="row g-5 align-items-center">
-                    <div class="col-lg-8 wow fadeInUp" data-wow-delay="0.1s">
-                        <h5 class="text-primary-gradient fw-medium">스크린샷</h5>
-                        <h1 class="mb-4">캠트 유튜브 채널 스크린샷</h1>
-                        <p class="mb-4">오른쪽 사진은 2024년 7월 2일 기준 캠트 채널의 스크린샷입니다.</p>
-                        <p><i class="fa fa-check text-primary-gradient me-3"></i>광고없는 캠트 유튜브영상 시청</p>
-                        <p><i class="fa fa-check text-primary-gradient me-3"></i>무료로 언제든지 구독 가능</p>
-                        <p class="mb-4"><i class="fa fa-check text-primary-gradient me-3"></i>구독자가 캠트에게 밥 사주기</p>
-                        <a href="https://www.youtube.com/%EC%BA%A0%ED%8A%B8?sub_confirmation=1" class="btn btn-primary-gradient py-sm-3 px-4 px-sm-5 rounded-pill mt-3">캠트채널 방문</a>
-                    </div>
-                    <div class="col-lg-4 d-flex justify-content-center justify-content-lg-end wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="owl-carousel screenshot-carousel">
-                            <img class="img-fluid" src="img/screenshot-1.png" alt="">
-                            <img class="img-fluid" src="img/screenshot-2.png" alt="">
-                            <img class="img-fluid" src="img/screenshot-3.png" alt="">
-                            <img class="img-fluid" src="img/screenshot-4.png" alt="">
-                            <img class="img-fluid" src="img/screenshot-5.png" alt="">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- 스크린샷 -->
-
-
-        <!-- 댓글 -->
-        <div class="container-xxl py-5">
-            <div class="container py-5 px-lg-5">
-                <div class="text-center pb-4 wow fadeInUp" data-wow-delay="0.1s">
-                    <h5 class="text-primary-gradient fw-medium">댓글 남기기</h5>
-                    <h1 class="mb-5">간단한 3단계</h1>
-                </div>
-                <div class="row gy-5 gx-4 justify-content-center">
-                    <div class="col-lg-4 col-sm-6 text-center pt-4 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="position-relative bg-light rounded pt-5 pb-4 px-4">
-                            <div class="d-inline-flex align-items-center justify-content-center bg-primary-gradient rounded-circle position-absolute top-0 start-50 translate-middle shadow" style="width: 100px; height: 100px;">
-                                <i class="fa fa-cog fa-3x text-white"></i>
-                            </div>
-                            <h5 class="mt-4 mb-3">유튜브 계정 로그인</h5>
-                            <p class="mb-0">유튜브에 접속하여 오른쪽 위 로그인 표시를 눌러서 로그인을 합니다.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-sm-6 text-center pt-4 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="position-relative bg-light rounded pt-5 pb-4 px-4">
-                            <div class="d-inline-flex align-items-center justify-content-center bg-secondary-gradient rounded-circle position-absolute top-0 start-50 translate-middle shadow" style="width: 100px; height: 100px;">
-                                <i class="fa fa-address-card fa-3x text-white"></i>
-                            </div>
-                            <h5 class="mt-4 mb-3">채널 설정</h5>
-                            <p class="mb-0">댓글을 남기기위해서는 채널을 설정해야해요. 정상적인 이름으로 설정하세요!</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-sm-6 text-center pt-4 wow fadeInUp" data-wow-delay="0.5s">
-                        <div class="position-relative bg-light rounded pt-5 pb-4 px-4">
-                            <div class="d-inline-flex align-items-center justify-content-center bg-primary-gradient rounded-circle position-absolute top-0 start-50 translate-middle shadow" style="width: 100px; height: 100px;">
-                                <i class="fa fa-check fa-3x text-white"></i>
-                            </div>
-                            <h5 class="mt-4 mb-3">선플 남기기</h5>
-                            <p class="mb-0">캠트에게 선플을 남기시면 끝나요. 하지만, 악플을 달시 법적대응을 할 수도 있으니 조심하세요!</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- 댓글 -->
-
-
-        <!-- 다운로드 -->
-        <div class="container-xxl py-5">
-            <div class="container py-5 px-lg-5">
-                <div class="row g-5 align-items-center">
-                    <div class="col-lg-6">
-                        <img class="img-fluid wow fadeInUp" data-wow-delay="0.1s" src="img/about.png">
-                    </div>
-                    <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <h5 class="text-primary-gradient fw-medium">다운로드</h5>
-                        <h1 class="mb-4">최신 버전의 앱 다운로드</h1>
-                        <p class="mb-4">캠트 채널 전용앱은 개발중이예요!<br>예상 제작완료는 2124년 7월 1일이예요. 그때동안 기다려 주실꺼죠? 😉</p>
-                        <div class="row g-4">
-                            <div class="col-sm-6 wow fadeIn" data-wow-delay="0.5s">
-                                <a class="d-flex bg-primary-gradient rounded py-3 px-4">
-                                    <i class="fab fa-apple fa-3x text-white flex-shrink-0"></i>
-                                    <div class="ms-3">
-                                        <p class="text-white mb-0">IPhone of</p>
-                                        <h5 class="text-white mb-0">App Store</h5>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-sm-6 wow fadeIn" data-wow-delay="0.7s">
-                                <a class="d-flex bg-secondary-gradient rounded py-3 px-4">
-                                    <i class="fab fa-android fa-3x text-white flex-shrink-0"></i>
-                                    <div class="ms-3">
-                                        <p class="text-white mb-0">Android of</p>
-                                        <h5 class="text-white mb-0">Play Store</h5>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- 다운로드 -->
-
-
-        <!-- Pricing Start -->
-        <div class="container-xxl py-5" id="pricing">
-            <div class="container py-5 px-lg-5">
-                <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                    <h5 class="text-primary-gradient fw-medium">요금제</h5>
-                    <h1 class="mb-5">사이트 배너 광고</h1>
-                </div>
-                <div class="tab-class text-center pricing wow fadeInUp" data-wow-delay="0.1s">
-                    <ul class="nav nav-pills d-inline-flex justify-content-center bg-primary-gradient rounded-pill mb-5">
-                        <li class="nav-item">
-                            <button class="nav-link active" data-bs-toggle="pill" href="#tab-1">Monthly</button>
-                        </li>
-                        <li class="nav-item">
-                            <button class="nav-link" data-bs-toggle="pill" href="#tab-2">Yearly</button>
-                        </li>
-                    </ul>
-                    <div class="tab-content text-start">
-                        <div id="tab-1" class="tab-pane fade show p-0 active">
-                            <div class="row g-4">
-                                <div class="col-lg-4">
-                                    <div class="bg-light rounded">
-                                        <div class="border-bottom p-4 mb-4">
-                                            <h4 class="text-primary-gradient mb-1">1일</h4>
-                                            <span>1일 동안 https://www.camt4372.com/discord에 배너광고를 신청합니다.</span>
-                                        </div>
-                                        <div class="p-4 pt-0">
-                                            <h1 class="mb-3">
-                                                <small class="align-top" style="font-size: 22px; line-height: 45px;">₩</small>8,000원<small
-                                                    class="align-bottom" style="font-size: 16px; line-height: 40px;">/ Day</small>
-                                            </h1>
-                                            <a href="https://www.camt4372.com/discord" class="btn btn-primary-gradient rounded-pill py-2 px-4 mt-4">구매문의</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="bg-light rounded border">
-                                        <div class="border-bottom p-4 mb-4">
-                                            <h4 class="text-primary-gradient mb-1">7일</h4>
-                                            <span>7일 동안 https://www.camt4372.com/discord에 배너광고를 신청합니다.</span>
-                                        </div>
-                                        <div class="p-4 pt-0">
-                                            <h1 class="mb-3">
-                                                <small class="align-top" style="font-size: 22px; line-height: 45px;">₩</small>50,000원<small
-                                                    class="align-bottom" style="font-size: 16px; line-height: 40px;">/ Day</small>
-                                            </h1>
-                                            <a href="https://www.camt4372.com/discord" class="btn btn-secondary-gradient rounded-pill py-2 px-4 mt-4">구매문의</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="bg-light rounded">
-                                        <div class="border-bottom p-4 mb-4">
-                                            <h4 class="text-primary-gradient mb-1">30일</h4>
-                                            <span>30일 동안 https://www.camt4372.com/discord에 배너광고를 신청합니다.</span>
-                                        </div>
-                                        <div class="p-4 pt-0">
-                                            <h1 class="mb-3">
-                                                <small class="align-top" style="font-size: 22px; line-height: 45px;">₩</small>500,000원<small
-                                                    class="align-bottom" style="font-size: 16px; line-height: 40px;">/ Day</small>
-                                            </h1>
-                                            <a href="https://www.camt4372.com/discord" class="btn btn-primary-gradient rounded-pill py-2 px-4 mt-4">구매문의</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="tab-2" class="tab-pane fade p-0">
-                            <div class="row g-4">
-                                <div class="col-lg-4">
-                                    <div class="bg-light rounded">
-                                        <div class="border-bottom p-4 mb-4">
-                                            <h4 class="text-primary-gradient mb-1">1년</h4>
-                                            <span>1년 동안 https://www.camt4372.com/discord에 배너광고를 신청합니다.</span>
-                                        </div>
-                                        <div class="p-4 pt-0">
-                                            <h1 class="mb-3">
-                                                <small class="align-top" style="font-size: 22px; line-height: 45px;">₩</small>500,000원<small
-                                                    class="align-bottom" style="font-size: 16px; line-height: 40px;">/ Yearly</small>
-                                            </h1>
-                                            <a href="https://www.camt4372.com/discord" class="btn btn-primary-gradient rounded-pill py-2 px-4 mt-4">구매문의</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="bg-light rounded border">
-                                        <div class="border-bottom p-4 mb-4">
-                                            <h4 class="text-primary-gradient mb-1">2년</h4>
-                                            <span>2년 동안 https://www.camt4372.com/discord에 배너광고를 신청합니다.</span>
-                                        </div>
-                                        <div class="p-4 pt-0">
-                                            <h1 class="mb-3">
-                                                <small class="align-top" style="font-size: 22px; line-height: 45px;">₩</small>1,000,000원<small
-                                                    class="align-bottom" style="font-size: 16px; line-height: 40px;">/ Yearly</small>
-                                            </h1>
-                                            <a href="https://www.camt4372.com/discord" class="btn btn-primary-gradient rounded-pill py-2 px-4 mt-4">구매문의</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="bg-light rounded">
-                                        <div class="border-bottom p-4 mb-4">
-                                            <h4 class="text-primary-gradient mb-1">9999년</h4>
-                                            <span>9999년 동안 https://www.camt4372.com/discord에 배너광고를 신청합니다.</span>
-                                        </div>
-                                        <div class="p-4 pt-0">
-                                            <h1 class="mb-3">
-                                                <small class="align-top" style="font-size: 22px; line-height: 45px;">₩</small>200,000,000원<small
-                                                    class="align-bottom" style="font-size: 16px; line-height: 40px;">/ Yearly</small>
-                                            </h1>
-                                            <a href="https://www.camt4372.com/discord" class="btn btn-primary-gradient rounded-pill py-2 px-4 mt-4">구매문의</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Pricing End -->
-
-        <!-- Contact Start -->
-        <div class="container-xxl py-5" id="contact">
-            <div class="container py-5 px-lg-5">
-                <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                    <h5 class="text-primary-gradient fw-medium">연락하기</h5>
-                    <h1 class="mb-5">연락하기</h1>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-lg-9">
-                        <div class="wow fadeInUp" data-wow-delay="0.3s">
-                            <p class="text-center mb-4">장난으로 문의(연락)을 할 경우, 법적대응이나 서비스제한이 될 수 있습니다.</p>
-                            <form>
-                                <div class="row g-3">
-                                    <div class="col-md-6">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control" id="name" placeholder="Your Name">
-                                            <label for="name">이름</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-floating">
-                                            <input type="email" class="form-control" id="email" placeholder="Your Email">
-                                            <label for="email">이메일</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control" id="subject" placeholder="Subject">
-                                            <label for="subject">제목</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-floating">
-                                            <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 150px"></textarea>
-                                            <label for="message">내용</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 text-center">
-                                        <button class="btn btn-primary-gradient rounded-pill py-3 px-5" type="button" onclick="showError()">전송하기</button>
-                                    </div>
-                                    
-                                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-                                    <script>
-                                        function showError() {
-                                            Swal.fire({
-                                                icon: 'error',
-                                                title: '전송실패',
-                                                text: 'Message could not be sent (error code 923, server not found)'
-                                            });
-                                        }
-                                    </script>
-                                    
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Contact End -->
-        
-
-        <!-- Footer Start -->
-        <div class="container-fluid bg-primary text-light footer wow fadeIn" data-wow-delay="0.1s">
-            <div class="container py-5 px-lg-5">
-                <div class="row g-5">
-                    <div class="col-md-6 col-lg-3">
-                        <h4 class="text-white mb-4">주소</h4>
-                        <p><i class="fa fa-map-marker-alt me-3"></i>서울특별시 영등포구...</p>
-                        <p><i class="fa fa-envelope me-3"></i>camt4372@proton.me</p>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <h4 class="text-white mb-4">사이트 목록</h4>
-                        <a class="btn btn-link" href="https://www.youtube.com/%EC%BA%A0%ED%8A%B8">유튜브 채널</a>
-                        <a class="btn btn-link" href="https://www.camt4372.com/discord">디스코드 서버</a>
-                        <a class="btn btn-link" href="https://www.camt4372.com/privacypolicy">개인정보 처리방침</a>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <h4 class="text-white mb-4">캠트 서비스</h4>
-                        <a class="btn btn-link" href="https://www.youtube.com/%EC%BA%A0%ED%8A%B8">유튜브 채널</a>
-                        <a class="btn btn-link" href="https://www.camt4372.com/discord">디스코드 서버</a>
-                        <a class="btn btn-link" href="https://www.camt4372.com/privacypolicy">개인정보 처리방침</a>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <h4 class="text-white mb-4">구독하기</h4>
-                        <p>캠트의 소식을 이메일로 받습니다. (현재 작동하지 않음)</p>
-                        <div class="position-relative w-100 mt-3">
-                            <input class="form-control border-0 rounded-pill w-100 ps-4 pe-5" type="text" placeholder="이메일" style="height: 48px;">
-                            <button type="button" class="btn shadow-none position-absolute top-0 end-0 mt-1 me-2"><i class="fa fa-paper-plane text-primary-gradient fs-4"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container px-lg-5">
-                <div class="copyright">
-                    <div class="row">
-                        <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                        </div>
-                        <div class="col-md-6 text-center text-md-end">
-                            <div class="footer-menu">
-                                <a href="https://www.camt4372.com">홈</a>
-                                <a href="https://www.camt4372.com/privacypolicy">개인정보 처리방침</a>
-                                <a href="https://www.camt4372.com/privacypolicy">유튜브</a>
-                                <a href="https://www.camt4372.com/discord">디스코드</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <a href="#" class="btn btn-lg btn-lg-square back-to-top pt-2"><i class="bi bi-arrow-up text-white"></i></a>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/wow/wow.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/counterup/counterup.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="js/main.js"></script>
-</body>
+    <script>
+        let progress = 0;
+        const progressBar = document.getElementById('progress-bar');
+        const percentageText = document.getElementById('percentage');
 
+        function updateProgress() {
+            if (progress < 15) {
+                progress += 1;
+                progressBar.style.width = progress + '%';
+                percentageText.innerText = progress + '%';
+                setTimeout(updateProgress, 100);
+            }
+        }
+
+        updateProgress();
+    </script>
+</body>
 </html>
