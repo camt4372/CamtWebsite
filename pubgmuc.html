@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta name="description" content="모바일 배틀그라운드의 UC를 원화(₩)로 변환해줍니다.">
+    <meta property="og:title" content="모바일 배틀그라운드 UC계산기">
+    <meta property="og:description" content="모바일 배틀그라운드의 UC를 원화(₩)로 변환해줍니다.">
+    <meta property="og:image" content="https://images-ext-1.discordapp.net/external/MgpJBrTWY-pmyOlGMDRKZxXtVfFc1V4hfxjGp2F8yCM/https/i.postimg.cc/3RK2GGNh/20240801-203404.jpg?format=webp&width=592&height=592">
+    <link rel="icon" href="https://www.camt4372.com/camt4372.png" type="image/png">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>배틀그라운드 UC 계산기</title>
+    <style>
+        @font-face {
+            font-family: 'MaplestoryOTFBold';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            font-family: 'MaplestoryOTFBold', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #1f3a93, #6a89cc);
+            color: #333;
+            transition: background 1s;
+        }
+        .calculator {
+            background: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 360px;
+            text-align: center;
+        }
+        .calculator h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 20px;
+        }
+        .calculator label {
+            font-size: 16px;
+            margin-bottom: 8px;
+            display: block;
+            text-align: left;
+            color: #000;
+        }
+        .calculator .input-row {
+            margin-bottom: 20px;
+        }
+        .calculator input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        .calculator input[type="number"]:focus {
+            border-color: #1f3a93;
+        }
+        .calculator .result-label {
+            font-size: 16px;
+            color: #000;
+            margin-bottom: 5px;
+            text-align: left;
+        }
+        .calculator .result {
+            font-size: 28px;
+            font-weight: bold;
+            color: #000;
+            text-align: right;
+            margin-bottom: 20px;
+        }
+        .calculator .note {
+            color: #e74c3c;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+        .calculator button {
+            background-color: #1f3a93;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        .calculator button:hover {
+            background-color: #34495e;
+        }
+        .toast {
+            visibility: hidden;
+            min-width: 250px;
+            margin-left: -125px;
+            background-color: #28a745;
+            color: white;
+            text-align: center;
+            border-radius: 8px;
+            padding: 16px;
+            position: fixed;
+            z-index: 1;
+            right: 20px;
+            top: 20px;
+            font-size: 14px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .toast.show {
+            visibility: visible;
+            animation: fadein 0.5s, fadeout 0.5s 3.5s;
+        }
+
+        @keyframes fadein {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+
+        @keyframes fadeout {
+            from {opacity: 1;}
+            to {opacity: 0;}
+        }
+
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        .popup {
+            background: #fff;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            max-width: 300px;
+            width: 90%;
+        }
+
+        .popup h2 {
+            margin-top: 0;
+            font-size: 20px;
+        }
+
+        .popup p {
+            margin: 20px 0;
+            font-size: 14px;
+        }
+
+        .popup button {
+            background: #000;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 16px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .popup button:hover {
+            background: #333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="popup-overlay" id="popupOverlay">
+    <div class="popup">
+        <h2>ℹ️ 안내 ℹ️</h2>
+        <p>안녕하세요. 저의 사이트에 방문해주셔서 감사합니다.<br>
+        해당 계산기는 갤럭시 기준으로 60UC = 1,100원으로 계산하였으니 대충 이정도구나 라고 생각하시면 됩니다.<br><br>
+        해당 계산결과는 오차가 있을 수 있으며, 1UC당 18.33원으로 계산됩니다.</p>
+        <button id="closePopup">알겠습니다</button>
+    </div>
+</div>
+
+<div class="calculator">
+    <h1>배틀그라운드 UC 계산기</h1>
+    <div class="input-row">
+        <label for="ucInput">UC 수량</label>
+        <input type="number" id="ucInput" placeholder="수량" maxlength="7">
+    </div>
+    <div class="result-label">예상 금액</div>
+    <div class="result">₩0</div>
+    <div class="note">
+        해당 계산결과는 오차가 있을 수 있으며, 1UC당 18.33원으로 계산됩니다.
+    </div>
+    <button id="gameButton">게임 접속하기</button>
+    <p style="margin-top: 10px; font-size: 12px; color: #555;">- 개발자 캠트 -</p>
+</div>
+
+<script>
+    document.getElementById('ucInput').addEventListener('input', function() {
+        const ucAmount = this.value.slice(0, 7);
+        this.value = ucAmount;
+        const price = Math.round(ucAmount * 18.33);
+        document.querySelector('.result').textContent = `₩${price.toLocaleString()}`;
+    });
+
+    document.getElementById('gameButton').addEventListener('click', function() {
+        window.location.href = "https://mqf5.adj.st/module=xxx?adjust_t=lds2bl2_bjqup32&adjust_deeplink=igame1321://module%3Dxxx&adjust_campaign=";
+    });
+
+    function getRandomColor() {
+        const letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
+    window.onload = function() {
+        const colors = [getRandomColor(), getRandomColor()];
+        document.body.style.background = `linear-gradient(135deg, ${colors[0]}, ${colors[1]})`;
+
+        const popupOverlay = document.getElementById('popupOverlay');
+        const closePopup = document.getElementById('closePopup');
+
+        closePopup.addEventListener('click', function() {
+            popupOverlay.style.display = 'none';
+        });
+    };
+</script>
+
+</body>
+</html>
