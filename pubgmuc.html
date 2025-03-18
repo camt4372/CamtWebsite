@@ -10,6 +10,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>배틀그라운드 UC 계산기</title>
+    <script type="text/javascript">
+    document.addEventListener("keydown", function(e) {
+      if (e.keyCode === 123) {
+        e.preventDefault();
+        showErrorImage();
+      }
+    });
+  
+    document.addEventListener("contextmenu", function(e) {
+      e.preventDefault();
+      showErrorImage();
+    });
+  
+    function showErrorImage() {
+      var img = document.createElement('img');
+      img.src = '/errorf12.png';
+      img.style.position = 'fixed';
+      img.style.top = '50%';
+      img.style.left = '50%';
+      img.style.transform = 'translate(-50%, -50%)';
+      img.style.width = '300px';
+      img.style.height = 'auto';
+      img.style.border = '5px solid red';
+      img.style.borderRadius = '15px';
+      img.style.opacity = '0';
+      img.style.transition = 'opacity 1s ease';
+      document.body.appendChild(img);
+  
+      setTimeout(function() {
+        img.style.opacity = '1';
+      }, 10);
+  
+      setTimeout(function() {
+        img.style.opacity = '0';
+      }, 2000);
+  
+      setTimeout(function() {
+        img.remove();
+      }, 3000);
+    }
+  </script>
     <style>
         @font-face {
             font-family: 'MaplestoryOTFBold';
