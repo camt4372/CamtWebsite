@@ -18,7 +18,7 @@
             const timeString = now.toISOString().replace("T", " ").split(".")[0];
             
             const payload = {
-                content: `**\`[ Log ]\` ${timeString}에 누군가 사이트에 입장하였습니다.**`
+                content: `**\`[ Log ]\` ${timeString}에 손님이 사이트에 입장하였습니다.**`
             };
             
             fetch(webhookURL, {
