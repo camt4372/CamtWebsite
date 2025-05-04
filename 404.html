@@ -183,7 +183,7 @@
     const webhookURL = "https://l.webhook.party/hook/NegCcgHySURv%2FZbJbW51Klt8mjwMvfRdUSBleTenfvNEFuv5%2BqccQ2xoZpAHrjNMGwZBOH1oYJJMggfSG9ZYc2xO4Ma3TV7eWFJsLZ1CHywTQVI6VNnRpwcOLQgQ4rm2qpp8D6UgJ2b3TbDZ9gs6mD23jgdnRZu5bTCEcDjrQCYjCibUxejVIGUAylHMEIFIOcqjYhUXky%2FWdEpR3%2FjHzQiM%2FipIkHri4S95jHoTFaAJ6%2BUkxv9T%2FQkerD9K7p4J%2BpSXjruEQW9bmW%2BzzI621FUA%2BmuiX95A%2B18TWQQc2Ey7cu5Q3Iv%2BhWVnYdwhLbTV7msl5wh59JhH3D2DtkNdumVSeRZoyRzFk3iZpa5r8lWEDRsaUGxVpt81CXM5AgNWdxCiKNYgKpY%3D/AauleA2BI%2Bh92%2BP%2F";
     const currentURL = window.location.href;
     const payload = {
-        content: `[ Log ] 손님이 [${currentURL}]에 접속에 접속했지만 잘못된 사이트에 접속하셨습니다.`
+        content: `[ Log ] 손님이 [ ${currentURL} ]에 접속에 접속했지만 잘못된 사이트에 접속하셨습니다.`
     };
 
     fetch(webhookURL, {
