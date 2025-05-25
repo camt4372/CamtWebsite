@@ -6,7 +6,7 @@
     <meta property="og:title" content="로또 번호 생성기">
     <meta property="og:description" content="랜덤으로 로또 번호를 생성해줍니다.">
     <meta property="og:image" content="https://cphoto.asiae.co.kr/listimglink/1/2018041420272957043_1523705249.jpg">
-  <title>로또 번호 생성기기</title>
+  <title>로또 번호 생성기</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
   <style>
     * {
@@ -126,7 +126,7 @@
     }
 
     function generateLotto() {
-      resetLotto(); // 새로 추천할 때 기존 제거
+      resetLotto();
       const count = parseInt(document.getElementById('line-count').value);
       const container = document.getElementById('lotto-container');
 
