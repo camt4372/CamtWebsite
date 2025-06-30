@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta name="description" content="단순하지만 중독적인 운빨 테스트 게임. 당신은 과연 몇 번이나 연속으로 성공할 수 있을까요?">
+    <meta property="og:title" content="운빨 테스트 - 당신의 운을 시험해보세요!">
+    <meta property="og:description" content="단순하지만 중독적인 운빨 테스트 게임. 당신은 과연 몇 번이나 연속으로 성공할 수 있을까요?">
+    <meta property="og:image" content="https://i.ibb.co/DPBTQGzj/1751278204254.jpg">
+    <link rel="icon" href="https://i.ibb.co/DPBTQGzj/1751278204254.jpg" type="image/png">
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>운빨 테스트</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .transition-all {
+            transition: all 0.3s ease-in-out;
+        }
+        #cookie-consent-popup {
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+        .toast {
+            transition: all 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white flex items-center justify-center min-h-screen">
+
+    <div id="toast-container" class="fixed top-4 right-4 z-50 space-y-2"></div>
+
+    <div id="cookie-consent-popup" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-50 opacity-0 pointer-events-none transform scale-95">
+        <div class="bg-gray-800 rounded-2xl shadow-2xl p-8 max-w-sm w-full text-center">
+            <h2 id="popup-title" class="text-2xl font-bold mb-4 text-indigo-400"></h2>
+            <p id="popup-message" class="text-gray-400 mb-6"></p>
+            <div class="flex justify-center gap-4">
+                <button id="consent-allow" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg transition-all transform hover:scale-105"></button>
+                <button id="consent-deny" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-lg transition-all transform hover:scale-105"></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-full max-w-md mx-auto p-8 bg-gray-800 rounded-2xl shadow-2xl text-center relative">
+        <button id="cookie-settings-button" class="absolute top-4 right-4 bg-gray-700 hover:bg-gray-600 text-white p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white hidden" title="쿠키 설정">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.096 2.572-1.065z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+        </button>
+
+        <h1 class="text-4xl font-bold mb-4 text-indigo-400">운빨 테스트</h1>
+        <p class="text-gray-400 mb-8">당신의 운을 시험해보세요!</p>
+
+        <div id="result-message" class="text-3xl font-bold mb-6 h-10 transition-all">
+            &nbsp;
+        </div>
+        
+        <div class="mb-8">
+            <p class="text-lg text-gray-400">연속 성공</p>
+            <p id="streak-counter" class="text-6xl font-bold text-green-400">0</p>
+        </div>
+
+        <div class="mb-10">
+            <p class="text-lg text-gray-400">최고 기록</p>
+            <p id="max-streak-counter" class="text-3xl font-semibold text-amber-400">0</p>
+        </div>
+        <button id="luck-button" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-6 rounded-lg text-xl focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 transition-all transform hover:scale-105">
+            도전! (50% 확률)
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const luckButton = document.getElementById('luck-button');
+            const streakCounter = document.getElementById('streak-counter');
+            const maxStreakCounter = document.getElementById('max-streak-counter');
+            const resultMessage = document.getElementById('result-message');
+            const cookiePopup = document.getElementById('cookie-consent-popup');
+            const allowButton = document.getElementById('consent-allow');
+            const denyButton = document.getElementById('consent-deny');
+            const toastContainer = document.getElementById('toast-container');
+            const cookieSettingsButton = document.getElementById('cookie-settings-button');
+            const popupTitle = document.getElementById('popup-title');
+            const popupMessage = document.getElementById('popup-message');
+
+            let currentStreak = 0;
+            let maxStreak = 0;
+            let cookieConsent = getCookie("cookie_consent");
+            let isClickable = true;
+            const CLICK_DELAY = 200;
+
+            function setCookie(name, value, days) {
+                let expires = "";
+                if (days) {
+                    const date = new Date();
+                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                    expires = "; expires=" + date.toUTCString();
+                }
+                document.cookie = name + "=" + (value || "") + expires + "; path=/; SameSite=Lax";
+            }
+
+            function getCookie(name) {
+                const nameEQ = name + "=";
+                const ca = document.cookie.split(';');
+                for (let i = 0; i < ca.length; i++) {
+                    let c = ca[i];
+                    while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+                }
+                return null;
+            }
+
+            function updatePopupText(mode) {
+                if (mode === 'settings') {
+                    popupTitle.textContent = "설정";
+                    popupMessage.textContent = "최고기록 저장";
+                    allowButton.textContent = "켜기";
+                    denyButton.textContent = "끄기";
+                } else {
+                    popupTitle.textContent = "쿠키 사용 안내";
+                    popupMessage.textContent = "최고 기록을 저장하기 위해 쿠키를 사용합니다. 동의하시겠습니까?";
+                    allowButton.textContent = "동의";
+                    denyButton.textContent = "거부";
+                }
+            }
+            
+            function showPopup() {
+                cookiePopup.classList.remove('opacity-0', 'pointer-events-none', 'scale-95');
+                cookiePopup.classList.add('opacity-100', 'pointer-events-auto', 'scale-100');
+            }
+
+            function hidePopup() {
+                cookiePopup.classList.remove('opacity-100', 'pointer-events-auto', 'scale-100');
+                cookiePopup.classList.add('opacity-0', 'pointer-events-none', 'scale-95');
+            }
+
+            function showToast(message, isWarning) {
+                const toast = document.createElement('div');
+                toast.textContent = message;
+                const baseClasses = 'toast p-4 rounded-lg shadow-lg text-white font-semibold transform-gpu';
+                const typeClasses = isWarning ? 'bg-red-500' : 'bg-green-500';
+                toast.className = `${baseClasses} ${typeClasses} opacity-0 translate-x-12`;
+                
+                toastContainer.appendChild(toast);
+
+                setTimeout(() => {
+                    toast.classList.remove('opacity-0', 'translate-x-12');
+                }, 10);
+
+                setTimeout(() => {
+                    toast.classList.add('opacity-0');
+                    toast.addEventListener('transitionend', () => toast.remove());
+                }, 3000);
+            }
+
+            function loadMaxStreak() {
+                const savedMaxStreak = getCookie("maxStreak");
+                if (savedMaxStreak) {
+                    maxStreak = parseInt(savedMaxStreak, 10);
+                    maxStreakCounter.textContent = maxStreak;
+                }
+            }
+            
+            function showSettingsButton() {
+                cookieSettingsButton.classList.remove('hidden');
+            }
+
+            if (!cookieConsent) {
+                updatePopupText('initial');
+                showPopup();
+            } else {
+                showSettingsButton();
+                if (cookieConsent === 'true') {
+                    loadMaxStreak();
+                }
+            }
+
+            allowButton.addEventListener('click', () => {
+                const buttonText = allowButton.textContent;
+                setCookie("cookie_consent", "true", 365);
+                cookieConsent = "true";
+                hidePopup();
+                loadMaxStreak();
+                showToast(`[ ${buttonText} ] 최고 기록이 저장됩니다.`, false);
+                showSettingsButton();
+            });
+
+            denyButton.addEventListener('click', () => {
+                const buttonText = denyButton.textContent;
+                setCookie("cookie_consent", "false", 365);
+                cookieConsent = "false";
+                maxStreak = 0;
+                maxStreakCounter.textContent = 0;
+                setCookie("maxStreak", "", -1); 
+                hidePopup();
+                showToast(`[ ${buttonText} ] 최고기록이 저장되지 않습니다.`, true);
+                showSettingsButton();
+            });
+
+            cookieSettingsButton.addEventListener('click', () => {
+                updatePopupText('settings');
+                showPopup();
+            });
+            
+            luckButton.addEventListener('click', () => {
+                if (!isClickable) {
+                    showToast("클릭이 너무 빠릅니다!", true);
+                    return;
+                }
+                isClickable = false;
+
+                const isSuccess = Math.random() < 0.5;
+                if (isSuccess) {
+                    currentStreak++;
+                    resultMessage.textContent = '성공!';
+                    resultMessage.classList.remove('text-red-500');
+                    resultMessage.classList.add('text-green-400');
+                    
+                    if (currentStreak > maxStreak) {
+                        maxStreak = currentStreak;
+                        maxStreakCounter.textContent = maxStreak;
+                        if (cookieConsent === "true") {
+                            setCookie("maxStreak", maxStreak, 365);
+                        }
+                    }
+                } else {
+                    currentStreak = 0;
+                    resultMessage.textContent = '실패!';
+                    resultMessage.classList.remove('text-green-400');
+                    resultMessage.classList.add('text-red-500');
+                }
+                streakCounter.textContent = currentStreak;
+
+                setTimeout(() => {
+                    isClickable = true;
+                }, CLICK_DELAY);
+            });
+        });
+    </script>
+</body>
+</html>
