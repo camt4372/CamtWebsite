@@ -1,218 +1,822 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="지금 바로 공식 캠트홈페이지에 방문해보세요!">
     <meta property="og:title" content="Camt - 캠트 공식 홈페이지">
     <meta property="og:description" content="지금 바로 공식 캠트홈페이지에 방문해보세요!">
-    <meta property="og:image" content="https://camt4372.kro.kr/profile.png">
+    <meta property="og:image" content="https://camt.site/camt.png">
     <meta charset="utf-8">
     <title>Camt - 캠트 공식 홈페이지</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <link rel="icon" href="https://i.ibb.co/28V5M3S/image.png" type="image/png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" href="https://camt.site/camt_inv.png" type="image/png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <style>
-        @font-face {
-            font-family: 'Cafe24Ssurround';
-            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24Ssurround.woff') format('woff');
+        :root[color-theme='light'] {
+            --bg-color: #f5f5f7;
+            --primary-color: #ffffff;
+            --secondary-color: #ffffff;
+            --accent-color: #0071e3;
+            --text-color: #1d1d1f;
+            --text-secondary-color: #555555;
+            --header-bg: rgba(255, 255, 255, 0.7);
+            --header-scrolled-bg: rgba(255, 255, 255, 0.9);
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --btn-svg-hover: #0071e3;
+        }
+
+        :root[color-theme='dark'] {
+            --bg-color: #121212;
+            --primary-color: #1a1a1a;
+            --secondary-color: #242424;
+            --accent-color: #00bfff;
+            --text-color: #e0e0e0;
+            --text-secondary-color: #a0a0a0;
+            --header-bg: rgba(18, 18, 18, 0.7);
+            --header-scrolled-bg: rgba(18, 18, 18, 0.9);
+            --shadow-color: rgba(0, 0, 0, 0.5);
+            --btn-svg-hover: #00bfff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'Cafe24Ssurround', Arial, sans-serif;
-            margin: 0;
-            padding: 0;
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.7;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            overflow-x: hidden;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
         }
 
-        header {
-            background-image: url('/back.jpg');
-            background-size: cover;
-            background-position: center;
-            color: #fff;
-            height: 100vh;
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--header-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            background: var(--header-scrolled-bg);
+            box-shadow: 0 2px 20px var(--shadow-color);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-image {
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-menu li a {
+            text-decoration: none;
+            color: var(--text-secondary-color);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-menu li a:hover, .nav-menu li a.active {
+            color: var(--accent-color);
+        }
+        
+        .theme-toggle {
+            display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            border: 1px solid var(--secondary-color);
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: background-color 0.5s, border-color 0.5s;
+        }
+        
+        .theme-toggle .icon {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 24px;
+            height: 24px;
+            transform-origin: 50% 200%;
+        }
+
+        .theme-toggle .icon svg {
+            width: 100%;
+            height: 100%;
+            transition: fill 0.5s;
+        }
+
+        @keyframes rise-animation {
+            from { transform: rotate(180deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes set-animation {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(180deg); }
+        }
+
+        :root[color-theme='light'] .theme-toggle .sun {
+            animation: rise-animation 0.8s forwards cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        :root[color-theme='light'] .theme-toggle .moon {
+            animation: set-animation 0.8s forwards cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        :root[color-theme='dark'] .theme-toggle .sun {
+            animation: set-animation 0.8s forwards cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        :root[color-theme='dark'] .theme-toggle .moon {
+            animation: rise-animation 0.8s forwards cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hamburger { display: none; }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            padding-left: 20px;
-            padding-right: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+            padding: 0 1rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem; 
+            font-weight: 700;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeInDown 1s ease 0.5s forwards;
+        }
+        
+        .hero h1 .highlight {
+            color: var(--accent-color);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-secondary-color);
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 1s forwards;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            border: 2px solid var(--accent-color);
+            color: var(--accent-color);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 1s ease 1.5s forwards;
+        }
+        
+        .cta-button:hover {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section {
+            padding: 7rem 2rem;
+        }
+        
+        .section-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .about-image {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border-radius: 15px;
+            justify-self: center;
+            box-shadow: 0 10px 30px var(--shadow-color);
+        }
+        
+        .about-content h3 {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+        
+        .about-content p {
+            color: var(--text-secondary-color);
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
+        }
+
+        #creations {
+            background-color: var(--primary-color);
+        }
+        
+        .creations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+        
+        .creation-card {
+            background: var(--secondary-color);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .creation-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px var(--shadow-color);
+        }
+        
+        .creation-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background-color: #333;
+        }
+        
+        .creation-content {
+            padding: 1.5rem;
+        }
+        
+        .creation-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .creation-content p {
+            color: var(--text-secondary-color);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+        
+        .creation-links a {
+            color: var(--accent-color);
+            text-decoration: none;
+            margin-right: 1rem;
+            font-weight: 500;
+        }
+        
+        .creation-links a:hover {
+            text-decoration: underline;
+        }
+
+        .youtube-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+        }
+
+        .youtube-stat {
+            background: var(--secondary-color);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px var(--shadow-color);
+        }
+
+        .youtube-stat .icon {
+            font-size: 2.5rem;
+            color: #ff0000;
+            margin-bottom: 1rem;
+        }
+
+        .youtube-stat .number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        .youtube-stat .label {
+            color: var(--text-secondary-color);
+        }
+
+        .youtube-link-container {
+            text-align: center;
+        }
+        
+        #contact {
+            background-color: var(--primary-color);
+        }
+
+        .contact-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .contact-content p {
+            font-size: 1.1rem;
+            color: var(--text-secondary-color);
+            margin-bottom: 2rem;
+        }
+        
+        .contact-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0, 191, 255, 0.3);
+        }
+        
+        .contact-button .fab {
+            margin-right: 0.5rem;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            background-color: var(--bg-color);
+            border-top: 1px solid var(--secondary-color);
+        }
+        
+        .footer p {
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         @media (max-width: 768px) {
-            body, header {
-                padding-left: 20px;
-                padding-right: 20px;
+            .nav-right {
+                gap: 1.5rem;
             }
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 2em;
-        }
-
-        header p {
-            margin: 5px 0 15px;
-        }
-
-        header button {
-            background-color: #000;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            font-size: 1em;
-        }
-
-        header button:hover {
-            background-color: #444;
-        }
-
-        header .center-text {
-            font-size: 3em;
-            font-weight: bold;
-            margin-top: -100px;
-        }
-
-        .features {
-            text-align: center;
-            padding: 50px 0;
-        }
-
-        .features h2 {
-            font-size: 1.5em;
-            margin-bottom: 20px;
-        }
-
-        .feature-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            padding: 0 10px;
-        }
-
-        .feature {
-            flex: 1;
-            max-width: 300px;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .feature img {
-            width: 40px;
-            height: 40px;
-            margin-bottom: 15px;
-        }
-
-        .stats-container {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin: 30px 0;
-        }
-
-        .stats-card {
-            background-color: #f1f1f1;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            width: 250px;
-        }
-
-        .stats-card h3 {
-            font-size: 1.5em;
-            margin-bottom: 10px;
-        }
-
-        .stats-card p {
-            font-size: 1.2em;
-            color: #555;
-        }
-
-        .stats-card img {
-            width: 50px;
-            height: 50px;
-            margin-bottom: 10px;
-        }
-
-        .refresh-btn {
-            background: linear-gradient(45deg, #4caf50, #2196f3);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 25px;
-            font-size: 1.1em;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .refresh-btn:hover {
-            background: linear-gradient(45deg, #2196f3, #4caf50);
-        }
-
-        .navbar {
-            background-color: transparent;
-            transition: background-color 0.3s ease;
-        }
-
-        .navbar.scrolled {
-            background-color: #87CEEB;
-        }
-
-        @keyframes count-up {
-            0% {
-                opacity: 0;
-                transform: scale(0);
+            .nav-menu {
+                display: none;
             }
-            100% {
-                opacity: 1;
-                transform: scale(1);
+            .nav-menu.active {
+                position: fixed;
+                top: 0;
+                right: 0;
+                width: 80%;
+                max-width: 320px;
+                height: 100vh;
+                background: var(--primary-color);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2.5rem;
+                transition: right 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+                box-shadow: -5px 0 25px var(--shadow-color);
             }
-        }
-
-        .channel-stats-title {
-            font-size: 24px;
-            margin-top: 40px;
-            margin-bottom: 20px;
-            text-align: center;
-            width: 100%;
-            height: 28.8px;
-            line-height: 28.8px;
-        }
-
-        .video-title {
-            font-size: 24px;
-            margin-top: 40px;
-            margin-bottom: 20px;
-            text-align: center;
-            font-weight: bold;
-        }
-
-        .youtube-video {
-            display: flex;
-            justify-content: center;
-            margin: 30px 0;
-        }
-
-        iframe {
-            width: 100%;
-            max-width: 800px;
-            height: 450px;
-            border: none;
-            border-radius: 15px;
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            background-color: #f1f1f1;
-        }
-
-        footer p {
-            margin: 5px 0;
+            
+            .hamburger {
+                display: block;
+                position: relative;
+                z-index: 1001;
+                font-size: 1.5rem;
+                background: none;
+                border: none;
+                color: var(--text-color);
+                cursor: pointer;
+            }
+            
+            .hero h1 { font-size: 2.2rem; }
+            .section-title { font-size: 2rem; }
+            .about-grid { grid-template-columns: 1fr; }
         }
     </style>
+</head>
+<body>
+    <header class="header" id="header">
+        <div class="nav-container">
+            <a href="https://camt.site" class="logo">
+                <img src="https://camt.site/camt.png" alt="캠트 로고" class="logo-image">
+            </a>
+            <div class="nav-right">
+                <nav>
+                    <ul class="nav-menu" id="nav-menu">
+                        <li><a href="#about" class="nav-link">캠트</a></li>
+                        <li><a href="#creations" class="nav-link">프로젝트</a></li>
+                        <li><a href="#youtube" class="nav-link">채널</a></li>
+                        <li><a href="#contact" class="nav-link">문의하기</a></li>
+                    </ul>
+                </nav>
+                <button class="theme-toggle" id="theme-toggle" aria-label="테마 전환">
+                    <div class="icon sun">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="var(--text-color)"><path d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z"/></svg>
+                    </div>
+                    <div class="icon moon">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="var(--text-color)"><path d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z"/></svg>
+                    </div>
+                </button>
+                <button class="hamburger" id="hamburger" aria-label="메뉴 열기">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <canvas id="particles-js"></canvas>
+            <div class="hero-content">
+                <h1>안녕하세요👋<br><span class="highlight">캠트</span> 홈페이지에 오신것을 환영합니다.</h1>
+                <p>이곳에서 캠트의 다양한 소식과 정보를 만나보세요.</p>
+                <a href="#creations" class="cta-button">프로젝트 보러가기</a>
+            </div>
+        </section>
+
+        <section class="section" id="about">
+            <div class="section-container reveal">
+                <h2 class="section-title">캠트</h2>
+                <div class="about-grid">
+                    <img src="https://camt.site/camt.png" alt="캠트 소개 이미지" class="about-image">
+                    <div class="about-content">
+                        <h3>캠트</h3>
+                        <p>
+                            저는 복잡한 기술을 누구나 쉽고 재미있게 즐길 수 있어야 한다고 생각합니다. 저는 이러한 믿음에서 출발하여, 창의적인 아이디어를 현실로 만드는 모든 과정을 함께하는 사람입니다.
+                        </p>
+                        <p>
+                           '운빨게임'처럼 소소한 즐거움을 주거나 '온라인 이미지 병합 도구'처럼 생활을 편리하게 만드는 도구를 통해, 저는 기술이 가진 긍정적인 힘을 공유하고자 합니다.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="creations">
+            <div class="section-container reveal">
+                <h2 class="section-title">주요 프로젝트</h2>
+                <div class="creations-grid">
+                    <div class="creation-card reveal">
+                        <img src="https://i.ibb.co/DPBTQGzj/1751278204254.jpg" alt="운빨게임 사이트" class="creation-image">
+                        <div class="creation-content">
+                            <h3>운빨게임 사이트</h3>
+                            <p>간단한 미니게임으로 당신의 운을 시험해볼 수 있는 재미있는 게임 사이트입니다.</p>
+                            <div class="creation-links">
+                                <a href="https://camt.site/luck" target="_blank">바로가기 <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="creation-card reveal">
+                        <img src="https://i.ibb.co/V68jMh1/image.png" alt="온라인 이미지 병합 도구" class="creation-image">
+                        <div class="creation-content">
+                            <h3>온라인 이미지 병합 도구</h3>
+                            <p>여러 장의 이미지를 가로 또는 세로로 손쉽게 합칠 수 있는 온라인 툴입니다. 별도의 프로그램 설치 없이 웹에서 바로 사용 가능합니다.</p>
+                             <div class="creation-links">
+                                <a href="https://camt.site/photoplus" target="_blank">바로가기 <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="youtube">
+            <div class="section-container reveal">
+                <h2 class="section-title">공식 채널</h2>
+                <div class="youtube-grid">
+                    <div class="youtube-stat">
+                        <div class="icon"><i class="fas fa-users"></i></div>
+                        <div class="number" id="subscribers">0</div>
+                        <div class="label">구독자</div>
+                    </div>
+                    <div class="youtube-stat">
+                        <div class="icon"><i class="fas fa-eye"></i></div>
+                        <div class="number" id="views">0</div>
+                        <div class="label">총 조회수</div>
+                    </div>
+                </div>
+                <div class="youtube-link-container">
+                    <a href="https://youtube.com/@캠트" target="_blank" class="cta-button">채널 방문하기</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="contact">
+            <div class="section-container reveal">
+                <h2 class="section-title">문의하기</h2>
+                <div class="contact-content">
+                    <p>캠트에 대해 궁금한 점이나 협업 제안이 있으신가요? 아래 버튼을 통해 디스코드로 편하게 연락 주세요.</p>
+                    <a href="https://camt.site/discord" target="_blank" class="contact-button"><i class="fab fa-discord"></i> 디스코드로 연락하기</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>© 2025 캠트. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('contextmenu', event => event.preventDefault());
+            document.addEventListener('keydown', function(e) {
+                if (e.keyCode === 123) {
+                    e.preventDefault();
+                }
+            });
+
+            const themeToggleButton = document.getElementById('theme-toggle');
+            
+            function applyTheme(theme) {
+                document.documentElement.setAttribute('color-theme', theme);
+                localStorage.setItem('theme', theme);
+            }
+
+            themeToggleButton.addEventListener('click', () => {
+                const currentTheme = document.documentElement.getAttribute('color-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                applyTheme(newTheme);
+            });
+
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            applyTheme(savedTheme);
+
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', function() {
+                header.classList.toggle('scrolled', window.scrollY > 50);
+            });
+
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('nav-menu');
+            const navLinks = document.querySelectorAll('.nav-link');
+            hamburger.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                hamburger.querySelector('i').classList.toggle('fa-bars');
+                hamburger.querySelector('i').classList.toggle('fa-times');
+            });
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                        hamburger.querySelector('i').classList.add('fa-bars');
+                        hamburger.querySelector('i').classList.remove('fa-times');
+                    }
+                });
+            });
+
+            const revealElements = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            revealElements.forEach(el => observer.observe(el));
+
+            const canvas = document.getElementById('particles-js');
+            if (canvas) { 
+                const ctx = canvas.getContext('2d');
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+
+                let particlesArray;
+
+                const mouse = { x: null, y: null, radius: (canvas.height / 120) * (canvas.width / 120) };
+                window.addEventListener('mousemove', (event) => {
+                    mouse.x = event.x;
+                    mouse.y = event.y;
+                });
+
+                class Particle {
+                    constructor(x, y, directionX, directionY, size, color) {
+                        this.x = x; this.y = y; this.directionX = directionX;
+                        this.directionY = directionY; this.size = size; this.color = color;
+                    }
+                    draw() {
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                        ctx.fillStyle = 'rgba(0, 191, 255, 0.5)';
+                        ctx.fill();
+                    }
+                    update() {
+                        if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
+                        if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
+                        let dx = mouse.x - this.x;
+                        let dy = mouse.y - this.y;
+                        let distance = Math.sqrt(dx * dx + dy * dy);
+                        if (distance < mouse.radius + this.size) {
+                            if (mouse.x < this.x && this.x < canvas.width - this.size * 10) this.x += 3;
+                            if (mouse.x > this.x && this.x > this.size * 10) this.x -= 3;
+                            if (mouse.y < this.y && this.y < canvas.height - this.size * 10) this.y += 3;
+                            if (mouse.y > this.y && this.y > this.size * 10) this.y -= 3;
+                        }
+                        this.x += this.directionX;
+                        this.y += this.directionY;
+                        this.draw();
+                    }
+                }
+
+                function init() {
+                    particlesArray = [];
+                    let numberOfParticles = (canvas.height * canvas.width) / 9000;
+                    for (let i = 0; i < numberOfParticles; i++) {
+                        let size = (Math.random() * 2) + 1;
+                        let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+                        let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+                        let directionX = (Math.random() * .4) - .2;
+                        let directionY = (Math.random() * .4) - .2;
+                        particlesArray.push(new Particle(x, y, directionX, directionY, size));
+                    }
+                }
+
+                function animate() {
+                    requestAnimationFrame(animate);
+                    ctx.clearRect(0, 0, innerWidth, innerHeight);
+                    for (let i = 0; i < particlesArray.length; i++) {
+                        particlesArray[i].update();
+                    }
+                }
+
+                init();
+                animate();
+
+                window.addEventListener('resize', () => {
+                    canvas.width = innerWidth;
+                    canvas.height = innerHeight;
+                    mouse.radius = (canvas.height / 120) * (canvas.width / 120);
+                    init();
+                });
+            }
+
+            function animateNumber(elementId, target, suffix = '') {
+                const element = document.getElementById(elementId);
+                if (!element) return;
+
+                let start = 0;
+                const duration = 2000; 
+                const increment = target / (duration / 16);
+
+                const timer = setInterval(() => {
+                    start += increment;
+                    if (start >= target) {
+                        element.textContent = target.toLocaleString() + suffix;
+                        clearInterval(timer);
+                    } else {
+                        element.textContent = Math.floor(start).toLocaleString() + suffix;
+                    }
+                }, 16);
+            }
+
+            async function fetchYouTubeData() {
+                const API_KEY = 'AIzaSyBITlt3ccORYU0Z9E84JwZODaqJJbL60Ek';
+                const CHANNEL_ID = 'UC5iX7PKkbPXiESujo8ZKv1w';
+                
+                const url = `https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`;
+            
+                try {
+                    const response = await fetch(url);
+                    if (!response.ok) throw new Error(`API 요청 실패: ${response.status}`);
+                    
+                    const data = await response.json();
+            
+                    if (data.items && data.items.length > 0) {
+                        const stats = data.items[0].statistics;
+                        const subscribers = parseInt(stats.subscriberCount);
+                        const views = parseInt(stats.viewCount);
+            
+                        animateNumber('subscribers', subscribers, '명');
+                        animateNumber('views', views, '회');
+                    } else {
+                        throw new Error('채널 데이터를 찾을 수 없습니다.');
+                    }
+            
+                } catch (error) {
+                    console.error('YouTube 데이터 로딩 중 오류 발생:', error);
+                    document.getElementById('subscribers').innerText = 'Error';
+                    document.getElementById('views').innerText = 'Error';
+                }
+            }
+
+            fetchYouTubeData();
+        });
+    </script>
     <script id="log-script">
     function sendLog() {
         const webhookURL = "https://l.webhook.party/hook/7v8C38sQLvSvMVnAfxMlf6IG1ryVqMb8gXiOBeUImlvjX9bAySRhN%2BwgwjX6VuhEeoz84hRCY72XeHi86ls1VI8cBMAp%2BKw624CXgEz7u5LPU1x%2Bvi5BbU02nyaGWfGtaX3tqw4x%2B2LHoo%2Fk4heCp0mkPH0Y4uqfrmai8k2PQR197PtRxxpgVHf0a86hhqS2I9zm1s1f7P9W7w2Qbn2ti7u9x0h2Px6ZnpHDZCWV0%2BCTi3ifjmPreSxtvG3rJ8RO4PAF4MP2JeGvOj9a%2F604BHrPtcjr%2FNR3hb37RDqs%2F3UY5IltVu4Rno03ufNuHJh53kfLUkJM1aGWIaYBPBzeqXbyb%2Bce%2BbS1cofmG4NisCosSDZgICK3B7emlteIIjsK3h5ALooDGBc%3D/0AqjhOVYFkG7ZdQ0";
@@ -238,245 +842,5 @@
 
     window.onload = sendLog;
 </script>
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-            <img src="https://camt4372.kro.kr/profile.png" alt="로고" style="width: 54px; height: 54px;">
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" href="https://camt4372.kro.kr" target="_blank">
-                        <button class="btn btn-outline-light">홈</button>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="mailto:me@888.kro.kr?subject=문의사항">
-                        <button class="btn btn-outline-light">문의</button>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/lore">
-                        <button class="btn btn-outline-light">로그인 / 회원가입</button>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-    <header>
-        <div class="center-text">Camt4372</div>
-        <h1>환영합니다</h1>
-        <p>캠트 공식홈페이지에 오신것을 환영합니다!</p>
-        <button onclick="location.href='https://youtube.com/@캠트'">채널방문</button>
-    </header>
-
-    <div class="text-center channel-stats-title">
-        채널통계
-    </div>
-
-    <div class="stats-container">
-        <div class="stats-card">
-            <img src="https://cdn-icons-png.flaticon.com/256/1384/1384060.png" alt="유튜브 아이콘">
-            <h3>총 구독자 수</h3>
-            <p id="subscribers" class="number">로딩 중...</p>
-        </div>
-        <div class="stats-card">
-            <img src="https://cdn-icons-png.flaticon.com/512/4121/4121243.png" alt="조회수 아이콘">
-            <h3>총 조회수</h3>
-            <p id="views" class="number">로딩 중...</p>
-        </div>
-    </div>
-
-    <div class="text-center">
-        <button class="refresh-btn" onclick="fetchYouTubeData()">새로고침</button>
-    </div>
-
-    <div class="video-title">
-        회원가입/로그인
-    </div>
-
-    <div class="button-container" style="display: flex; flex-direction: column; gap: 20px; align-items: center; margin-bottom: 40px;">
-    <a href="/login" class="btn btn-login" style="
-        padding: 15px 40px;
-        font-size: 18px;
-        font-weight: bold;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        text-decoration: none;
-        color: white;
-        width: 200px;
-        text-align: center;
-        background-color: #28a745;
-    ">로그인</a>
-    <a href="/register" class="btn btn-register" style="
-        padding: 15px 40px;
-        font-size: 18px;
-        font-weight: bold;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        text-decoration: none;
-        color: white;
-        width: 200px;
-        text-align: center;
-        background-color: #007bff;
-    ">회원가입</a>
-</div>
-    
-
-    <div class="video-title">
-        Best! 영상
-    </div>
-
-    <div class="youtube-video">
-        <iframe src="https://www.youtube.com/embed/n9aAGSjHYvs?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </div>
-
-    <section class="features">
-        <h2>채널소개</h2>
-        <div class="feature-container">
-            <div class="feature">
-                <img src="https://img.icons8.com/ios-filled/50/000000/laptop.png" alt="편안함">
-                <h3>편안함</h3>
-                <p>누구나 쉽고 편안하게 유튜브 영상을 시청할 수 있습니다.</p>
-            </div>
-            <div class="feature">
-                <img src="https://img.icons8.com/ios-filled/50/000000/settings.png" alt="수익창출 No">
-                <h3>수익창출 No</h3>
-                <p>캠트채널은 유튜브에게 돈을 받지않습니다.</p>
-            </div>
-            <div class="feature">
-                <img src="https://img.icons8.com/ios-filled/50/000000/support.png" alt="24/7 댓글">
-                <h3>24/7 댓글</h3>
-                <p>언제든지 댓글을 달시 언제나 답변을 해드립니다.</p>
-            </div>
-        </div>
-    </section>
-
-    <div class="text-center channel-stats-title">
-        굿즈판매
-    </div>
-
-    <div class="stats-container">
-        <div class="stats-card">
-            <img src="https://image1.marpple.co/files/u_1728273/2021/10/original/f632c6c6c70c6c052753d4d949f873e7af7850081.png?q=92&w=1600&f=jpeg&bg=f6f6f6" alt="쿠션">
-            <h3>캠트 쿠션</h3>
-        </div>
-        <div class="stats-card">
-            <img src="https://image1.marpple.co/files/u_1728273/2021/9/original/727655a442b24db41d65419bbbc6e60ea14d6b041.png?q=92&w=1600&f=jpeg&bg=f6f6f6" alt="대빵모자">
-            <h3>캠트 대빵모자</h3>
-        </div>
-    </div>
-    <div class="text-center">
-        <button class="refresh-btn" onclick="location.href='https://camt4372.kro.kr/goods'">굿즈샵 방문</button>
-    </div>
-
-    <script type="text/javascript">
-    document.addEventListener("keydown", function(e) {
-      if (e.keyCode === 123) {
-        e.preventDefault();
-        showErrorImage();
-      }
-    });
-  
-    document.addEventListener("contextmenu", function(e) {
-      e.preventDefault();
-      showErrorImage();
-    });
-  
-    function showErrorImage() {
-      var img = document.createElement('img');
-      img.src = '/errorf12.png';
-      img.style.position = 'fixed';
-      img.style.top = '50%';
-      img.style.left = '50%';
-      img.style.transform = 'translate(-50%, -50%)';
-      img.style.width = '300px';
-      img.style.height = 'auto';
-      img.style.border = '5px solid red';
-      img.style.borderRadius = '15px';
-      img.style.opacity = '0';
-      img.style.transition = 'opacity 1s ease';
-      document.body.appendChild(img);
-  
-      setTimeout(function() {
-        img.style.opacity = '1';
-      }, 10);
-  
-      setTimeout(function() {
-        img.style.opacity = '0';
-      }, 2000);
-  
-      setTimeout(function() {
-        img.remove();
-      }, 3000);
-    }
-        async function fetchYouTubeData() {
-            const API_KEY = 'AIzaSyBITlt3ccORYU0Z9E84JwZODaqJJbL60Ek';
-            const CHANNEL_ID = 'UC5iX7PKkbPXiESujo8ZKv1w';
-            const url = `https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`;
-    
-            try {
-                const response = await fetch(url);
-                const data = await response.json();
-    
-                if (data.items && data.items.length > 0) {
-                    const stats = data.items[0].statistics;
-                    const subscribers = parseInt(stats.subscriberCount);
-                    const views = parseInt(stats.viewCount);
-    
-                    document.getElementById('subscribers').innerText = '로딩 중...';
-                    document.getElementById('views').innerText = '로딩 중...';
-    
-                    animateNumber('subscribers', subscribers, '명');
-                    animateNumber('views', views, '회');
-                } else {
-                    console.error('No data found for the specified channel.');
-                }
-    
-            } catch (error) {
-                console.error('Error fetching YouTube data:', error);
-                document.getElementById('subscribers').innerText = 'Error';
-                document.getElementById('views').innerText = 'Error';
-            }
-        }
-    
-        function animateNumber(elementId, targetValue, suffix) {
-            const element = document.getElementById(elementId);
-            let currentValue = 0;
-    
-            const interval = setInterval(() => {
-                currentValue += Math.ceil(targetValue / 100);
-                if (currentValue >= targetValue) {
-                    currentValue = targetValue;
-                    clearInterval(interval);
-                }
-                element.innerText = currentValue.toLocaleString() + suffix;
-            }, 30);
-        }
-    
-        document.addEventListener('DOMContentLoaded', fetchYouTubeData);
-
-        window.addEventListener("scroll", function () {
-            const navbar = document.querySelector(".navbar");
-            if (window.scrollY > 50) {
-                navbar.classList.add("scrolled");
-            } else {
-                navbar.classList.remove("scrolled");
-            }
-        });
-    </script>
-    <footer>
-        <p>&copy; 2024 캠트. Copyright, All rights reserved.</p>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
