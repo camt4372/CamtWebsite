@@ -69,6 +69,10 @@
         <button id="luck-button" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-6 rounded-lg text-xl focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 transition-all transform hover:scale-105">
             도전! (50% 확률)
         </button>
+        <div class="mt-4">
+            <p class="text-sm text-gray-500">연속 성공 달성 확률</p>
+            <p id="next-probability" class="text-2xl font-bold text-indigo-400">50.00%</p>
+        </div>
     </div>
 
     <script>
@@ -84,6 +88,7 @@
             const cookieSettingsButton = document.getElementById('cookie-settings-button');
             const popupTitle = document.getElementById('popup-title');
             const popupMessage = document.getElementById('popup-message');
+            const nextProbabilityEl = document.getElementById('next-probability');
 
             let currentStreak = 0;
             let maxStreak = 0;
@@ -167,6 +172,13 @@
                 cookieSettingsButton.classList.remove('hidden');
             }
 
+            // Calculates and displays the statistical probability of achieving the next streak
+            function updateProbabilityDisplay() {
+                // The probability of achieving (N+1) consecutive successes is (0.5)^(N+1)
+                const probability = Math.pow(0.5, currentStreak + 1) * 100;
+                nextProbabilityEl.textContent = `${probability.toFixed(2)}%`;
+            }
+
             if (!cookieConsent) {
                 updatePopupText('initial');
                 showPopup();
@@ -176,6 +188,8 @@
                     loadMaxStreak();
                 }
             }
+            
+            updateProbabilityDisplay();
 
             allowButton.addEventListener('click', () => {
                 const buttonText = allowButton.textContent;
@@ -211,7 +225,9 @@
                 }
                 isClickable = false;
 
+                // The actual success probability is always 50%
                 const isSuccess = Math.random() < 0.5;
+
                 if (isSuccess) {
                     currentStreak++;
                     resultMessage.textContent = '성공!';
@@ -232,6 +248,9 @@
                     resultMessage.classList.add('text-red-500');
                 }
                 streakCounter.textContent = currentStreak;
+
+                // Update the statistical probability display for the next potential streak
+                updateProbabilityDisplay();
 
                 setTimeout(() => {
                     isClickable = true;
