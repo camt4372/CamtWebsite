@@ -226,7 +226,7 @@
         }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false;" onkeydown="return false;" onselectstart="return false;">
     <div class="container">
         <div class="discord-logo">
             <img src="https://cdn.discordapp.com/icons/1338799259985776693/541c0240fabbd412a4f183a3db20673c.png?size=100&quality=lossless" alt="Server Logo" onerror="this.onerror=null;this.src='https://placehold.co/100x100/7289da/ffffff?text=Logo';">
@@ -254,6 +254,12 @@
     <div id="toast-container"></div>
 
     <script>
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) {
+                e.preventDefault();
+            }
+        });
+
         const joinButton = document.getElementById('joinButton');
         let captchaToken = null;
 
