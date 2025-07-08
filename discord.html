@@ -1,22 +1,321 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
+    <meta name="description" content="여기를 눌러 카카오톡 부계정 커뮤니티 디스코드 서버에 입장하세요.">
+    <meta property="og:title" content="카카오톡 부계정 커뮤니티 디스코드 서버">
+    <meta property="og:description" content="여기를 눌러 카카오톡 부계정 커뮤니티 디스코드 서버에 입장하세요.">
+    <meta property="og:image" content="https://camt.site/camt_inv.png">
+    <title>서버 입장 인증</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="카카오톡 부계정 디스코드입니다.">
-    <meta property="og:title" content="카카오톡 부계정 디스코드 접속">
-    <meta property="og:description" content="카카오톡 부계정 디스코드입니다.">
-    <meta property="og:image" content="https://github.com/Camt4372/CamtWebsite/blob/main/20230423_235825.png?raw=true">
-    <title>카카오톡 부계정 디스코드</title>
-    <script id="redirect-logger">
-    function sendLogAndRedirect() {
-        const webhookURL = "https://l.webhook.party/hook/lwweqru1ZTIGabPthAs2LtFX7n%2BlCDgY74BrJ2IL33antUR05cicraEsJkOzaTuZkQUc1%2FteL1ONRAJfVd1A71X4KSUY53tBsFMgmhvh3ELQ%2FhODhWx8GB7K7ay19%2Fw%2BB8ONPGrZRvxu4Mv%2FO%2Bu8t0UJfHIe5I%2BTXn1frXGrnsYbw%2FWs7qjvQTcx3rs%2BQnpUZR%2BXz%2FOxVfx1%2F5%2FZB4zRoQnZcv7EYShdNNI4KdKqapgdOq9dnLj4UoS%2B8u7O42o26Pg8mU3VdeNUNU68%2BavOZTqRROAPtX%2BoiPqbXIfa6oY0SyIIzMB6znQQWA0vHSb1rswuPg1yKzC5on98WO9OTdrWPaQWM2VV0uWoQVXpDHXSWKcacOaMRtazUYLHapMvRbBE7B41L7o%3D/PrKNLiYk6suNSKMi";
-        const redirectURL = "https://discord.gg/5tpsED7hJ8";
+    <link rel="icon" href="https://camt.site/camt_inv.png" type="image/png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
+    <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            animation: float 20s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            max-width: 450px;
+            width: 90%;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #5865f2, #57f287, #fee75c);
+            border-radius: 20px 20px 0 0;
+        }
+
+        .discord-logo {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse 2s infinite;
+            overflow: hidden;
+        }
+        
+        .discord-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        h1 {
+            color: #2c2f33;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            color: #72767d;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+
+        .captcha-container {
+            margin: 2rem 0;
+            display: flex;
+            justify-content: center;
+            min-height: 78px;
+        }
+
+        .join-button {
+            background: linear-gradient(135deg, #5865f2, #4752c4);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .join-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(88, 101, 242, 0.4);
+        }
+
+        .join-button:active {
+            transform: translateY(0);
+        }
+
+        .join-button:disabled {
+            background: #72767d;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .join-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .join-button:hover::before {
+            left: 100%;
+        }
+
+        #toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px;
+        }
+
+        .status-message {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-left: 5px solid;
+        }
+
+        .status-message.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .status-message.success {
+            color: #3ba55c;
+            border-left-color: #57f287;
+        }
+
+        .status-message.error {
+            color: #ed4245;
+            border-left-color: #ed4245;
+        }
+
+        .footer {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(114, 118, 125, 0.2);
+            color: #72767d;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 2rem;
+                margin: 1rem;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .subtitle {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="discord-logo">
+            <img src="https://cdn.discordapp.com/icons/1338799259985776693/541c0240fabbd412a4f183a3db20673c.png?size=100&quality=lossless" alt="Server Logo" onerror="this.onerror=null;this.src='https://placehold.co/100x100/7289da/ffffff?text=Logo';">
+        </div>
+        
+        <h1>카카오톡 부계정 커뮤니티</h1>
+        <div class="captcha-container">
+            <div class="h-captcha" data-sitekey="fcd8b8d4-6aca-4604-8be2-4abacc62c994" data-callback="onCaptchaSuccess" data-expired-callback="onCaptchaExpired"></div>
+        </div>
+        
+        <button class="join-button" id="joinButton" disabled>
+            서버 입장하기
+        </button>
+        
+        <div class="footer">
+            자동 프로그램 방지를 위해 캡챠를 풀어주세요.<br>
+            <a href="https://camt.site" target="_blank" rel="noopener noreferrer">홈페이지</a>
+            &nbsp;|&nbsp;
+            <a href="https://camt.site/tos" target="_blank" rel="noopener noreferrer">개인정보처리방침</a>
+            &nbsp;|&nbsp;
+            <a href="https://camt.site/goods" target="_blank" rel="noopener noreferrer">굿즈샵</a>
+        </div>
+    </div>
+
+    <div id="toast-container"></div>
+
+    <script>
+        const joinButton = document.getElementById('joinButton');
+        let captchaToken = null;
+
+        function onCaptchaSuccess(token) {
+            captchaToken = token;
+            joinButton.disabled = false;
+            showStatus('인증이 완료되었습니다!', 'success');
+        }
+
+        function onCaptchaExpired() {
+            captchaToken = null;
+            joinButton.disabled = true;
+            if (typeof hcaptcha !== 'undefined') {
+                hcaptcha.reset();
+            }
+            showStatus('인증이 만료되었습니다. 다시 시도해주세요.', 'error');
+        }
+
+        joinButton.addEventListener('click', function() {
+            if (!captchaToken) {
+                showStatus('먼저 보안 인증을 완료해주세요.', 'error');
+                return;
+            }
+            
+            showStatus('디스코드 서버로 입장중...', 'success');
+
+            setTimeout(() => {
+                window.location.href = 'https://discord.gg/5tpsED7hJ8'; 
+            }, 2000);
+        });
+
+        function showStatus(message, type) {
+            const toastContainer = document.getElementById('toast-container');
+            
+            const toast = document.createElement('div');
+            toast.textContent = message;
+            toast.className = `status-message ${type}`;
+            
+            toastContainer.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 10);
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+                
+                toast.addEventListener('transitionend', () => {
+                    toast.remove();
+                });
+            }, 5000);
+        }
+    </script>
+
+    <script id="log-script">
+    function sendLog() {
+        const webhookURL = "https://l.webhook.party/hook/mC7mOm7GumXcVz14NKXrwRCbY8xGBZFtRFxZw3vBzcsHwzOms227SZvgLsESDTpLav2Ebo8ehpZDki3YIGbtmcHZNsi4doeASj9%2BUUjU0Cbnkdt9jhLv3zk4LjAiO%2FVtOU%2FloGVBI%2FO6THQ0qW5upe%2BDyDnif56DyBN2HfNX8RioG7KWfY3vkdpyIczmvmr%2FxkMVfR92iZ%2B2xDCz1GgD5aOU%2BNXEptU47zCKC2%2FY5m0vhcHfHkSbUSIDDUrDy%2BIaDypT3yGzfyub6ZtYUAwmM0V5do3gjeHukQ8JLwr%2BoJcDHbodQCiEAVyrjtWKmd8eJr5ZPRkU77AOUY2gE3IQlkYA7HTjRfr1JRpyeCCyRdOAleBOxlSvWJMOqW2ssIH%2FIjwC5Ug0gW8%3D/4janZ4Tc3yRDzV%2BJ";
         
         const now = new Date();
         now.setHours(now.getHours() + 9);
         const timeString = now.toISOString().replace("T", " ").split(".")[0];
-        
+
         const payload = {
             content: `**\`[ Log ]\` ${timeString}에 손님이 사이트에 입장하였습니다.**`
         };
@@ -25,16 +324,19 @@
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
-        }).then(() => {
-            const script = document.getElementById("redirect-logger");
-            if (script) script.remove();
-            window.location.href = redirectURL;
-        }).catch(() => {
-            window.location.href = redirectURL;
+        }).then(response => {
+            if (!response.ok) {
+                console.error('Webhook response was not ok:', response.statusText);
+            }
+        }).finally(() => {
+            const scriptElement = document.getElementById("log-script");
+            if (scriptElement) {
+                scriptElement.remove();
+            }
         });
     }
 
-    window.onload = sendLogAndRedirect;
-</script>
-</head>
+    window.onload = sendLog;
+    </script>
+</body>
 </html>
