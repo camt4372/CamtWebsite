@@ -6,333 +6,373 @@
     <meta name="description" content="사람들이 자꾸 물어서 대답하기 귀찮아서 만든 사이트이고 디스코드 링크 추가">
     <meta property="og:title" content="카카오톡 부계정 QnA">
     <meta property="og:description" content="사람들이 자꾸 물어서 대답하기 귀찮아서 만든 사이트이고 디스코드 링크 추가">
-    <meta property="og:image" content="https://camt4372.kro.kr/camt4372.png">
-    <link rel="icon" href="https://camt4372.kro.kr/camt4372.png">
+    <meta property="og:image" content="https://camt.site/camt.png">
+    <link rel="icon" href="https://camt.site/camt_inv.png">
     <title>카카오톡 부계정 QnA</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --dark-bg: #0a0e1a;
+            --card-bg: rgba(255, 255, 255, 0.1);
+            --text-primary: #ffffff;
+            --text-secondary: #b8c5d6;
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --neon-glow: 0 0 20px rgba(102, 126, 234, 0.5);
+        }
+
+        * {
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
-            color: #333;
+            box-sizing: border-box;
         }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(245, 87, 108, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 60%, rgba(0, 242, 254, 0.1) 0%, transparent 50%);
+            animation: bgAnimation 10s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes bgAnimation {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+        }
+
+        .glass-container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: var(--glass-shadow);
+            overflow: hidden;
+            position: relative;
+        }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
+
         .header {
             text-align: center;
-            padding: 50px 0;
-            background: linear-gradient(135deg, #6a11cb, #2575fc);
-            color: white;
+            padding: 100px 0;
+            background: var(--primary-gradient);
+            position: relative;
+            overflow: hidden;
         }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+            animation: patternMove 20s linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes patternMove {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(60px); }
+        }
+
         .header h1 {
-            font-size: 48px;
+            font-size: 4rem;
+            font-weight: 700;
             margin: 0;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            animation: titleGlow 2s ease-in-out infinite alternate;
+            position: relative;
+            z-index: 1;
         }
+
+        @keyframes titleGlow {
+            0% { text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); }
+            100% { text-shadow: 0 4px 30px rgba(255, 255, 255, 0.3); }
+        }
+
         .header p {
-            font-size: 20px;
-            margin: 10px 0 0;
+            font-size: 1.5rem;
+            margin: 20px 0 0;
+            opacity: 0.9;
+            font-weight: 400;
+            position: relative;
+            z-index: 1;
         }
-        .section {
-            padding: 50px 0;
-        }
-        .section h2 {
-            font-size: 36px;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .section p {
-            font-size: 18px;
-            line-height: 1.6;
-            text-align: center;
-        }
+
         .cta-button {
             display: inline-block;
-            padding: 15px 30px;
-            background-color: #2575fc;
+            padding: 16px 40px;
+            background: var(--secondary-gradient);
             color: white;
             text-decoration: none;
             border-radius: 50px;
-            font-size: 18px;
-            margin-top: 20px;
-            transition: background-color 0.3s;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(245, 87, 108, 0.3);
+            position: relative;
+            overflow: hidden;
         }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
         .cta-button:hover {
-            background-color: #6a11cb;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(245, 87, 108, 0.4);
         }
-        .features {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            margin-top: 50px;
+
+        .section {
+            padding: 80px 0;
         }
-        .feature {
-            flex: 1;
-            max-width: 300px;
+
+        .section h2 {
+            font-size: 2.5rem;
             text-align: center;
-            padding: 20px;
-            margin: 10px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 50px;
+            font-weight: 700;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
-        .feature i {
-            font-size: 40px;
-            color: #2575fc;
+
+        .section p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            text-align: center;
+            color: var(--text-secondary);
             margin-bottom: 20px;
         }
-        .feature h3 {
-            font-size: 24px;
-            margin: 10px 0;
+
+        .progress-section {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 40px;
+            margin: 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        .feature p {
-            font-size: 16px;
-            color: #666;
-        }
-        .footer {
-            text-align: center;
-            padding: 20px;
-            background-color: #333;
-            color: white;
-            margin-top: 50px;
-        }
-        .footer a {
-            color: #2575fc;
-            text-decoration: none;
-        }
-        .footer a:hover {
-            text-decoration: underline;
+        
+        .progress-section h2 {
+            margin-bottom: 25px;
         }
 
         .progress-container {
             width: 100%;
-            background-color: #e0e0e0;
-            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
             overflow: hidden;
             position: relative;
-            height: 40px;
-            margin-top: 20px;
+            height: 50px;
+            margin: 30px 0;
         }
 
         .progress-bar {
             width: 0;
             height: 100%;
-            background-color: #2575fc;
-            border-radius: 10px;
+            background: var(--accent-gradient);
+            border-radius: 25px;
             position: absolute;
-            animation: progress-animation 2s forwards;
+            animation: progressAnimation 3s ease-out forwards;
+            box-shadow: 0 0 30px rgba(79, 172, 254, 0.5);
+        }
+
+        @keyframes progressAnimation {
+            0% { width: 0; }
+            100% { width: 60%; }
         }
 
         .progress-labels {
             display: flex;
             justify-content: space-between;
-            margin-top: 10px;
-            font-size: 14px;
-            color: #666;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
         }
 
         .progress-labels span {
             flex: 1;
             text-align: center;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            margin: 0 2px;
+            transition: all 0.3s ease;
         }
 
-        @keyframes progress-animation {
-            0% {
-                width: 0;
+        .progress-labels span:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 60px;
+        }
+
+        .footer a {
+            color: #4facfe;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: #00f2fe;
+            text-shadow: 0 0 10px rgba(79, 172, 254, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
             }
-            100% {
-                width: 65%;
+            
+            .header p {
+                font-size: 1.2rem;
+            }
+            
+            .section h2 {
+                font-size: 2rem;
+            }
+            
+            .progress-labels {
+                font-size: 0.8rem;
+            }
+            
+            .progress-labels span {
+                padding: 4px 2px;
             }
         }
-        .section {
-        text-align: center;
-    }
 
-        .button-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 10px;
-    }
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
+        .animate-on-scroll {
+            animation: slideInUp 0.8s ease-out;
+        }
     </style>
 </head>
-    <script type="text/javascript">
-    document.addEventListener("keydown", function(e) {
-      if (e.keyCode === 123) {
-        e.preventDefault();
-        showErrorImage();
-      }
-    });
-  
-    document.addEventListener("contextmenu", function(e) {
-      e.preventDefault();
-      showErrorImage();
-    });
-  
-    function showErrorImage() {
-      var img = document.createElement('img');
-      img.src = '/errorf12.png';
-      img.style.position = 'fixed';
-      img.style.top = '50%';
-      img.style.left = '50%';
-      img.style.transform = 'translate(-50%, -50%)';
-      img.style.width = '300px';
-      img.style.height = 'auto';
-      img.style.border = '5px solid red';
-      img.style.borderRadius = '15px';
-      img.style.opacity = '0';
-      img.style.transition = 'opacity 1s ease';
-      document.body.appendChild(img);
-  
-      setTimeout(function() {
-        img.style.opacity = '1';
-      }, 10);
-  
-      setTimeout(function() {
-        img.style.opacity = '0';
-      }, 2000);
-  
-      setTimeout(function() {
-        img.remove();
-      }, 3000);
-    }
-  </script>
 <body>
+    <script type="text/javascript">
+        document.addEventListener("keydown", function(e) {
+            if (e.keyCode === 123) {
+                e.preventDefault();
+            }
+        });
+
+        document.addEventListener("contextmenu", function(e) {
+            e.preventDefault();
+        });
+    </script>
+
     <div class="header">
         <div class="container">
-            <h1>어서오세요 👋 </h1>
-            <p>안녕하세요. 캠트 디스코드로 먼저 입장 부탁드립니다.</p>
-            <a href="https://discord.gg/5tpsED7hJ8" class="cta-button">디스코드 입장</a>
+            <h1>어서오세요 👋</h1><br>
+            안녕하세요. 디스코드 서버에 참여안되었다면,<br>
+            캠트 디스코드 서버로 먼저 입장 부탁드립니다.<br>
+            <a href="https://camt.site/discord" class="cta-button">
+                <i class="fab fa-discord"></i> 디스코드 입장
+            </a>
         </div>
     </div>
 
     <div class="container">
         <div class="section">
-            <h2>🚨 현재 사건 진행 상황 🚨</h2>
-            <p>현재 단계 : 경찰청</p>
-            <div class="progress-container">
-                <div class="progress-bar"></div>
-            </div>
-            <div class="progress-labels">
-                <span>경찰청</span>
-                <span>검찰청</span>
-                <span>경찰서</span>
-                <span>검찰청</span>
-                <span>경찰청</span>
-                <span>검찰청</span>
-                <span>법원</span>
-            </div>
-        </div>
-
-        <div id="features" class="section">
-            <h2>추가설명</h2>
-            <p>사건은 2024년 1월 부터 현재까지 진행중입니다.</p>
-            <p>벌써 1년이 지났는데도 아직 되돌아가서 다시 단계가 경찰청입니다.</p>
-            <p>더 자세한 설명은 디스코드에 남겨뒀으니 참고하시기 바랍니다.</p>
-            <p></p>
-            <p>2025년 1월기중 현재진행중...</p>
-        </div>
-
-        <div class="section">
-            <h2>📢 자주 묻는 질문 (QnA) 📢</h2>
-            <div class="qna-container">
-                <div class="qna">
-                    <button class="question">Q. 카카오톡 부계정 생성이 가능한가요? <i class="fas fa-chevron-down"></i></button>
-                    <div class="answer">A. 해당 딥변은 홈페이지에서 공개하지않습니다. 디스코드 입장하시기 바랍니다.</div>
+            <div class="progress-section glass-container">
+                <h2>🚨 현재 사건 진행 상황 🚨</h2>
+                <p style="font-size: 1.3rem; color: #4facfe; font-weight: 600;">현재 단계 : 검찰청</p>
+                <div class="progress-container">
+                    <div class="progress-bar"></div>
                 </div>
-                <div class="qna">
-                    <button class="question">Q. 사건 단계가 왜 저런가요? <i class="fas fa-chevron-down"></i></button>
-                    <div class="answer">A. 저도 빨리 끝내고 싶지만 경찰청, 검찰청을 여러번 단계가 갔어요.</div>
-                </div>
-                <div class="qna">
-                    <button class="question">Q. 디스코드는 다시 하실생각이 없나요? <i class="fas fa-chevron-down"></i></button>
-                    <div class="answer">A. 그냥 디스코드 하기로 했습니다. 입장부탁드립니다.</div>
-                </div>
-                <div class="qna">
-                    <button class="question">Q. 카카오톡 부계정 아직도 판매하시나요? <i class="fas fa-chevron-down"></i></button>
-                    <div class="answer">A. 해당 딥변은 홈페이지에서 공개하지않습니다. 디스코드 입장하시기 바랍니다.</div>
-                </div>
-                <div class="qna">
-                    <button class="question">Q. 여자친구 있나요? <i class="fas fa-chevron-down"></i></button>
-                    <div class="answer">A. 님도 없으면서 뭘;;</div>
-                </div>
-                <div class="qna">
-                    <button class="question">Q. 이 페이지는 왜 만드신거죠? <i class="fas fa-chevron-down"></i></button>
-                    <div class="answer">A. 사람들이 계속 물어서 그냥 QnA 및 정보 알려줄겸 만들었어요.</div>
-                </div>
-                <div class="qna">
-                    <button class="question">Q. 카카오톡 계정 생성 영상은 왜 내린거죠? 다시 공개할 마음 있나요?<i class="fas fa-chevron-down"></i></button>
-                    <div class="answer">A. 채널이 너무 지저분해서 내렸는데 게임하다보면 사람들이 자꾸 "카카오톡 부계정 파는 캠트아니세요?"라고 계속 물으셔서 그냥 공개하기로 했습니다.</div>
+                <div class="progress-labels">
+                    <span>경찰청</span>
+                    <span>검찰청</span>
+                    <span>법원 or 종결</span>
                 </div>
             </div>
-        </div>
 
-        <style>
-            .qna-container {
-                max-width: 800px;
-                margin: 0 auto;
-            }
-            .qna {
-                margin-bottom: 15px;
-                border-bottom: 1px solid #ddd;
-            }
-            .question {
-                width: 100%;
-                background: none;
-                border: none;
-                text-align: left;
-                font-size: 18px;
-                padding: 10px;
-                cursor: pointer;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                color: #2575fc;
-            }
-            .question i {
-                transition: transform 0.3s;
-            }
-            .answer {
-                display: none;
-                padding: 10px;
-                font-size: 16px;
-                color: #333;
-                background: #f1f1f1;
-                border-radius: 5px;
-            }
-            .question.active i {
-                transform: rotate(180deg);
-            }
-        </style>
-
-        <script>
-            document.querySelectorAll(".question").forEach(button => {
-                button.addEventListener("click", () => {
-                    const answer = button.nextElementSibling;
-                    const isActive = button.classList.contains("active");
-
-                    document.querySelectorAll(".answer").forEach(a => a.style.display = "none");
-                    document.querySelectorAll(".question").forEach(q => q.classList.remove("active"));
-
-                    if (!isActive) {
-                        answer.style.display = "block";
-                        button.classList.add("active");
-                    }
-                });
-            });
-        </script>
-
-
-    <div class="section">
-        <h2>디스코드</h2>
-        <p>더 자세한 질문과 다른 것은 아래에 디스코드로 입장바랍니다.</p>
-        <div class="button-container">
-            <a  href="https://discord.gg/5tpsED7hJ8" class="cta-button">디스코드 입장</a>
+            <div class="glass-container" style="padding: 40px; text-align: center; margin-top: 60px;">
+                <h2>추가설명</h2>
+                사건은 2024년 2~3월 부터 현재까지 진행중입니다.<br>
+                벌써 1년 반이나 지났는데도 아직도 안끝났어요.<br>
+                빨리 좋게 끝나면 좋겠네요... 심리적으로 너무 힘들어요.<br>
+                <p style="color: #4facfe; font-weight: 600; margin-top: 30px;">2025년 7월 기준 현재진행중...</p>
+            </div>
         </div>
     </div>
+
+    <div class="footer">
+        <p>&copy; 2025 캠트. All Rights Reserved.</a>.</p>
+    </div>
+
+   <script>
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-on-scroll');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
 </body>
 </html>
