@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI를 이용해 다양한 언어로 텍스트를 쉽고 빠르게 번역하세요.">
+    <meta property="og:title" content="AI 번역기">
+    <meta property="og:description" content="AI를 사용하여 텍스트를 다양한 언어로 번역할 수 있는 번역기입니다.">
+    <meta property="og:image" content="https://i.ibb.co/0V2GnDJs/image.png">
+    <link rel="icon" href="https://i.ibb.co/0V2GnDJs/image.png" type="image/png">
+    <title>AI 번역기</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen py-6 sm:py-8">
+
+    <div class="w-full max-w-4xl mx-auto px-4">
+        <div class="bg-gray-800 rounded-2xl shadow-2xl p-4 sm:p-6 md:p-8">
+            <header class="text-center mb-6 md:mb-8">
+                <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
+                    AI 번역기
+                </h1>
+                <p class="text-sm text-gray-400 mt-2">AI를 이용하여 텍스트를 번역합니다.</p>
+            </header>
+
+            <main>
+                <div class="flex flex-col md:flex-row gap-4 mb-4 items-center">
+                    <div class="w-full md:flex-1">
+                        <label for="sourceLang" class="block text-sm font-medium text-gray-300 mb-2">원본 언어</label>
+                        <select id="sourceLang" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition"></select>
+                    </div>
+                    <div class="flex-shrink-0 mt-2 md:mt-0 md:self-end">
+                        <button id="swapLangs" class="p-2 bg-gray-700 rounded-full hover:bg-gray-600 transition text-gray-300 disabled:opacity-50 disabled:cursor-not-allowed transform rotate-90 md:rotate-0" title="언어 전환">
+                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M6.99 11L3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="w-full md:flex-1">
+                        <label for="targetLang" class="block text-sm font-medium text-gray-300 mb-2">번역 언어</label>
+                        <select id="targetLang" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition"></select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <textarea id="inputText" class="w-full h-36 sm:h-40 md:h-48 bg-gray-700 border border-gray-600 rounded-lg p-4 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition resize-none" placeholder="번역할 텍스트를 입력하세요..."></textarea>
+                    <div class="relative w-full h-36 sm:h-40 md:h-48 bg-gray-900/50 border border-dashed border-gray-600 rounded-lg p-4 text-gray-300 overflow-y-auto">
+                        <span id="outputText"></span>
+                        <div id="placeholder" class="absolute top-4 left-4 text-gray-500">번역 결과</div>
+                    </div>
+                </div>
+
+                <div class="mt-6 flex flex-col sm:flex-row items-center justify-center">
+                    <button id="translateBtn" class="flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 sm:px-8 rounded-lg transition-transform transform hover:scale-105 shadow-lg w-full md:w-auto">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6-6 6"></path><path d="m12 8 6 6-6 6"></path></svg>
+                        <span>번역하기</span>
+                    </button>
+                    <div id="loader" class="loader hidden mt-4 sm:mt-0 sm:ml-4"></div>
+                </div>
+                
+                <div id="error" class="text-red-400 text-center mt-4 text-sm"></div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        const sourceLangSelect = document.getElementById('sourceLang');
+        const targetLangSelect = document.getElementById('targetLang');
+        const swapLangsBtn = document.getElementById('swapLangs');
+        const inputText = document.getElementById('inputText');
+        const outputText = document.getElementById('outputText');
+        const placeholder = document.getElementById('placeholder');
+        const translateBtn = document.getElementById('translateBtn');
+        const loader = document.getElementById('loader');
+        const errorDiv = document.getElementById('error');
+        
+        const apiKey = "AIzaSyAR6u0uIxdtRyweJpVDJyEMhfY6XVdA9fg";
+
+        const languages = [
+            { code: 'auto', name: '자동 감지' },
+            { code: 'Korean', name: '한국어' },
+            { code: 'English', name: '영어' },
+            { code: 'Japanese', name: '일본어' },
+            { code: 'Chinese (Simplified)', name: '중국어(간체)' },
+            { code: 'Chinese (Traditional)', name: '중국어(번체)' },
+            { code: 'Spanish', name: '스페인어' },
+            { code: 'French', name: '프랑스어' },
+            { code: 'German', name: '독일어' },
+            { code: 'Russian', name: '러시아어' },
+            { code: 'Vietnamese', name: '베트남어' },
+            { code: 'Thai', name: '태국어' },
+            { code: 'Indonesian', name: '인도네시아어' },
+            { code: 'Arabic', name: '아랍어' },
+            { code: 'Hindi', name: '힌디어' },
+            { code: 'Italian', name: '이탈리아어' },
+            { code: 'Dutch', name: '네덜란드어' },
+            { code: 'Portuguese', name: '포르투갈어' },
+            { code: 'Turkish', name: '터키어' },
+            { code: 'Polish', name: '폴란드어' },
+            { code: 'Filipino', name: '필리핀어' },
+            { code: 'Swedish', name: '스웨덴어' },
+            { code: 'Greek', name: '그리스어' },
+            { code: 'Hebrew', name: '히브리어' },
+        ];
+
+        function populateLanguages() {
+            languages.forEach(lang => {
+                const option = new Option(lang.name, lang.code);
+                sourceLangSelect.add(option);
+            });
+
+            languages.filter(lang => lang.code !== 'auto').forEach(lang => {
+                const option = new Option(lang.name, lang.code);
+                targetLangSelect.add(option);
+            });
+
+            sourceLangSelect.value = 'auto';
+            targetLangSelect.value = 'English';
+            swapLangsBtn.disabled = true;
+        }
+
+        sourceLangSelect.addEventListener('change', () => {
+            swapLangsBtn.disabled = sourceLangSelect.value === 'auto';
+        });
+
+
+        swapLangsBtn.addEventListener('click', () => {
+            if (sourceLangSelect.value !== 'auto') {
+                const temp = sourceLangSelect.value;
+                sourceLangSelect.value = targetLangSelect.value;
+                targetLangSelect.value = temp;
+            }
+        });
+
+        translateBtn.addEventListener('click', async () => {
+            const textToTranslate = inputText.value.trim();
+            const sourceLangCode = sourceLangSelect.value;
+            const targetLang = targetLangSelect.options[targetLangSelect.selectedIndex].text;
+
+            if (!textToTranslate) {
+                errorDiv.textContent = '번역할 텍스트를 입력해주세요.';
+                return;
+            }
+
+            errorDiv.textContent = '';
+            outputText.textContent = '';
+            placeholder.style.display = 'none';
+            translateBtn.disabled = true;
+            translateBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            loader.classList.remove('hidden');
+
+            let prompt;
+            if (sourceLangCode === 'auto') {
+                prompt = `Auto-detect the language of the following text, and then translate it to ${targetLang}. Provide only the translated text without any explanation or prefix.\n\nText to translate: "${textToTranslate}"`;
+            } else {
+                const sourceLang = sourceLangSelect.options[sourceLangSelect.selectedIndex].text;
+                prompt = `Translate the following text from ${sourceLang} to ${targetLang}. Only provide the translated text without any explanation or prefix.\n\nText to translate: "${textToTranslate}"`;
+            }
+
+            try {
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+                
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        contents: [{
+                            parts: [{ text: prompt }]
+                        }]
+                    })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error.message || `HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                
+                const translatedText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                if (translatedText) {
+                    outputText.textContent = translatedText.trim();
+                } else {
+                    throw new Error('번역된 텍스트를 응답에서 찾을 수 없습니다.');
+                }
+
+            } catch (error) {
+                console.error('번역 오류:', error);
+                errorDiv.textContent = `오류가 발생했습니다: ${error.message}`;
+                placeholder.style.display = 'block';
+            } finally {
+                translateBtn.disabled = false;
+                translateBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                loader.classList.add('hidden');
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            populateLanguages();
+        });
+    </script>
+</body>
+</html>
+
